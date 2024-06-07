@@ -1,0 +1,69 @@
+/* 全局樣式 */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 2;
+    margin: 0;
+    padding: 0;
+    background-color: #121212;  /* 使用深色背景 */
+    color: #e0e0e0;  /* 淺色文字 */
+}
+
+/* 容器樣式 */
+.container {
+    max-width: 800px;  /* 設置最大寬度 */
+    margin: 0 auto;  /* 居中對齊 */
+    padding: 20px;  /* 添加內邊距 */
+}
+
+/* 頁首樣式 */
+header {
+    display: flex;/* flexbox 布局 */
+    justify-content: space-between;/* 使兩端對齊，中間留空*/
+    text-align: left;  /* 中心對齊 */
+    margin-bottom: 20px;  /* 添加下邊距 */
+}
+
+header .blog_name a {
+    text-decoration: none;
+    color: #fff;
+}
+
+header .blog_name a:hover {
+    color: #6d89c6;
+}
+
+header nav {
+    margin-left : auto;
+}
+
+header nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+header nav ul li {
+    display: inline;
+    margin-right: 10px;
+}
+
+header nav ul li a {
+    text-decoration: none;
+    color: #e0e0e0;
+    padding: 5px 10px;
+
+}
+
+header nav ul li a:hover {
+    color: #6d89c6;
+}
+
+/* 主要內容區域樣式 */
+main {
+    padding: 20px;
+}
+
+/* 頁尾樣式 */
+footer {
+    text-align: center;
+    margin-top: 20px;
+}

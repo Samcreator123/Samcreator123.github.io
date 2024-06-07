@@ -1,0 +1,15 @@
+main .explore{
+    margin-top: 10% ;
+}
+
+main .explore ul{
+    list-style: circle;
+}
+
+main .explore ul li a{
+    color: #e0e0e0;
+}
+
+main .explore ul li a:hover {
+    color: #6d89c6;
+}
