@@ -4,31 +4,46 @@ body {
     line-height: 2;
     margin: 0;
     padding: 0;
+    transition: background-color 0.5s, color 0.5s;
+}
+
+/* .light-mode、.dark-mode 是屬於 body 的類別，common.js 切換這兩種類別 */
+body.light-mode {
+    background-color: #e0e0e0;  /* 使用深色背景 */
+    color: #121212;  /* 淺色文字 */
+}
+
+body.dark-mode {
     background-color: #121212;  /* 使用深色背景 */
     color: #e0e0e0;  /* 淺色文字 */
 }
 
-/* 容器樣式 */
-.container {
-    max-width: 800px;  /* 設置最大寬度 */
-    margin: 0 auto;  /* 居中對齊 */
-    padding: 20px;  /* 添加內邊距 */
-}
 
 /* 頁首樣式 */
 header {
+    margin: 0 auto;  /* 居中對齊 */
+    max-width: 800px;  /* 設置最大寬度 */
     display: flex;/* flexbox 布局 */
     justify-content: space-between;/* 使兩端對齊，中間留空*/
     text-align: left;  /* 中心對齊 */
     margin-bottom: 20px;  /* 添加下邊距 */
 }
 
-header .blog_name a {
+body.light-mode header .blog_name a {
     text-decoration: none;
-    color: #fff;
+    color: #121212;
 }
 
-header .blog_name a:hover {
+body.dark-mode header .blog_name a {
+    text-decoration: none;
+    color: #e0e0e0;
+}
+
+body.light-mode header .blog_name a:hover {
+    color: #6d89c6;
+}
+
+body.dark-mode header .blog_name a:hover {
     color: #6d89c6;
 }
 
@@ -46,24 +61,51 @@ header nav ul li {
     margin-right: 10px;
 }
 
-header nav ul li a {
+body.light-mode header nav ul li a {
+    text-decoration: none;
+    color: #121212;
+    padding: 5px 10px;
+
+}
+
+body.dark-mode header nav ul li a {
     text-decoration: none;
     color: #e0e0e0;
     padding: 5px 10px;
 
 }
 
-header nav ul li a:hover {
+body.light-mode header nav ul li a:hover {
     color: #6d89c6;
+}
+
+body.dark-mode header nav ul li a:hover {
+    color: #6d89c6;
+}
+
+#theme-toggle {
+    background: none;
+    border: none;
+    padding-left: 0;
+    font-size: 25px;
 }
 
 /* 主要內容區域樣式 */
 main {
+    margin: 0 auto;  /* 居中對齊 */
+    max-width: 800px;  /* 設置最大寬度 */
     padding: 20px;
+}
+
+.split-main-and-footer{
+    width: 100%;  /* 設置寬度為100% */
+    border-color: #434040;  /* 設置淺灰色 */
 }
 
 /* 頁尾樣式 */
 footer {
+    margin: 0 auto;  /* 居中對齊 */
+    max-width: 800px;  /* 設置最大寬度 */
     text-align: center;
     margin-top: 20px;
 }

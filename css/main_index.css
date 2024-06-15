@@ -6,10 +6,18 @@ main .explore ul{
     list-style: circle;
 }
 
-main .explore ul li a{
+body.light-mode main .explore ul li a{
+    color: #121212;
+}
+
+body.dark-mode main .explore ul li a{
     color: #e0e0e0;
 }
 
-main .explore ul li a:hover {
+body.light-mode main .explore ul li a:hover {
+    color: #6d89c6;
+}
+
+body.dark-mode main .explore ul li a:hover {
     color: #6d89c6;
 }

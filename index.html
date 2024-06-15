@@ -8,36 +8,25 @@
     <link rel="stylesheet" href="css/main_index.css">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h3 class="blog_name"><a href="./index.html">Sam's blog</a></h3>
-            <nav>
-                <ul>
-                    <li><a href="./index.html">About</a></li>
-                    <li><a href="./archive.html">Archive</a></li>
-                </ul>
-            </nav>
-        </header>
-        <main>
-            <article class="intro">
-                <header>
-                    <h1>About me</h1>
-                </header>
-                <p>你好呀！我是 Sam，是來自台灣的後端工程師。</p>
-                <p>目前透過網路上的資訊與書籍，廣泛學習後端的知識以及如何學習的知識，我認為學習新知識可以擴展更多可能性。</p>
-                <p>該部落格作為我學習的足跡並且可以學習如何教人，因此文章會盡可能詳細的紀錄一個知識。另外文章內有任何錯誤歡迎指教。</p>
-            </article>
-            <section class="explore">
-                <h1>Explore</h1>
-                <ul>
-                    <li><a href="./about_coding/index.html">關於程式的</a></li>
-                    <li><a href="./about_learning/index.html">關於如何學習的</a></li>
-                </ul>
-            </section>
-        </main>
-        <footer>
-            <p>版權所有 &copy; Sam's blog</p>
-        </footer>
-    </div>
+    <div id = "header-template"></div>
+    <main>
+        <article class="intro">
+            <header>
+                <h1>About me</h1>
+            </header>
+            <p>你好呀！我是 Sam，是來自台灣的菜鳥工程師。</p>
+            <p>目前透過網路上的資訊與書籍，廣泛學習後端的知識以及如何學習的知識，我認為學習新知識可以擴展更多可能性。
+                該部落格作為我學習的足跡並且可以學習如何教人，因此文章會盡可能詳細的紀錄一個知識。另外文章內有任何錯誤歡迎指教。</p>
+        </article>
+        <section class="explore">
+            <h1>Explore</h1>
+            <ul>
+                <li><a href="./coding/index.html">關於程式的</a></li>
+                <li><a href="./learning/index.html">關於如何學習的</a></li>
+            </ul>
+        </section>
+    </main>
+    <div id = "footer-template"></div>
+    <script type="module" src="./js/init.js"></script>
 </body>
 </html>

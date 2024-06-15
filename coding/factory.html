@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sam's blog</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/acticle.css">
+    <link rel="stylesheet" href="/thrid-party/prism-okaidia.min.css" >
+</head>
+<body>
+    <div id = "header-template"></div>
+    <main>
+        <article>
+            <h1>工廠模式 (Factory) : 建造一個產品的工廠</h1>
+            <h2>問題</h2>
+            <p>當物件的創建十分複雜，想要將創建邏輯與物件本身職責相互分離，該如何設計?</p>
+            <h2>解決方案</h2>
+            <p>物件本身不擁有創建的權利，並將物件的創建職責完全交給純虛構的工廠物件</p>
+            <h2>注意</h2>
+            <p>工廠模式適合複雜物件的創建，因此若非必要則可以不用工廠模式。</p>
+            <h2>帶來的好處</h2>
+            <p>將創建邏輯、職責移交工廠類，使物件本身的職責與邏輯清晰，達到關注點分離</p>
+            <h2>例子</h2>
+            <div class="code-container">
+                <pre class ="code"><code class ="language-csharp">
+using System;
+
+namespace FactoryMethodPattern
+{
+    // 產品接口
+    public interface IFurniture
+    {
+        void Describe();
+    }
+
+    // 具體產品類
+    public class Chair : IFurniture
+    {
+        public void Describe()
+        {
+            Console.WriteLine("This is a Chair.");
+        }
+    }
+
+    public class Table : IFurniture
+    {
+        public void Describe()
+        {
+            Console.WriteLine("This is a Table.");
+        }
+    }
+
+    // 工廠接口
+    public abstract class FurnitureFactory
+    {
+        public abstract IFurniture CreateFurniture();
+
+        public void DescribeFurniture()
+        {
+            IFurniture furniture = CreateFurniture();
+            furniture.Describe();
+        }
+    }
+
+    // 具體工廠類
+    public class ChairFactory : FurnitureFactory
+    {
+        public override IFurniture CreateFurniture()
+        {
+            return new Chair();
+        }
+    }
+
+    public class TableFactory : FurnitureFactory
+    {
+        public override IFurniture CreateFurniture()
+        {
+            return new Table();
+        }
+    }
+
+    // 使用範例
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            FurnitureFactory chairFactory = new ChairFactory();
+            chairFactory.DescribeFurniture();
+
+            FurnitureFactory tableFactory = new TableFactory();
+            tableFactory.DescribeFurniture();
+        }
+    }
+}
+                </code></pre>
+            </div>
+
+        </article>    
+    </main>
+    <hr class="split-main-and-footer">
+    <section class="references">
+        <h3>參考資料</h3>
+    </section>
+    <section class="other-file">
+        <h3>也可以看看以下文章</h3>
+    </section>
+    <div id = "footer-template"></div>
+    <script type="module" src="/js/init.js"></script>
+    <script src="/thrid-party/prism.min.js"></script>
+    <script src="/thrid-party/prism-csharp.min.js"></script>
+    <script src="/js/acticle.js"></script>
+</body>
+</html>
