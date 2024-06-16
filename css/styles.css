@@ -3,8 +3,8 @@ body {
     font-family: Arial, sans-serif;
     line-height: 2;
     margin: 0;
-    padding: 0;
-    transition: background-color 0.5s, color 0.5s;
+    padding: 5%;
+    padding-top: 0;    
 }
 
 /* .light-mode、.dark-mode 是屬於 body 的類別，common.js 切換這兩種類別 */
