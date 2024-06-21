@@ -1,6 +1,6 @@
 /* 全局樣式 */
 body {
-    font-family: Arial, sans-serif;
+    font-family: '微軟正黑體',Arial, sans-serif;
     line-height: 2;
     margin: 0;
     padding: 5%;
@@ -9,12 +9,12 @@ body {
 
 /* .light-mode、.dark-mode 是屬於 body 的類別，common.js 切換這兩種類別 */
 body.light-mode {
-    background-color: #e0e0e0;  /* 使用深色背景 */
-    color: #121212;  /* 淺色文字 */
+    background-color: #e0e0e0;  /* 使用淺色背景 */
+    color: #333333;  /* 深色文字 */
 }
 
 body.dark-mode {
-    background-color: #121212;  /* 使用深色背景 */
+    background-color: #333333;  /* 使用深色背景 */
     color: #e0e0e0;  /* 淺色文字 */
 }
 
@@ -31,7 +31,7 @@ header {
 
 body.light-mode header .blog_name a {
     text-decoration: none;
-    color: #121212;
+    color: #333333;
 }
 
 body.dark-mode header .blog_name a {
@@ -63,7 +63,7 @@ header nav ul li {
 
 body.light-mode header nav ul li a {
     text-decoration: none;
-    color: #121212;
+    color: #333333;
     padding: 5px 10px;
 
 }

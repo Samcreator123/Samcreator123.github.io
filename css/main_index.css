@@ -7,7 +7,7 @@ main .explore ul{
 }
 
 body.light-mode main .explore ul li a{
-    color: #121212;
+    color: #333333;
 }
 
 body.dark-mode main .explore ul li a{

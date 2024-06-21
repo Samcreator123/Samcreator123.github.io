@@ -1,0 +1,65 @@
+main pre[class*="language-"] {
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+main code[class*="language-"] {
+    font-size: 12px; /* 調整這裡的數值來改變字體大小 */
+}
+
+.note-title{
+    margin-bottom: 0;
+}
+
+.tags{
+    margin: 0 auto;  /* 居中對齊 */
+    max-width: 800px;  /* 設置最大寬度 */
+    padding: 20px;
+    padding-top: 0;
+    padding-left: 0;
+}
+.tag{
+    border-radius: 20px;
+    border: 1px solid;
+    font-size: 12px;
+    padding: 5px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    margin: 2px;
+    cursor: pointer;
+}
+
+body.light-mode .tags .tag a{
+    text-decoration: none;
+    color: #333333;
+    border-color: #333333;
+
+}
+
+body.light-mode .tags :hover{
+    color: #6d89c6;
+    border-color: #6d89c6;
+}
+
+body.dark-mode .tags .tag a{
+    text-decoration: none;
+    color: #e0e0e0;
+    border-color: #e0e0e0;
+}
+
+body.dark-mode .tags :hover{
+    color: #6d89c6;
+    border-color: #6d89c6;
+}
+
+.other-file{
+    margin: 0 auto;  /* 居中對齊 */
+    max-width: 800px;  /* 設置最大寬度 */
+    padding: 20px;
+}
+
+.references{
+    margin: 0 auto;  /* 居中對齊 */
+    max-width: 800px;  /* 設置最大寬度 */
+    padding: 20px;
+}
