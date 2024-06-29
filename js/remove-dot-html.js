@@ -1,9 +1,7 @@
-import config from '/js/config.js';
-
-export function remove_dot_html()
+export function remove_dot_html(isDevelopmentEnv)
 {
 
-    if(config.isDevelopmentEnv)
+    if(isDevelopmentEnv)
     {
         return;
     }

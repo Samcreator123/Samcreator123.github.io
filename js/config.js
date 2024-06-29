@@ -1,6 +1,5 @@
 const config = {
-    isDevelopmentEnv : false,
-    notes_folder : 'coding,learning'
+    isDevelopmentEnv : true,
 };
 
 export default config;

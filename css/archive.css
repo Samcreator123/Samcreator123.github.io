@@ -1,0 +1,70 @@
+
+
+main{
+    max-width: 550px;  /* 設置最大寬度 */
+}
+
+main .archive {
+    display: flex;
+    justify-content: left;
+    padding: 20px;
+    position: relative;
+}
+
+main .archive .year{
+    font-size: small;
+    margin-top: 0;
+    margin-right: 2rem;
+    padding-bottom: 1px;
+}
+
+body.dark-mode main .archive .year{
+    border-bottom: 1px solid #e0e0e0;
+}
+
+body.light-mode main .archive .year{
+    border-bottom: 1px solid #000;
+}
+
+main .archive .vertical-line .record{
+    position: relative; /* 為了讓偽元素的 absolute 有個對比的模板 */
+    display: flex;
+    margin: 0 auto;  /* 居中對齊 */
+    max-width: 800px;  /* 設置最大寬度 */
+    align-items: baseline;/* 確保子元素在同一條底線上 */
+}
+
+body.dark-mode  main .archive .vertical-line .record{
+    border-left: #e0e0e0 1px dashed;
+}
+
+body.light-mode main .archive .vertical-line .record{
+    border-left: #000 1px dashed;
+}
+
+
+main .archive .vertical-line .record ::before{
+    content: '';
+    position: absolute;
+    left: -5.5px;
+    top: 35%;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+body.dark-mode .archive .vertical-line .record ::before{
+    background: #e0e0e0;
+}
+
+body.light-mode .archive .vertical-line .record ::before{
+    background: #4e4646;
+}
+
+main .archive .vertical-line .record .date{
+    padding-left: 2rem;
+    font-size: 10px;
+}
+
+main .archive .vertical-line .record .note{
+    padding-left: 1.5rem;
+}

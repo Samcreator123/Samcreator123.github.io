@@ -1,6 +1,8 @@
+
+
 /* 全局樣式 */
 body {
-    font-family: '微軟正黑體',Arial, sans-serif;
+    font-family: Arial, '文泉驛正黑', 'WenQuanYi Zen Hei', '儷黑 Pro', 'LiHei Pro', '微軟正黑體', 'Microsoft JhengHei', sans-serif;
     line-height: 2;
     margin: 0;
     padding: 5%;
@@ -18,14 +20,13 @@ body.dark-mode {
     color: #e0e0e0;  /* 淺色文字 */
 }
 
-
 /* 頁首樣式 */
 header {
     margin: 0 auto;  /* 居中對齊 */
     max-width: 800px;  /* 設置最大寬度 */
     display: flex;/* flexbox 布局 */
     justify-content: space-between;/* 使兩端對齊，中間留空*/
-    text-align: left;  /* 中心對齊 */
+    text-align: left;  
     margin-bottom: 20px;  /* 添加下邊距 */
 }
 
@@ -87,7 +88,7 @@ body.dark-mode header nav ul li a:hover {
     background: none;
     border: none;
     padding-left: 0;
-    font-size: 25px;
+    font-size: 15px;
 }
 
 /* 主要內容區域樣式 */
@@ -97,9 +98,20 @@ main {
     padding: 20px;
 }
 
-.split-main-and-footer{
-    width: 100%;  /* 設置寬度為100% */
-    border-color: #434040;  /* 設置淺灰色 */
+body.light-mode main a {
+    color: #333333;
+}
+
+body.dark-mode main a {
+    color: #e0e0e0;
+}
+
+body.light-mode main a:hover {
+    color: #6d89c6;
+}
+
+body.dark-mode main a :hover{
+    color: #6d89c6;
 }
 
 /* 頁尾樣式 */
@@ -109,3 +121,5 @@ footer {
     text-align: center;
     margin-top: 20px;
 }
+
+
