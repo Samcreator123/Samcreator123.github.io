@@ -1,23 +1,21 @@
-main pre[class*="language-"] {
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-}
 
-main code[class*="language-"]{
-    font-size: 12px; /* 調整這裡的數值來改變字體大小 */
-}
 
 .note-title{
     margin: 0;
 }
 
-.tags{
-    margin: 0 auto;  /* 居中對齊 */
-    max-width: 800px;  /* 設置最大寬度 */
-    padding: 20px;
-    padding-bottom: 0;
-    padding-left: 0;
+.date-and-tags{
+    display: flex;
+    justify-content: space-between;
+    align-items:flex-end;
 }
+
+.tags{
+    margin: 0 0 0 0;  /* 居中對齊 */
+    max-width: 650px;  /* 設置最大寬度 */
+    padding: 0;
+}
+
 .tag{
     border-radius: 20px;
     border: 1px solid;
@@ -52,18 +50,54 @@ body.dark-mode .tags :hover{
     border-color: #6d89c6;
 }
 
+main .code-container{
+    border:#515050 solid 1px;
+    margin: 1rem 0 1rem 0;
+    border-radius: 1rem;
+}
+
+main .code-container .code-information{
+    display: flex;
+    justify-content: space-between;
+    background-color:#1d1d1b;
+    height: 2rem;
+    align-items:flex-end;
+    border-radius: 1rem 1rem 0 0;
+}
+
+main .code-container .code-information .language,
+main .code-container .code-information .copy_button{
+    /*上右下左*/
+    padding: 0 1rem 0.3rem 1rem;
+    font-size: 12px;
+    color: #e0e0e0;
+}
+
+main .code-container .code-information .copy_button:hover{
+    color: #6d89c6;
+}
+
+main .code-container pre{
+    /*上右下左*/
+    margin: 0 0 0 0;
+    border-radius:  0 0 1rem 1rem;}
+
+main .code-container code[class*="language-"]{
+    font-size: 12px; /* 調整這裡的數值來改變字體大小 */
+}
+
 .date{
     font-size: 0.8rem;
 }
 
 .other-file{
     margin: 0 auto;  /* 居中對齊 */
-    max-width: 800px;  /* 設置最大寬度 */
+    max-width: 650px;  /* 設置最大寬度 */
     padding: 20px;
 }
 
 .references{
     margin: 0 auto;  /* 居中對齊 */
-    max-width: 800px;  /* 設置最大寬度 */
+    max-width: 650px;  /* 設置最大寬度 */
     padding: 20px;
 }

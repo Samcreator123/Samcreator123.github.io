@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sam's blog 工廠模式</title>
+    <link rel="icon" href="/icon.png" type="image/x-icon">
     <link rel="stylesheet" href="/css/styles.css">
     <link rel="stylesheet" href="/css/note.css">
     <link rel="stylesheet" href="/thrid-party/prism-okaidia.min.css" >
@@ -13,14 +14,16 @@
 
     <main>
         <article>
-            <section class="tags">
-                <span class="tag"><a href="/tags/object_orient.html">物件導向</a></span>
-                <span class="tag"><a href="/tags/design_pattern.html">設計模式</a></span>
-                <span class="tag"><a href="/tags/creation_pattern.html">建立型模式</a></span>
-            </section>
             <h1 class="note-title">工廠模式 (Factory) : 建造一個產品的工廠</h1>
-            <section class="date">
-                <span class="date">2024-06-24</span>
+            <section class="date-and-tags">
+                <section class="date">
+                    <span class="date">2024-06-24</span>
+                </section>
+                <section class="tags">
+                    <span class="tag"><a href="/tags/object_orient.html">物件導向</a></span>
+                    <span class="tag"><a href="/tags/design_pattern.html">設計模式</a></span>
+                    <span class="tag"><a href="/tags/creation_pattern.html">建立型模式</a></span>
+                </section>
             </section>
             <hr>
             <h2>問題</h2>
@@ -33,76 +36,23 @@
             <p>將創建邏輯、職責移交工廠類，使物件本身的職責與邏輯清晰，達到關注點分離</p>
             <h2>例子</h2>
             <div class="code-container">
+                <div class="code-information">
+                    <div class="language">csharp</div>
+                    <div class="copy_button">📝copy</div>
+                </div>
                 <pre class ="code"><code class ="language-csharp">
 using System;
 
-namespace FactoryMethodPattern
-{
-    // 產品接口
-    public interface IFurniture
-    {
-        void Describe();
-    }
+                </code></pre>
+            </div>
+            <div class="code-container">
+                <div class="code-information">
+                    <div class="language">csharp</div>
+                    <div class="copy_button">📝copy</div>
+                </div>
+                <pre class ="code"><code class ="language-csharp">
+using System1;
 
-    // 具體產品類
-    public class Chair : IFurniture
-    {
-        public void Describe()
-        {
-            Console.WriteLine("This is a Chair.");
-        }
-    }
-
-    public class Table : IFurniture
-    {
-        public void Describe()
-        {
-            Console.WriteLine("This is a Table.");
-        }
-    }
-
-    // 工廠接口
-    public abstract class FurnitureFactory
-    {
-        public abstract IFurniture CreateFurniture();
-
-        public void DescribeFurniture()
-        {
-            IFurniture furniture = CreateFurniture();
-            furniture.Describe();
-        }
-    }
-
-    // 具體工廠類
-    public class ChairFactory : FurnitureFactory
-    {
-        public override IFurniture CreateFurniture()
-        {
-            return new Chair();
-        }
-    }
-
-    public class TableFactory : FurnitureFactory
-    {
-        public override IFurniture CreateFurniture()
-        {
-            return new Table();
-        }
-    }
-
-    // 使用範例
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            FurnitureFactory chairFactory = new ChairFactory();
-            chairFactory.DescribeFurniture();
-
-            FurnitureFactory tableFactory = new TableFactory();
-            tableFactory.DescribeFurniture();
-        }
-    }
-}
                 </code></pre>
             </div>
         </article>    

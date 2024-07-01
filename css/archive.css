@@ -30,7 +30,7 @@ main .archive .vertical-line .record{
     position: relative; /* 為了讓偽元素的 absolute 有個對比的模板 */
     display: flex;
     margin: 0 auto;  /* 居中對齊 */
-    max-width: 800px;  /* 設置最大寬度 */
+    max-width: 650px;  /* 設置最大寬度 */
     align-items: baseline;/* 確保子元素在同一條底線上 */
 }
 
@@ -61,6 +61,7 @@ body.light-mode .archive .vertical-line .record ::before{
 }
 
 main .archive .vertical-line .record .date{
+    color: #969393;;
     padding-left: 2rem;
     font-size: 10px;
 }
