@@ -3,7 +3,7 @@ import {remove_dot_html} from '/js/remove-dot-html.js';
 import {loadTemplate} from '/js/template_loader.js';
 import CodeSnippet from '/js/code_snippet.js'
 import config from '/js/config.js';
-import {adjustable_navbar} from '/js/adjustable_navbar.js'
+import Navbar from '/js/adjustable_navbar.js'
 
 // 用 load 會跑不出來
 document.addEventListener('DOMContentLoaded',()=>{
@@ -18,7 +18,8 @@ document.addEventListener('DOMContentLoaded',()=>{
         return theme.setAddEventListenerIntoButton();
     })
     .then(()=>{
-        //return adjustable_navbar();
+        const navbar = new Navbar('navbar','menu-toggle')
+        navbar.toggle_navbar();
     })
     .catch(error => console.error('Error loading template:',error))
     

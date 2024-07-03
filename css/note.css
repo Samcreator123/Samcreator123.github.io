@@ -56,6 +56,11 @@
     cursor: pointer;
 }
 
+.tag:hover {
+    color: var(--hover-color);
+    border-color: var(--hover-color);
+}
+
 .tags .tag a {
     text-decoration: none;
     color: var(--color);
@@ -63,10 +68,7 @@
 
 }
 
-.tags:hover {
-    color: var(--hover-color);
-    border-color: var(--hover-color);
-}
+
 
 main .code-container {
     border: #515050 solid 1px;
