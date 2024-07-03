@@ -1,4 +1,4 @@
-import {set_theme} from '/js/theme.js';
+import Theme from '/js/theme.js';
 import {remove_dot_html} from '/js/remove-dot-html.js';
 import {loadTemplate} from '/js/template_loader.js';
 import CodeSnippet from '/js/code_snippet.js'
@@ -8,13 +8,17 @@ import {adjustable_navbar} from '/js/adjustable_navbar.js'
 // 用 load 會跑不出來
 document.addEventListener('DOMContentLoaded',()=>{
     
+    const theme = new Theme('theme-toggle')
     // 載入 header 的html、亮暗主題、navbar 的裝置切換
     loadTemplate('/html-template/header.html', 'header-template')
     .then(() =>{
-        return set_theme();
+        return theme.setDefault();
     })
     .then(()=>{
-        return adjustable_navbar();
+        return theme.setAddEventListenerIntoButton();
+    })
+    .then(()=>{
+        //return adjustable_navbar();
     })
     .catch(error => console.error('Error loading template:',error))
     

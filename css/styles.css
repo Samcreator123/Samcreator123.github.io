@@ -1,56 +1,76 @@
+:root {
+    --background-color: #e0e0e0;
+    --color: #333333;
+    --hover-color: #6d89c6;
+    --max-width : 650px;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background-color: #333333;
+        --color: #e0e0e0;
+        --hover-color: #6d89c6;
+    }
+}
+.light-theme{
+    --background-color: #e0e0e0;
+    --record-background-color: #e0e0e0;
+    --color: #333333;
+    --hover-color: #6d89c6;
+}
+
+.dark-theme{
+    --background-color: #333333;
+    --record-background-color: #4e4646;
+    --color: #e0e0e0;
+    --hover-color: #6d89c6;
+}
+
 /* 全局樣式 */
 body {
-    font-family: Arial, '文泉驛正黑', 'WenQuanYi Zen Hei', '儷黑 Pro', 'LiHei Pro', '微軟正黑體', 'Microsoft JhengHei', sans-serif;
+    font-family: "Optima", "Segoe UI", Arial, '文泉驛正黑', 'WenQuanYi Zen Hei', '儷黑 Pro', 'LiHei Pro', '微軟正黑體', 'Microsoft JhengHei', sans-serif;
     line-height: 2;
     margin: 0;
     padding: 5%;
-    padding-top: 0;    
+    padding-top: 0;
+    background-color: var(--background-color);
+    /* 使用淺色背景 */
+    color: var(--color);
+    /* 深色文字 */
 }
 
-/* .light-mode、.dark-mode 是屬於 body 的類別，common.js 切換這兩種類別 */
-body.light-mode {
-    background-color: #e0e0e0;  /* 使用淺色背景 */
-    color: #333333;  /* 深色文字 */
+a {
+    color: var(--color);
 }
 
-body.dark-mode {
-    background-color: #333333;  /* 使用深色背景 */
-    color: #e0e0e0;  /* 淺色文字 */
+a:hover {
+    color: var(--hover-color);
 }
 
 /* 頁首樣式 */
 header {
-    margin: 0 auto;  /* 居中對齊 */
-    max-width: 650px;  /* 設置最大寬度 */
-    display: flex;/* flexbox 布局 */
-    justify-content: space-between;/* 使兩端對齊，中間留空*/
-    text-align: left;  
-    margin-bottom: 20px;  /* 添加下邊距 */
+    margin: 0 auto;
+    /* 居中對齊 */
+    max-width: var(--max-width);
+    /* 設置最大寬度 */
+    display: flex;
+    /* flexbox 布局 */
+    justify-content: space-between;
+    /* 使兩端對齊，中間留空*/
+    text-align: left;
+    margin-bottom: 20px;
+    /* 添加下邊距 */
 }
 
-body.light-mode header .blog_name a {
+.blog_name a {
     text-decoration: none;
-    color: #333333;
 }
 
-body.dark-mode header .blog_name a {
-    text-decoration: none;
-    color: #e0e0e0;
-}
-
-body.light-mode header .blog_name a:hover {
-    color: #6d89c6;
-}
-
-body.dark-mode header .blog_name a:hover {
-    color: #6d89c6;
-}
-
-#menu-toggle{
+/* #menu-toggle {
     display: none;
     background: none;
     border: none;
-}
+} */
 
 header nav ul {
     list-style: none;
@@ -62,54 +82,38 @@ header nav ul li {
     margin-right: 10px;
 }
 
-#nav-menu.closed{
+/* #nav-menu.closed {
     display: none;
 }
 
 
 
-@media (max-width:768px){
-    #menu-toggle{
+@media (max-width:768px) {
+    #menu-toggle {
         display: block;
         color: red;
         font-size: 1.5rem;
     }
-    
+
     header nav ul {
         list-style: none;
         padding: 0;
     }
-    
+
     header nav ul li {
         display: inline;
         margin-right: 10px;
     }
-    
-    #nav-menu.closed{
+
+    #nav-menu.closed {
         display: none;
     }
-}
+} */
 
-body.light-mode header nav ul li a {
+header nav ul li a {
     text-decoration: none;
-    color: #333333;
     padding: 5px 10px;
-
-}
-
-body.dark-mode header nav ul li a {
-    text-decoration: none;
-    color: #e0e0e0;
-    padding: 5px 10px;
-
-}
-
-body.light-mode header nav ul li a:hover {
-    color: #6d89c6;
-}
-
-body.dark-mode header nav ul li a:hover {
-    color: #6d89c6;
+    color: var(--color);
 }
 
 #theme-toggle {
@@ -121,33 +125,19 @@ body.dark-mode header nav ul li a:hover {
 
 /* 主要內容區域樣式 */
 main {
-    margin: 0 auto;  /* 居中對齊 */
-    max-width: 650px;  /* 設置最大寬度 */
+    margin: 0 auto;
+    /* 居中對齊 */
+    max-width: var(--max-width);
+    /* 設置最大寬度 */
     padding: 20px;
-}
-
-body.light-mode main a {
-    color: #333333;
-}
-
-body.dark-mode main a {
-    color: #e0e0e0;
-}
-
-body.light-mode main a:hover {
-    color: #6d89c6;
-}
-
-body.dark-mode main a :hover{
-    color: #6d89c6;
 }
 
 /* 頁尾樣式 */
 footer {
-    margin: 0 auto;  /* 居中對齊 */
-    max-width: 650px;  /* 設置最大寬度 */
+    margin: 0 auto;
+    /* 居中對齊 */
+    max-width: var(--max-width);
+    /* 設置最大寬度 */
     text-align: center;
     margin-top: 20px;
 }
-
-

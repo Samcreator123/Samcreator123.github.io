@@ -1,37 +1,82 @@
-export function set_theme(){
+class Theme{
+    
+    #light_icon = '🌞';
+    #dark_icon = '🌚';
+    #buttonId = '';
+    
+    constructor(buttonId){
+        this.#buttonId = buttonId
+    }
 
-    return new Promise((resolve, reject)=>{
-        try{
-            const light_icon = '🌞';
-            const dark_icon = '🌚';
-            // 判斷是否有 localStorage 是否有 theme 如果沒有則 theme 為 light，該表達式為短路求值( short-circuit evaluation )
-            const saved_theme = localStorage.getItem('theme') || 'light';
-            // 該 body 新增一個類別，如果將上一行寫入這個函式，若 localStorage 沒有該值則不會採用 light 而是 null
-            document.body.classList.add(saved_theme + '-mode');
-            
-            const themeToggleButton = document.getElementById('theme-toggle');
-            themeToggleButton.textContent = saved_theme === 'light' ? light_icon : dark_icon;
-        
-        
-            // 替更換主題按鈕新增一個點擊的事件
-            document.getElementById('theme-toggle').addEventListener('click', () => {
-                const newTheme = document.body.classList.contains('light-mode') ? 'dark' : 'light';
+    setDefault(){
+        return new Promise((resolve, reject) => {
+            try{
                 
-                // 切換亮色以及暗色模式
-                document.body.classList.toggle('light-mode');
-                document.body.classList.toggle('dark-mode');
+                const themeInLocalStorage = localStorage.getItem('theme');   
                 
-                const isLightMode = newTheme === 'light';  
-                themeToggleButton.textContent = isLightMode ? light_icon : dark_icon;
-                // 更新回網頁暫存空間
-                localStorage.setItem('theme', newTheme);
-            });
-            resolve();
-        }
-        catch(error){
-            reject(error);
-        }
+                if(!themeInLocalStorage){
+                    this.#applyTheme(themeInLocalStorage)
+                }
+                else{
+                    const isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+                    const theme = isDark ? 'dark' : 'light';
+                    this.#applyTheme(theme)
+                }
 
-    })
+                resolve()
+            }catch(err){
+                reject(err)
+            }
+        })
+    }
+
+    setAddEventListenerIntoButton(){
+        return new Promise((resolve, reject) => {
+            try{
+                const themeToggleButton = document.getElementById(this.#buttonId); 
+
+                themeToggleButton.addEventListener('click', () => {
+                    const currentTheme = localStorage.getItem('theme');
+                    
+                    if(!currentTheme){
+                        console.error('currentTheme should be not null or empty')
+                        reject('currentTheme should be not null or empty');
+                    }
+                    
+                    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                    this.#applyTheme(newTheme);
+                });
+                resolve()
+            }catch(err){
+                reject(err)
+            }
+        })
+    }
+
+    #applyTheme(theme){
+        return new Promise((resolve, reject)=>{
+            try{
+                const themeToggleButton = document.getElementById(this.#buttonId);
+                
+                if(!theme){
+                    console.error('theme should be not null or empty')
+                    reject('theme should be not null or empty');
+                }
+                themeToggleButton.textContent = theme === 'dark' ? this.#dark_icon : this.#light_icon;
+                document.documentElement.className = '';
+                document.documentElement.classList.add(theme + '-theme')                
+                localStorage.setItem('theme', theme);   
+                resolve();
+            }
+            catch(err)
+            {
+                reject(err)
+            }
+ 
+        })
+    }
 }
+
+
+export default Theme
 

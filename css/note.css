@@ -1,22 +1,51 @@
+:root {
+    --background-color: #e0e0e0;
+    --color: #333333;
+    --hover-color: #6d89c6;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background-color: #333333;
+        --color: #e0e0e0;
+        --hover-color: #6d89c6;
+    }
+}
+
+.light-theme{
+    --background-color: #e0e0e0;
+    --record-background-color: #e0e0e0;
+    --color: #333333;
+    --hover-color: #6d89c6;
+}
+
+.dark-theme{
+    --background-color: #333333;
+    --record-background-color: #4e4646;
+    --color: #e0e0e0;
+    --hover-color: #6d89c6;
+}
 
 
-.note-title{
+.note-title {
     margin: 0;
 }
 
-.date-and-tags{
+.date-and-tags {
     display: flex;
     justify-content: space-between;
-    align-items:flex-end;
+    align-items: flex-end;
 }
 
-.tags{
-    margin: 0 0 0 0;  /* 居中對齊 */
-    max-width: 650px;  /* 設置最大寬度 */
+.tags {
+    margin: 0 0 0 0;
+    /* 居中對齊 */
+    max-width: 650px;
+    /* 設置最大寬度 */
     padding: 0;
 }
 
-.tag{
+.tag {
     border-radius: 20px;
     border: 1px solid;
     font-size: 12px;
@@ -27,77 +56,72 @@
     cursor: pointer;
 }
 
-body.light-mode .tags .tag a{
+.tags .tag a {
     text-decoration: none;
-    color: #333333;
-    border-color: #333333;
+    color: var(--color);
+    border-color: var(--color);
 
 }
 
-body.light-mode .tags :hover{
-    color: #6d89c6;
-    border-color: #6d89c6;
+.tags:hover {
+    color: var(--hover-color);
+    border-color: var(--hover-color);
 }
 
-body.dark-mode .tags .tag a{
-    text-decoration: none;
-    color: #e0e0e0;
-    border-color: #e0e0e0;
-}
-
-body.dark-mode .tags :hover{
-    color: #6d89c6;
-    border-color: #6d89c6;
-}
-
-main .code-container{
-    border:#515050 solid 1px;
+main .code-container {
+    border: #515050 solid 1px;
     margin: 1rem 0 1rem 0;
     border-radius: 1rem;
 }
 
-main .code-container .code-information{
+main .code-container .code-information {
     display: flex;
     justify-content: space-between;
-    background-color:#1d1d1b;
+    background-color: #1d1d1b;
     height: 2rem;
-    align-items:flex-end;
+    align-items: flex-end;
     border-radius: 1rem 1rem 0 0;
 }
 
 main .code-container .code-information .language,
-main .code-container .code-information .copy_button{
+main .code-container .code-information .copy_button {
     /*上右下左*/
     padding: 0 1rem 0.3rem 1rem;
     font-size: 12px;
     color: #e0e0e0;
 }
 
-main .code-container .code-information .copy_button:hover{
+main .code-container .code-information .copy_button:hover {
     color: #6d89c6;
 }
 
-main .code-container pre{
+main .code-container pre {
     /*上右下左*/
     margin: 0 0 0 0;
-    border-radius:  0 0 1rem 1rem;}
-
-main .code-container code[class*="language-"]{
-    font-size: 12px; /* 調整這裡的數值來改變字體大小 */
+    border-radius: 0 0 1rem 1rem;
 }
 
-.date{
+main .code-container code[class*="language-"] {
+    font-size: 12px;
+    /* 調整這裡的數值來改變字體大小 */
+}
+
+.date {
     font-size: 0.8rem;
 }
 
-.other-file{
-    margin: 0 auto;  /* 居中對齊 */
-    max-width: 650px;  /* 設置最大寬度 */
+.other-file {
+    margin: 0 auto;
+    /* 居中對齊 */
+    max-width: 650px;
+    /* 設置最大寬度 */
     padding: 20px;
 }
 
-.references{
-    margin: 0 auto;  /* 居中對齊 */
-    max-width: 650px;  /* 設置最大寬度 */
+.references {
+    margin: 0 auto;
+    /* 居中對齊 */
+    max-width: 650px;
+    /* 設置最大寬度 */
     padding: 20px;
 }

@@ -1,7 +1,37 @@
+:root {
+    --background-color: #e0e0e0;
+    --record-background-color: #e0e0e0;
+    --color: #333333;
+    --hover-color: #6d89c6;
+    --record-dot-color: #666262;
+}
 
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background-color: #333333;
+        --record-background-color: #4e4646;
+        --color: #e0e0e0;
+        --hover-color: #6d89c6;
+    }
+}
 
-main{
-    max-width: 550px;  /* 設置最大寬度 */
+.light-theme{
+    --background-color: #e0e0e0;
+    --record-background-color: #e0e0e0;
+    --color: #333333;
+    --hover-color: #6d89c6;
+}
+
+.dark-theme{
+    --background-color: #333333;
+    --record-background-color: #4e4646;
+    --color: #e0e0e0;
+    --hover-color: #6d89c6;
+}
+
+main {
+    max-width: 550px;
+    /* 設置最大寬度 */
 }
 
 main .archive {
@@ -11,39 +41,35 @@ main .archive {
     position: relative;
 }
 
-main .archive .year{
+main .archive .year {
     font-size: small;
     margin-top: 0;
     margin-right: 2rem;
     padding-bottom: 1px;
 }
 
-body.dark-mode main .archive .year{
-    border-bottom: 1px solid #e0e0e0;
+main .archive .year {
+    border-bottom: 1px solid var(--color);
 }
 
-body.light-mode main .archive .year{
-    border-bottom: 1px solid #000;
-}
 
-main .archive .vertical-line .record{
-    position: relative; /* 為了讓偽元素的 absolute 有個對比的模板 */
+main .archive .vertical-line .record {
+    position: relative;
+    /* 為了讓偽元素的 absolute 有個對比的模板 */
     display: flex;
-    margin: 0 auto;  /* 居中對齊 */
-    max-width: 650px;  /* 設置最大寬度 */
-    align-items: baseline;/* 確保子元素在同一條底線上 */
+    margin: 0 auto;
+    /* 居中對齊 */
+    max-width: 650px;
+    /* 設置最大寬度 */
+    align-items: baseline;
+    /* 確保子元素在同一條底線上 */
 }
 
-body.dark-mode  main .archive .vertical-line .record{
-    border-left: #e0e0e0 1px dashed;
+main .archive .vertical-line .record {
+    border-left: var(--color) 1px dashed;
 }
 
-body.light-mode main .archive .vertical-line .record{
-    border-left: #000 1px dashed;
-}
-
-
-main .archive .vertical-line .record ::before{
+main .archive .vertical-line .record ::before {
     content: '';
     position: absolute;
     left: -5.5px;
@@ -51,21 +77,21 @@ main .archive .vertical-line .record ::before{
     width: 10px;
     height: 10px;
     border-radius: 50%;
-}
-body.dark-mode .archive .vertical-line .record ::before{
-    background: #e0e0e0;
+    background-color: var(--record-dot-color);
+
 }
 
-body.light-mode .archive .vertical-line .record ::before{
-    background: #4e4646;
+.archive .vertical-line .record ::before {
+    background: var(--record-background-color);
 }
 
-main .archive .vertical-line .record .date{
-    color: #969393;;
+main .archive .vertical-line .record .date {
+    color: #969393;
+    ;
     padding-left: 2rem;
     font-size: 10px;
 }
 
-main .archive .vertical-line .record .note{
+main .archive .vertical-line .record .note {
     padding-left: 1.5rem;
 }

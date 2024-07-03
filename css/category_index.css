@@ -1,32 +1,16 @@
-body.light-mode a {
-    color: #333333;
+a {
     padding: 5px 10px;
-
 }
 
-body.dark-mode a {
-    color: #e0e0e0;
-    padding: 5px 10px;
-
-}
-
-body.light-mode a:hover {
-    color: #6d89c6;
-}
-
-body.dark-mode a:hover {
-    color: #6d89c6;
-}
-
-span.date{
+span.date {
     color: #969393;
 }
 
-.category_title{
+.category_title {
     margin-bottom: 0;
 }
 
-ul{
+ul {
     margin-top: 1rem;
     color: #969393;
 }

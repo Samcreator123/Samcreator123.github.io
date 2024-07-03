@@ -1,23 +1,7 @@
-main .explore{
-    margin-top: 10% ;
+main .explore {
+    margin-top: 10%;
 }
 
-main .explore ul{
+main .explore ul {
     list-style: circle;
-}
-
-body.light-mode main .explore ul li a{
-    color: #333333;
-}
-
-body.dark-mode main .explore ul li a{
-    color: #e0e0e0;
-}
-
-body.light-mode main .explore ul li a:hover {
-    color: #6d89c6;
-}
-
-body.dark-mode main .explore ul li a:hover {
-    color: #6d89c6;
 }
