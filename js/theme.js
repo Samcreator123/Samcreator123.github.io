@@ -11,10 +11,9 @@ class Theme{
     setDefault(){
         return new Promise((resolve, reject) => {
             try{
+                const themeInLocalStorage = localStorage.getItem('theme');
                 
-                const themeInLocalStorage = localStorage.getItem('theme');   
-                
-                if(!themeInLocalStorage){
+                if(themeInLocalStorage){
                     this.#applyTheme(themeInLocalStorage)
                 }
                 else{

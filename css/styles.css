@@ -7,7 +7,7 @@
 
 @media (prefers-color-scheme: dark) {
     :root {
-        --background-color: #333333;
+        --background-color: #313032;
         --color: #e0e0e0;
         --hover-color: #6d89c6;
     }
@@ -20,7 +20,7 @@
 }
 
 .dark-theme{
-    --background-color: #333333;
+    --background-color: #313032;
     --record-background-color: #4e4646;
     --color: #e0e0e0;
     --hover-color: #6d89c6;
@@ -46,6 +46,7 @@ a {
 a:hover {
     color: var(--hover-color);
 }
+
 
 /* 頁首樣式 */
 header {

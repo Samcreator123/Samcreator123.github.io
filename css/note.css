@@ -1,29 +1,21 @@
 :root {
-    --background-color: #e0e0e0;
-    --color: #333333;
-    --hover-color: #6d89c6;
+    --record-background-color: #e0e0e0;
+
 }
 
 @media (prefers-color-scheme: dark) {
     :root {
-        --background-color: #333333;
-        --color: #e0e0e0;
-        --hover-color: #6d89c6;
+        --record-background-color: #4e4646;
+
     }
 }
 
 .light-theme{
-    --background-color: #e0e0e0;
     --record-background-color: #e0e0e0;
-    --color: #333333;
-    --hover-color: #6d89c6;
 }
 
 .dark-theme{
-    --background-color: #333333;
     --record-background-color: #4e4646;
-    --color: #e0e0e0;
-    --hover-color: #6d89c6;
 }
 
 
@@ -68,6 +60,19 @@
 
 }
 
+main .quote {
+    font-style: italic;
+    font-size: 95%;
+    text-align: left;
+    color:var(--quote_color);
+    padding: 1px 2% 1px 2%;
+    margin-top: 0;
+    margin-bottom: 15pt;
+}
+
+main .quote .author{
+    text-align: right;
+}
 
 
 main .code-container {
