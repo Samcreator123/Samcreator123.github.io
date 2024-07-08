@@ -9,14 +9,14 @@
     }
 }
 
-.light-theme{
+.light-theme {
     --background-color: #e0e0e0;
     --record-background-color: #e0e0e0;
     --color: #333333;
     --hover-color: #6d89c6;
 }
 
-.dark-theme{
+.dark-theme {
     --background-color: #333333;
     --record-background-color: #4e4646;
     --color: #e0e0e0;

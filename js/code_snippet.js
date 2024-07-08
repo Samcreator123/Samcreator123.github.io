@@ -3,8 +3,6 @@ class CodeSnippet{
     copy_closest_code_when_press_button(button, element, class_of_code){
         const copyButtons = document.querySelectorAll(button);
 
-        // const copyButtons = document.querySelectorAll('.copy_button');
-
         copyButtons.forEach(button => {
             button.addEventListener('click', function() {
                 const codeContainer = button.closest(element);

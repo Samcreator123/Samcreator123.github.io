@@ -1,21 +1,27 @@
 :root {
     --record-background-color: #e0e0e0;
-
+    --quote_color: #333333;
+    --quote_border: #333333;
 }
 
 @media (prefers-color-scheme: dark) {
     :root {
         --record-background-color: #4e4646;
-
+        --quote_color: #c7c4c4;
+        --quote_border: #918f8f;
     }
 }
 
-.light-theme{
+.light-theme {
     --record-background-color: #e0e0e0;
+    --quote_color: #333333;
+    --quote_border: #333333;
 }
 
-.dark-theme{
+.dark-theme {
     --record-background-color: #4e4646;
+    --quote_color: #c7c4c4;
+    --quote_border: #918f8f;
 }
 
 
@@ -60,19 +66,11 @@
 
 }
 
-main .quote {
-    font-style: italic;
-    font-size: 95%;
-    text-align: left;
-    color:var(--quote_color);
-    padding: 1px 2% 1px 2%;
-    margin-top: 0;
-    margin-bottom: 15pt;
+p span.bold {
+    color: #c66d6d;
+    font-weight: 800;
 }
 
-main .quote .author{
-    text-align: right;
-}
 
 
 main .code-container {
@@ -115,6 +113,40 @@ main .code-container code[class*="language-"] {
 
 .date {
     font-size: 0.8rem;
+}
+
+main .quote {
+    border-left: 2px solid var(--quote_border);
+    font-style: italic;
+    font-size: 95%;
+    text-align: left;
+    color: var(--quote_color);
+    padding: 0px 2% 0px 2%;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+main .quote .author {
+    text-align: right;
+}
+
+h1 {
+    font-size: 2rem;
+}
+
+h2.primary_header {
+    font-size: 1.4rem;
+    margin-top: 3rem;
+}
+
+h3 {
+    font-size: 1.2rem;
+}
+
+p.img_description {
+    text-align: center;
+    color: var(--quote_color);
+    font-size: 80%;
 }
 
 .other-file {

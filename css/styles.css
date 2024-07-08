@@ -2,7 +2,7 @@
     --background-color: #e0e0e0;
     --color: #333333;
     --hover-color: #6d89c6;
-    --max-width : 650px;
+    --max-width: 650px;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -12,23 +12,28 @@
         --hover-color: #6d89c6;
     }
 }
-.light-theme{
+
+.light-theme {
     --background-color: #e0e0e0;
     --record-background-color: #e0e0e0;
     --color: #333333;
     --hover-color: #6d89c6;
 }
 
-.dark-theme{
+.dark-theme {
     --background-color: #313032;
     --record-background-color: #4e4646;
     --color: #e0e0e0;
     --hover-color: #6d89c6;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 /* 全局樣式 */
 body {
-    font-family:  "Segoe UI", Arial, '文泉驛正黑', 'WenQuanYi Zen Hei', '儷黑 Pro', 'LiHei Pro', '微軟正黑體', 'Microsoft JhengHei', sans-serif;
+    font-family: "Segoe UI", Arial, '文泉驛正黑', 'WenQuanYi Zen Hei', '儷黑 Pro', 'LiHei Pro', '微軟正黑體', 'Microsoft JhengHei', sans-serif;
     line-height: 2;
     margin: 0;
     padding: 5%;
@@ -67,7 +72,7 @@ header {
     text-decoration: none;
 }
 
-header{
+header {
     align-items: baseline;
 }
 
@@ -104,24 +109,28 @@ header nav ul li a {
     header #menu-toggle {
         display: block;
         font-size: 1.5rem;
-        color : var(--color);
+        color: var(--color);
         background-color: var(--background-color);
-        border : 0;
+        border: 0;
         margin-left: auto;
     }
 
     header #menu-toggle:hover {
-        color : var(--hover-color);
+        color: var(--hover-color);
     }
 
-    header nav ul.open{
-        max-height: 500px; /* 根據內容調整 */
+    header nav ul.open {
+        max-height: 500px;
+        /* 根據內容調整 */
     }
 
-    header nav ul.close{
-        overflow: hidden; /* 隱藏溢出的內容 */
-        max-height: 0; /* 初始狀態高度為0 */
-        transition: max-height 0.3s ease-out; /* 添加過渡效果 */
+    header nav ul.close {
+        overflow: hidden;
+        /* 隱藏溢出的內容 */
+        max-height: 0;
+        /* 初始狀態高度為0 */
+        transition: max-height 0.3s ease-out;
+        /* 添加過渡效果 */
     }
 
     header nav ul li {
@@ -139,6 +148,14 @@ main {
     /* 設置最大寬度 */
     padding: 20px;
 }
+
+main img {
+    max-width: 100%;
+    margin: auto;
+    display: block;
+    filter: brightness(80%);
+}
+
 
 /* 頁尾樣式 */
 footer {
