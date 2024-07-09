@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>問題與解決方案領域</title>
+    <link rel="icon" href="/icon.png" type="image/x-icon">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/note.css">
+    <link rel="stylesheet" href="/thrid-party/prism-okaidia.min.css" >
+</head>
+<body>
+    <div id = "header-template"></div>
+    <main>
+        <article>
+            <h2 class="note-title">問題領域與解決方案領域上篇 | Problem & Solution Domain</h2>
+            <section class="date-and-tags">
+                <section class="date">
+                    <span class="date">2024-07-06</span>
+                </section>
+                <section class="tags">
+                    <span class="tag"><a href="/tags/glossary.html">名詞解釋</a></span>
+                </section>
+            </section>
+            <hr>
+            
+            <section class="outline">
+                <ol>
+                    <li class="outline-level-1"><a href="#header1">為什麼要知道問題領域與解決方案域?</a></li>
+                    <li class="outline-level-1"><a href="#header2">問題領域</a></li>
+                    <ol>
+                        <li class="outline-level-2"><a href="#header2-2">如何做到釐清 ?</a></li>
+                        <li class="outline-level-2"><a href="#header2-3">問題領域給我們甚麼 ?</a></li>
+                    </ol>
+                    <li class="outline-level-1"><a href="#header3">作者的話</a></li>
+                </ol>
+            </section>
+
+            <section class="abstract">
+                <img src="/image/p&s_d1.webp" alt="Introduce the problem domain and the solution domain briefly.">
+                <p class="img_description">從需求到產品</p>
+            </section>
+
+
+
+            <a name="header1"></a>
+            <section class="chapter1">
+                <h2 class="primary_header">為什麼要知道問題領域與解決方案域？</h2>
+                <p>在最理想的情況下，客戶能夠完美的解釋需求，完美到講出來的話就是他想要的，
+                    <span class="bold">但通常會發現確認需求是一段崎嶇的路</span>，
+                    確認需求的文件一改再改，從一版到第二版到 ... 最後生出 final 版本的 final 版本。</p>
+                <img src="/image/p&s_d3.webp" alt="hell of file version.">
+                <p class="img_description">版本地獄</p>
+                <p>即便客戶完美的解釋需求了，那你聽得懂嗎 ? <span class="bold">大量的專業術語，就如同你跟你麻吉才懂得密語</span>。
+                    客戶的解釋就如同複雜的迷宮，第一層迷宮還會通向不同層的迷宮，他講得口若懸河，但你已經迷失在迷宮裡面了，甚至你還不知道你在第幾層。</p>
+                <p>就算最後克服重重困難，產品做出來了，但<span class="bold">事後的維護跟拓展</span>呢，
+                    程式碼變成開發者才懂得東西，現在變成開發者對後來維護者一陣輸出，
+                    理解鴻溝在此又出現了，這還是與客戶不一樣的理解鴻溝，這是開發者與後繼維護者的理解鴻溝。</p>
+                <p>因此可以總結以下三點</p>
+                <ul>
+                    <li>客戶想法與解釋的落差</li>
+                    <li>客戶與開發者的理解的鴻溝</li>
+                    <li>開發者與維護人員的理解鴻溝</li>
+                </ul>
+                <p>但我相信這些只是冰山一角，但我們必須要感知到<span class="bold">問題</span>才能<span class="bold">解決</span>。</p>
+                <img src="/image/p&s_d2.webp" alt="customer wanted vs developer maked.">
+                <p class="img_description">客戶與開發者的理解</p>
+                <hr>
+            </section>
+            
+            <a name="header2"></a>
+            <section class="chapter2">
+                <section class="chapter2-1">
+                    <h2 class="primary_header">問題領域 | Problem Domain</h2>
+                    <section class="quote">
+                        <p class="content">“ Problem space is where all the customer needs that you’d like your product to deliver live. You shouldn’t interpret the word “needs” too narrowly: Whether it’s a customer pain point, a desire, a job to be done, or a user story, it lives in problem space. ”</p>
+                        <p class="author">― DAN OLSEN, THE LEAN PRODUCT PLAYBOOK, CHAPTER 2</p>
+                    </section>
+                    <p><span class="bold">只有知道問題長怎麼樣，才能去正確的解決。</span>
+                        問題如同感覺與解決方案如同語言，只有真確地了解到自己的感覺，才能用適當的語言表達。
+                        描述問題的同時，也釐清問題的背景，
+                        即功能打算解決的範圍，也就是<span class="bold">客戶會怎麼用這個功能，同時也要釐清功能的上下文(或稱脈絡、情境)</span>，
+                        而問題的範圍與他的上下文被稱為問題領域。</p>
+        
+                    <p>例如在對於【客戶瀏覽電商首頁】這功能本身 : </p>
+                    <ul>
+                        <li>電商首頁是否需要對不同瀏覽器、設備做處理 ?</li>
+                        <li>根據不同國家的法律法規，顯示的內容是否需要做相應調整 ?</li>
+                        <li>網頁爬蟲程式與實際用戶點擊所獲得內容是否一致 ?</li>
+                    </ul>
+                    <p>又例如【醫療管理系統的預約醫生】這功能本身 : </p>
+                    <ul>
+                        <li>病人病史資料的保密性如何保證 ?</li>
+                        <li>不同科室的預約規則是否相同 ?</li>
+                        <li>醫生的日程如何與病人的需求匹配 ?</li>
+                    </ul>
+                    <p>都是關於功能的脈絡，<span>除了功能本身，功能的脈絡同樣重要</span>，這能更好、更貼近得符合客戶的需求，也是在同類產品中脫穎而出的關鍵。</p>
+                    
+                </section>
+                <a name="header2-2"></a>
+                <section class="chapter2-2">
+                    <h3>如何做到釐清</h3>
+                    <p>不同分析方式用不同的方式去建構它，不同分析如以下所列，但這不是所有的分析方式 : </p>
+                    <ul>
+                        <li>結構化系統分析 (structured system analysis) 利用資料流程圖 (Data Flow Diagram) 確認商業流程</li>
+                        <li>物件導向分析利用 UML 的類別圖 (Class Diagram) 將與順序圖 (sequence diagram) 或其他建模方式</li>
+                        <li>領域驅動設計 (Domain Design Driven) 利用統一語言 (Ubiquitouse language) 的同時與客戶進行事件風暴 (Event Storming) 釐清商業流程的同時也避免了語言的歧異性</li>
+                        <li>統一過程 (Rational Unified Process) 利用詳解用例條列分析了用戶用例的範圍、用戶目標、主成功場景、特殊需求等等...，使用用例圖確定系統的主要參與者與其他參與者。</li>
+                    </ul>
+                    <p>無論是哪種方式，只要能了解產品要解決的範圍以及背景，都是正確的方式，甚至可以組合不同的方式，以不同的方面去察看問題。</p>
+                    
+                </section>
+                <a name="header2-3"></a>
+                <section class="chapter2-3">
+                    <h3>問題領域給我們甚麼</h3>
+                    <p>因為這是對於問題的釐清，<span class="bold">在幫助開發者了解產品以及相關背景</span>的同時，如果有客戶的參與，在建構問題領域時也有可能<span>讓客戶更明白自己想要甚麼</span>。</p>
+                </section>
+            </section>
+
+            <a name ="header3"></a>
+            <section class="chapter3">
+                <h2 class="primary_header">作者的話</h2>
+            </section>
+            
+
+        </article> 
+    </main>
+    <hr>
+    <section class="references">
+        <h3>參考資料</h3>
+        <p><a target="_blank" href="https://www.susannemadsen.co.uk/blog/5-pitfalls-that-prevent-us-from-delivering-what-the-customer-really-needs">Susanne Madsen's Project Management and Leadership Blog - Susanne Madsen Intl. Developing Project Leaders</a></p>
+        <p><a target="_blank" href="https://www.ithome.com.tw/voice/78672">從問題領域到解題領域的思維過程 | iThome</a></p>
+        <p><a target="_blank" href="https://www.institutedata.com/blog/what-is-problem-domain-and-solution/#:~:text=The%20problem%20domain%20represents%20the,which%20the%20software%20will%20operate">Susanne Madsen's Project Management and Leadership Blog - Susanne Madsen Intl. Developing Project Leaders</a></p>
+        <p><a target="_blank" href="https://eandev.com/post/nouns/problem-and-solution-domain/">聊聊名詞 | 問題領域與解決方案領域 | Problem & Solution Domain</a></p>
+        <p><a target="_blank" href="https://solutionspace.blog/2021/10/29/problem-space-and-solution-space/">問題空間和解決方案空間 – 解決方案空間 (solutionspace.blog)</a></p>
+        <p><a target="_blank" href="https://medium.com/@jean-huang/%E5%8F%B2%E4%B8%B9%E4%BD%9B%E7%94%A2%E5%93%81%E8%AA%B2-%E5%95%8F%E9%A1%8C%E9%A0%98%E5%9F%9Fvs-%E8%A7%A3%E9%A1%8C%E9%A0%98%E5%9F%9F-problem-space-vs-solution-space-6ea080fc0668">史丹佛產品課: 問題領域vs.解題領域 (Problem Space vs. Solution Space) - Jean Huang - Medium</a></p>
+    </section>
+    <section class="other-file">
+        <h3>也可以看看以下文章</h3>
+    </section>
+    <script src="https://utteranc.es/client.js"
+        repo="Samcreator123/Samcreator123.github.io"
+        issue-term="https://samcreator123.github.io/coding/problem_and_solution_domain"
+        theme="preferred-color-scheme"
+        crossorigin="anonymous"
+        async>
+    </script>
+    <div id = "footer-template"></div>
+    <script type="module" src="/js/Initialization/acticle-init.js"></script>
+    <script src="/thrid-party/prism.min.js"></script>
+    <script src="/thrid-party/prism-csharp.min.js"></script>
+</body>
+</html>

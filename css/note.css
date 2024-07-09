@@ -135,12 +135,13 @@ h1 {
 }
 
 h2.primary_header {
-    font-size: 1.4rem;
+    font-size: 1.6rem;
     margin-top: 3rem;
 }
 
 h3 {
-    font-size: 1.2rem;
+    margin-top: 3rem;
+    font-size: 1.3rem;
 }
 
 p.img_description {
@@ -148,6 +149,20 @@ p.img_description {
     color: var(--quote_color);
     font-size: 80%;
 }
+
+section.outline {
+    margin: 0 0 2rem 0;
+
+}
+
+section.outline ol {
+    margin-left: -1rem;
+}
+
+section.outline li {
+    text-indent: 0.8rem;
+}
+
 
 .other-file {
     margin: 0 auto;

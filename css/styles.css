@@ -1,30 +1,38 @@
 :root {
-    --background-color: #e0e0e0;
+    --background-color: #fffcf2;
     --color: #333333;
+    --hr-color: #eceae5;
     --hover-color: #6d89c6;
     --max-width: 650px;
+    --img-brightness: 100%;
 }
 
 @media (prefers-color-scheme: dark) {
     :root {
         --background-color: #313032;
         --color: #e0e0e0;
+        --hr-color: #6c6b6b;
         --hover-color: #6d89c6;
+        --img-brightness: 90%;
     }
 }
 
 .light-theme {
-    --background-color: #e0e0e0;
+    --background-color: #fffcf2;
     --record-background-color: #e0e0e0;
     --color: #333333;
+    --hr-color: #eceae5;
     --hover-color: #6d89c6;
+    --img-brightness: 100%;
 }
 
 .dark-theme {
     --background-color: #313032;
     --record-background-color: #4e4646;
     --color: #e0e0e0;
+    --hr-color: #6c6b6b;
     --hover-color: #6d89c6;
+    --img-brightness: 90%;
 }
 
 html {
@@ -52,6 +60,11 @@ a:hover {
     color: var(--hover-color);
 }
 
+hr {
+    border: 1px solid var(--hr-color);
+    margin-top: 3rem;
+    margin-bottom: 4rem;
+}
 
 /* 頁首樣式 */
 header {
@@ -153,7 +166,8 @@ main img {
     max-width: 100%;
     margin: auto;
     display: block;
-    filter: brightness(80%);
+    filter: brightness(--img-brightness);
+    box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.5);
 }
 
 
