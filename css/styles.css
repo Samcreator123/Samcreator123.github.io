@@ -5,6 +5,7 @@
     --hover-color: #6d89c6;
     --max-width: 650px;
     --img-brightness: 100%;
+    --highlight: #e4e1d6;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -14,6 +15,7 @@
         --hr-color: #6c6b6b;
         --hover-color: #6d89c6;
         --img-brightness: 90%;
+        --highlight: #453f34;
     }
 }
 
@@ -24,6 +26,7 @@
     --hr-color: #eceae5;
     --hover-color: #6d89c6;
     --img-brightness: 100%;
+    --highlight: #e4e1d6;
 }
 
 .dark-theme {
@@ -33,6 +36,11 @@
     --hr-color: #6c6b6b;
     --hover-color: #6d89c6;
     --img-brightness: 90%;
+    --highlight: #453f34;
+}
+
+.high-light {
+    background: var(--highlight);
 }
 
 html {

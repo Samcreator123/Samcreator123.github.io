@@ -66,13 +66,6 @@
 
 }
 
-p span.bold {
-    color: #c66d6d;
-    font-weight: 800;
-}
-
-
-
 main .code-container {
     border: #515050 solid 1px;
     margin: 1rem 0 1rem 0;
@@ -142,6 +135,19 @@ h2.primary_header {
 h3 {
     margin-top: 3rem;
     font-size: 1.3rem;
+}
+
+p {
+    margin: 2rem 0 2rem 0;
+}
+
+p span.bold {
+    color: #c66d6d;
+    font-weight: 800;
+}
+
+div[id*="anchor"] {
+    scroll-margin-top: 15rem;
 }
 
 p.img_description {
