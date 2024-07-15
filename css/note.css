@@ -24,6 +24,38 @@
     --quote_border: #918f8f;
 }
 
+div.note-content {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    align-items: stretch;
+}
+
+.note-content #outline {
+    max-width: 325px;
+    padding: 2rem;
+    flex-grow: 1;
+    flex-shrink: 0;
+}
+
+.note-content #main-content {
+    flex-basis: 0;
+    margin: 0;
+    padding: 0;
+    flex-shrink: 1;
+    flex-grow: 2;
+}
+
+.note-content #sidebar {
+    max-width: 325px;
+    padding: 0;
+    flex-grow: 1;
+    flex-shrink: 2;
+    flex-basis: 0;
+}
+
+
+
 
 .note-title {
     margin: 0;
@@ -123,24 +155,6 @@ main .quote .author {
     text-align: right;
 }
 
-h1 {
-    font-size: 2rem;
-}
-
-h2.primary_header {
-    font-size: 1.6rem;
-    margin-top: 3rem;
-}
-
-h3 {
-    margin-top: 3rem;
-    font-size: 1.3rem;
-}
-
-p {
-    margin: 2rem 0 2rem 0;
-}
-
 p.list-context {
     margin-bottom: 0rem;
 }
@@ -158,6 +172,11 @@ li[class*="outline-level-"] {
     font-style: italic;
 }
 
+button#outline-toggle {
+    background: none;
+    border: none;
+}
+
 p.img_description {
     text-align: center;
     color: var(--quote_color);
@@ -165,8 +184,10 @@ p.img_description {
 }
 
 section.outline {
+    position: fixed;
+    top: 224px;
+    padding: 50px;
     margin: 0 0 2rem 0;
-
 }
 
 section.outline ol {
@@ -177,19 +198,13 @@ section.outline li {
     text-indent: 0.8rem;
 }
 
+@media (max-width : 1100px) {
+    section.outline ul {
+        display: none;
+    }
 
-.other-file {
-    margin: 0 auto;
-    /* 居中對齊 */
-    max-width: 650px;
-    /* 設置最大寬度 */
-    padding: 20px;
-}
-
-.references {
-    margin: 0 auto;
-    /* 居中對齊 */
-    max-width: 650px;
-    /* 設置最大寬度 */
-    padding: 20px;
+    #sidebar,
+    #outline {
+        display: none;
+    }
 }

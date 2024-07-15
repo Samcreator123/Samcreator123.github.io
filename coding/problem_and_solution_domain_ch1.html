@@ -3,160 +3,175 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>問題與解決方案領域</title>
+    <title>問題領域與解決方案領域上篇 | Problem & Solution Domain</title>
+    <meta name="description" content="問題與解決方案的上篇，關於問題領域概念澄清。">
     <link rel="icon" href="/icon.png" type="image/x-icon">
     <link rel="stylesheet" href="/css/styles.css">
     <link rel="stylesheet" href="/css/note.css">
     <link rel="stylesheet" href="/thrid-party/prism-okaidia.min.css" >
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div id = "header-template"></div>
-    <main>
-        <article>
-            <h2 class="note-title">問題領域與解決方案領域上篇 | Problem & Solution Domain</h2>
-            <section class="date-and-tags">
-                <section class="date">
-                    <span class="date">2024-07-12</span>
-                </section>
-                <section class="tags">
-                    <span class="tag"><a href="./tags/glossary.html">名詞解釋</a></span>
-                </section>
-            </section>
-            <hr>
-            
+    <div class="note-content">
+        <aside id="outline">
             <section class="outline">
-                <ol>
-                    <li class="outline-level-1"><a id="outline.1">為什麼要知道問題領域與解決方案域?</a></li>
-                    <li class="outline-level-1"><a id="outline.2">問題領域</a></li>
-                    <ol>
-                        <li class="outline-level-2"><a id="outline.2-2">如何做到釐清 ?</a></li>
-                        <li class="outline-level-2"><a id="outline.2-3">問題領域給我們甚麼 ?</a></li>
-                    </ol>
-                    <li class="outline-level-1"><a id="outline.3">作者的話</a></li>
-                </ol>
-            </section>
-
-            <section class="abstract">
-                <img src="/image/p&s_d2.webp" alt="customer wanted vs developer maked.">
-                <p class="img_description">客戶與開發者的理解</p>
-            </section>
-
-
-
-            <section class="chapter1">
-
-                <div id="anchor.1"></div>
-                
-                <h2 class="primary_header">為什麼要知道問題領域與解決方案域？</h2>
-                <p>在最理想的情況下，客戶能夠完美的解釋需求，完美到講出來的話就是他想要的，
-                    <span class="bold">但通常會發現確認需求是一段崎嶇的路</span>，
-                    然後確認需求的文件一改再改，從第一版到 final 版本的 final 版本。</p>
-                <img src="/image/p&s_d3.webp" alt="hell of file version.">
-                <p class="img_description">版本地獄</p>
-                <p>客戶解釋中很難避免使用專業術語， 而<span class="bold">大量的專業術語，就如同你跟你麻吉才懂得密語</span>。<br>
-                    客戶的解釋就如同複雜的迷宮，第一層迷宮還會通向不同層的迷宮，他講得口若懸河，但你已經迷失在迷宮裡面了，甚至你還不知道你在第幾層。</p>
-                <p>最後克服重重困難，產品做出來了，但<span class="bold">維護跟新增功能</span>呢，
-                    程式碼變成開發者才懂得東西，現在變成開發者對後來維護者一陣輸出，
-                    理解鴻溝在此又出現了，這還是與客戶不一樣的理解鴻溝，這是開發者與後繼維護者的理解鴻溝。</p>
-                <p>綜合以上所述，問題為以下三點</p>
                 <ul>
-                    <li>客戶想法與解釋的落差</li>
-                    <li>客戶與開發者的理解的鴻溝</li>
-                    <li>開發者與維護人員的理解鴻溝</li>
+                    <li class="outline-level-1"><a id="outline.1">情境</a></li>
+                    <li class="outline-level-1"><a id="outline.2">問題領域</a></li>
+                    <ul>
+                        <li class="outline-level-2"><a id="outline.2-2">如何釐清問題領域 ?</a></li>
+                        <li class="outline-level-2"><a id="outline.2-3">獲得了甚麼 ?</a></li>
+                    </ul>
+                    <li class="outline-level-1"><a id="outline.3">作者心得</a></li>
                 </ul>
-                <p>但我相信這些只是冰山一角，但我們必須要更細膩的感知到<span class="bold">問題</span>才能<span class="bold">解決</span>。</p>
-                <hr>
             </section>
-            
-            
-            <section class="chapter2">
+        </aside>
+        <main id="main-content">
+            <div id = "header-template"></div>
 
-                <div id="anchor.2"></div>
-
-                <section class="chapter2-1">
-                    <h2 class="primary_header">問題領域 | Problem Domain</h2>
-                    <section class="quote">
-                        <p class="content">“ Problem space is where all the customer needs that you’d like your product to deliver live. You shouldn’t interpret the word “needs” too narrowly: Whether it’s a customer pain point, a desire, a job to be done, or a user story, it lives in problem space. ”</p>
-                        <p class="author">― DAN OLSEN, THE LEAN PRODUCT PLAYBOOK, CHAPTER 2</p>
+            <article>
+                <h2 class="note-title">問題領域與解決方案領域上篇 | Problem & Solution Domain</h2>
+                <section class="date-and-tags">
+                    <section class="date">
+                        <span class="date">2024-07-12</span>
                     </section>
-                    <p>只有知道問題長怎麼樣，才能去正確的解決。問題如同感覺與解決方案如同語言，只有真確地了解到自己的感覺，才能用適當的語言表達。</p>
-                    <p><span class="bold">使用者用這個功能達成甚麼目的，以及功能的細節、使用者的痛點等等上下文...</span>，
-                        而問題的範圍與上下文、脈絡被稱為問題領域。</p>
-        
-                    <p class="list-context">例如在對於【客戶瀏覽電商首頁】這功能本身 : </p>
-                    <ul>
-                        <li>推薦的廣告與商品要依照什麼指標與訊息來呈現?</li>
-                        <li>根據不同國家的法律法規，顯示的內容是否需要做相應調整?</li>
-                        <li>網頁響應速度的要求是多少?</li>
-                    </ul>
-                    <p class="list-context">又例如【醫療管理系統的預約醫生】這功能本身 : </p>
-                    <ul>
-                        <li>預約時的個人訊息需要哪些? 是否操作繁瑣?</li>
-                        <li>不同科室的預約規則是否相同?</li>
-                        <li>就診前是否要提醒，以避免客戶忘記預約時間?</li>
-                    </ul>
-                    <p><span>除了功能本身，功能的上下文、脈絡同樣重要</span>，這能更好、更貼近得符合客戶的需求，也是在<span class="bold">同類產品中脫穎而出的關鍵。</span></p>
+                    <section class="tags">
+                        <span class="tag"><a href="./tags/glossary.html">名詞解釋</a></span>
+                    </section>
+                </section>
+                <hr>
+    
+    
+                <section class="abstract">
+                    <img src="/image/p&s_d2.webp" alt="customer wanted vs developer maked.">
+                    <p class="img_description">客戶與開發者的理解</p>
+                </section>
+    
+    
+    
+                <section class="chapter1">
+    
+                    <div id="anchor.1"></div>
                     
+                    <h2 class="primary_header">情境</h2>
+                    <p>在最理想的情況下，客戶能夠完美的解釋需求，完美到講出來的話就是他想要的，
+                        但通常會發現<span class="bold">確認需求是一段崎嶇的路</span>，
+                        然後確認需求的文件一改再改，從第一版到 final 版本的 final 版本。</p>
+                    <img src="/image/p&s_d3.webp" alt="hell of file version.">
+                    <p class="img_description">版本地獄</p>
+                    <p>客戶解釋中很難避免使用專業術語， 而<span class="bold">大量的專業術語，就如同你跟你麻吉才懂得密語</span>。<br>
+                        客戶的解釋就如同複雜的迷宮，第一層迷宮還會通向不同層的迷宮，他講得口若懸河，但你已經迷失在迷宮裡面了，甚至你還不知道你在第幾層。</p>
+                    <p>最後克服重重困難，產品做出來了，但<span class="bold">維護跟新增功能</span>呢，
+                        程式碼變成開發者才懂得東西，現在變成開發者對後來維護者一陣輸出，
+                        理解鴻溝在此又出現了，這還是與客戶不一樣的理解鴻溝，這是開發者與後繼維護者的理解鴻溝。</p>
+                    <p>綜合以上所述，問題為以下三點</p>
+                    <ul>
+                        <li>客戶想法與解釋的落差</li>
+                        <li>客戶與開發者的理解的鴻溝</li>
+                        <li>開發者與維護人員的理解鴻溝</li>
+                    </ul>
+                    <p>但我相信這些只是冰山一角，但我們必須要更細膩的感知到從需求到產品的<span class="bold">問題</span>才能<span class="bold">解決</span>。</p>
+                    <hr>
                 </section>
                 
-                <section class="chapter2-2">
-                    <div id="anchor.2-2"></div>
-                    <h3>如何做到釐清</h3>
-                    <p class="list-context">不同分析方式用不同的方式去建構它，以下列出不同的分析方式: </p>
-                    <ul>
-                        <li>顧客旅程地圖 (Customer Journey Map) 透過步驟、接觸點、行動、思考、心情、現狀與痛點，以圖像化、宏觀的方式查看產品。</li>
-                        <li>物件導向分析利用 UML 的類別圖 (Class Diagram) 將與順序圖 (sequence diagram) 或其他建模方式。</li>
-                        <li>領域驅動設計 (Domain Design Driven) 利用統一語言 (Ubiquitouse language) 的同時與客戶進行事件風暴 (Event Storming) 釐清商業流程的同時也避免了語言的歧異性。</li>
-                        <li>統一過程 (Rational Unified Process) 利用詳解用例條列分析了用戶用例的範圍、用戶目標、主成功場景、特殊需求等等...，使用用例圖確定系統的主要參與者與其他參與者。</li>
-                    </ul>
-                    <p>無論是哪種方式，只要能了解產品要解決的範圍以及上下文，都是正確的方式，甚至可以組合不同的方式，以不同的方面去察看問題。</p>
+                
+                <section class="chapter2">
+    
+                    <div id="anchor.2"></div>
+    
+                    <section class="chapter2-1">
+                        <h2 class="primary_header">問題領域 | Problem Domain</h2>
+                        <section class="quote">
+                            <p class="content">“ Problem space is where all the customer needs that you’d like your product to deliver live. You shouldn’t interpret the word “needs” too narrowly: Whether it’s a customer pain point, a desire, a job to be done, or a user story, it lives in problem space. ”</p>
+                            <p class="author">― DAN OLSEN, THE LEAN PRODUCT PLAYBOOK, CHAPTER 2</p>
+                        </section>
+                        <p>只有知道問題長怎麼樣，才能去正確的解決。問題如同感覺與解決方案如同語言，只有真確地了解到自己的感覺，才能用適當的語言表達。</p>
+                        <p><span class="bold">使用者用這個功能達成甚麼目的，以及功能的細節、使用者的痛點等等上下文...</span>，
+                            而問題的範圍與上下文、脈絡被稱為問題領域。</p>
+            
+                        <p class="list-context">例如在對於【客戶瀏覽電商首頁】這功能本身 : </p>
+                        <ul>
+                            <li>推薦的廣告與商品要依照什麼指標與訊息來呈現?</li>
+                            <li>根據不同國家的法律法規，顯示的內容是否需要做相應調整?</li>
+                            <li>網頁響應速度的要求是多少?</li>
+                        </ul>
+                        <p class="list-context">又例如【醫療管理系統的預約醫生】這功能本身 : </p>
+                        <ul>
+                            <li>預約時的個人訊息需要哪些? 是否操作繁瑣?</li>
+                            <li>不同科室的預約規則是否相同?</li>
+                            <li>就診前是否要提醒，以避免客戶忘記預約時間?</li>
+                        </ul>
+                        <p><span>除了功能本身，功能的上下文、脈絡同樣重要</span>，這能更好、更貼近得符合客戶的需求，也是在<span class="bold">同類產品中脫穎而出的關鍵。</span></p>
+                        
+                    </section>
                     
+                    <section class="chapter2-2">
+                        <div id="anchor.2-2"></div>
+                        <h3>如何釐清問題領域</h3>
+                        <p class="list-context">不同分析方式用不同的方式去建構它，以下列出不同的分析方式: </p>
+                        <ul>
+                            <li>顧客旅程地圖 (Customer Journey Map) 透過步驟、接觸點、行動、思考、心情、現狀與痛點，以圖像化、宏觀的方式查看產品。</li>
+                            <li>物件導向分析利用 UML 的類別圖 (Class Diagram) 將與順序圖 (sequence diagram) 或其他建模方式。</li>
+                            <li>領域驅動設計 (Domain Design Driven) 利用統一語言 (Ubiquitouse language) 的同時與客戶進行事件風暴 (Event Storming) 釐清商業流程的同時也避免了語言的歧異性。</li>
+                            <li>統一過程 (Rational Unified Process) 利用詳解用例條列分析了用戶用例的範圍、用戶目標、主成功場景、特殊需求等等...，使用用例圖確定系統的主要參與者與其他參與者。</li>
+                        </ul>
+                        <p>無論是哪種方式，只要能了解產品要解決的範圍以及上下文，都是正確的方式，甚至可以組合不同的方式，以不同的方面去察看問題。</p>
+                        
+                    </section>
+                    
+                    <section class="chapter2-3">
+                        <div id="anchor.2-3"></div>
+                        <h3>獲得了甚麼</h3>
+                        <p>因為這是對於問題的釐清，<span class="bold">在幫助開發者了解產品以及相關背景</span>的同時，如果有客戶的參與，在建構問題領域時也有可能<span>讓客戶更明白自己想要甚麼</span>。</p>
+                    </section>
+                </section>
+    
+                
+                <section class="chapter3">
+                    <div id="anchor.3"></div>
+                    <h2 class="primary_header">作者心得</h2>
+                    <img src="/image/p&s_d1.webp" alt="Introduce the problem domain and the solution domain briefly.">
+                    <p class="img_description">從需求到產品</p>
+                    <p>在研究這個概念的時候，發現要澄清問題領域是非常需要技巧以及客戶的配合。<br><br>使用技巧去結構化的分析問題領域需要澄清那些主題，
+                        然後由客戶的配合去填充主題之下的內容，就像畫線稿跟塗色一般的關係。<br><br>不同領域的產品由不同的色塊組合，而具體需要什麼色塊組合才會讓使用者滿意也是客戶才知道的，這就是一個做為開發者的局限吧。</p>
+                    <hr>
                 </section>
                 
-                <section class="chapter2-3">
-                    <div id="anchor.2-3"></div>
-                    <h3>問題領域給我們甚麼</h3>
-                    <p>因為這是對於問題的釐清，<span class="bold">在幫助開發者了解產品以及相關背景</span>的同時，如果有客戶的參與，在建構問題領域時也有可能<span>讓客戶更明白自己想要甚麼</span>。</p>
-                </section>
+    
+            </article> 
+            <section class="references">
+                <h3>參考資料</h3>
+                <ul>
+                    <li><a target="_blank" href="https://medium.com/pm%E7%9A%84%E7%94%9F%E7%94%A2%E5%8A%9B%E5%B7%A5%E5%85%B7%E7%AE%B1/ux%E5%AD%B8%E7%BF%92%E7%B3%BB%E5%88%97-%E4%B8%83-ux%E5%88%B0%E5%BA%95%E6%98%AF%E4%BB%80%E9%BA%BC-%E5%B0%87%E4%BD%BF%E7%94%A8%E8%80%85%E9%AB%94%E9%A9%97%E8%A6%96%E8%A6%BA%E5%8C%96-%E5%AD%B8%E7%BF%92%E8%A3%BD%E4%BD%9C-%E9%A1%A7%E5%AE%A2%E6%97%85%E7%A8%8B%E5%9C%B0%E5%9C%96-b60650aa07df">UX學習系列(七) UX到底是什麼？將使用者體驗視覺化！學習製作「顧客旅程地圖」</a></li>
+                    <li><a target="_blank" href="https://www.ithome.com.tw/voice/78672">從問題領域到解題領域的思維過程 | iThome</a></li>
+                    <li><a target="_blank" href="https://www.institutedata.com/blog/what-is-problem-domain-and-solution/#:~:text=The%20problem%20domain%20represents%20the,which%20the%20software%20will%20operate">Susanne Madsen's Project Management and Leadership Blog - Susanne Madsen Intl. Developing Project Leaders</a></li>
+                    <li><a target="_blank" href="https://eandev.com/post/nouns/problem-and-solution-domain/">聊聊名詞 | 問題領域與解決方案領域 | Problem & Solution Domain</a></li>
+                    <li><a target="_blank" href="https://solutionspace.blog/2021/10/29/problem-space-and-solution-space/">問題空間和解決方案空間 – 解決方案空間 (solutionspace.blog)</a></li>
+                    <li><a target="_blank" href="https://medium.com/@jean-huang/%E5%8F%B2%E4%B8%B9%E4%BD%9B%E7%94%A2%E5%93%81%E8%AA%B2-%E5%95%8F%E9%A1%8C%E9%A0%98%E5%9F%9Fvs-%E8%A7%A3%E9%A1%8C%E9%A0%98%E5%9F%9F-problem-space-vs-solution-space-6ea080fc0668">史丹佛產品課: 問題領域vs.解題領域 (Problem Space vs. Solution Space) - Jean Huang - Medium</a></li>
+                </ul>
+               
             </section>
-
-            
-            <section class="chapter3">
-                <div id="anchor.3"></div>
-                <h2 class="primary_header">作者心得</h2>
-                <img src="/image/p&s_d1.webp" alt="Introduce the problem domain and the solution domain briefly.">
-                <p class="img_description">從需求到產品</p>
-                <p>在研究這個概念的時候，發現要澄清問題領域是非常需要技巧以及客戶的配合。<br><br>使用技巧去結構化的分析問題領域需要澄清那些主題，
-                    然後由客戶的配合去填充主題之下的內容，就像畫線稿跟塗色一般的關係。<br><br>不同領域的產品由不同的色塊組合，而具體需要什麼色塊組合才會讓使用者滿意也是客戶才知道的，這就是一個做為開發者的局限吧。</p>
+            <section class="other-file">
+                <h3>也可以看看以下文章</h3>
+                <ul>
+                    <li><a target="_blank" href="./problem_and_solution_domain_ch2.html">問題領域與解決方案領域下篇 | Problem & Solution Domain</a></li>
+                </ul>
             </section>
-            
-
-        </article> 
-    </main>
+            <script src="https://utteranc.es/client.js"
+                repo="Samcreator123/Samcreator123.github.io"
+                issue-term="https://samcreator123.github.io/coding/problem_and_solution_domain"
+                theme="preferred-color-scheme"
+                crossorigin="anonymous"
+                async>
+            </script>
+            <div id = "footer-template"></div>
+        </main>
+        <div id="sidebar"></div>
+    </div>
     <hr>
-    <section class="references">
-        <h3>參考資料</h3>
-        <ul>
-            <li><a target="_blank" href="https://medium.com/pm%E7%9A%84%E7%94%9F%E7%94%A2%E5%8A%9B%E5%B7%A5%E5%85%B7%E7%AE%B1/ux%E5%AD%B8%E7%BF%92%E7%B3%BB%E5%88%97-%E4%B8%83-ux%E5%88%B0%E5%BA%95%E6%98%AF%E4%BB%80%E9%BA%BC-%E5%B0%87%E4%BD%BF%E7%94%A8%E8%80%85%E9%AB%94%E9%A9%97%E8%A6%96%E8%A6%BA%E5%8C%96-%E5%AD%B8%E7%BF%92%E8%A3%BD%E4%BD%9C-%E9%A1%A7%E5%AE%A2%E6%97%85%E7%A8%8B%E5%9C%B0%E5%9C%96-b60650aa07df">UX學習系列(七) UX到底是什麼？將使用者體驗視覺化！學習製作「顧客旅程地圖」</a></li>
-            <li><a target="_blank" href="https://www.ithome.com.tw/voice/78672">從問題領域到解題領域的思維過程 | iThome</a></li>
-            <li><a target="_blank" href="https://www.institutedata.com/blog/what-is-problem-domain-and-solution/#:~:text=The%20problem%20domain%20represents%20the,which%20the%20software%20will%20operate">Susanne Madsen's Project Management and Leadership Blog - Susanne Madsen Intl. Developing Project Leaders</a></li>
-            <li><a target="_blank" href="https://eandev.com/post/nouns/problem-and-solution-domain/">聊聊名詞 | 問題領域與解決方案領域 | Problem & Solution Domain</a></li>
-            <li><a target="_blank" href="https://solutionspace.blog/2021/10/29/problem-space-and-solution-space/">問題空間和解決方案空間 – 解決方案空間 (solutionspace.blog)</a></li>
-            <li><a target="_blank" href="https://medium.com/@jean-huang/%E5%8F%B2%E4%B8%B9%E4%BD%9B%E7%94%A2%E5%93%81%E8%AA%B2-%E5%95%8F%E9%A1%8C%E9%A0%98%E5%9F%9Fvs-%E8%A7%A3%E9%A1%8C%E9%A0%98%E5%9F%9F-problem-space-vs-solution-space-6ea080fc0668">史丹佛產品課: 問題領域vs.解題領域 (Problem Space vs. Solution Space) - Jean Huang - Medium</a></li>
-        </ul>
-       
-    </section>
-    <section class="other-file">
-        <h3>也可以看看以下文章</h3>
-    </section>
-    <script src="https://utteranc.es/client.js"
-        repo="Samcreator123/Samcreator123.github.io"
-        issue-term="https://samcreator123.github.io/coding/problem_and_solution_domain"
-        theme="preferred-color-scheme"
-        crossorigin="anonymous"
-        async>
-    </script>
-    <div id = "footer-template"></div>
     <script type="module" src="/js/Initialization/acticle-init.js"></script>
     <script src="/thrid-party/prism.min.js"></script>
     <script src="/thrid-party/prism-csharp.min.js"></script>

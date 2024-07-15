@@ -43,13 +43,9 @@
     background: var(--highlight);
 }
 
-html {
-    scroll-behavior: smooth;
-}
-
 /* 全局樣式 */
 body {
-    font-family: "Segoe UI", Arial, '文泉驛正黑', 'WenQuanYi Zen Hei', '儷黑 Pro', 'LiHei Pro', '微軟正黑體', 'Microsoft JhengHei', sans-serif;
+    font-family: "Poppins", "Noto Sans TC", "Segoe UI", Arial, '文泉驛正黑', 'WenQuanYi Zen Hei', '儷黑 Pro', 'LiHei Pro', '微軟正黑體', 'Microsoft JhengHei', sans-serif;
     line-height: 2;
     margin: 0;
     padding: 5%;
@@ -58,6 +54,24 @@ body {
     /* 使用淺色背景 */
     color: var(--color);
     /* 深色文字 */
+}
+
+h1 {
+    font-size: 2rem;
+}
+
+h2.primary_header {
+    font-size: 1.6rem;
+    margin-top: 3rem;
+}
+
+h3 {
+    margin-top: 3rem;
+    font-size: 1.3rem;
+}
+
+p {
+    margin: 2rem 0 2rem 0;
 }
 
 a {
@@ -87,14 +101,11 @@ header {
     text-align: left;
     margin-bottom: 20px;
     /* 添加下邊距 */
+    align-items: baseline;
 }
 
 .blog_name a {
     text-decoration: none;
-}
-
-header {
-    align-items: baseline;
 }
 
 header #menu-toggle {
@@ -121,12 +132,14 @@ header nav ul li a {
     background: none;
     border: none;
     padding-left: 0;
-    font-size: 15px;
+    font-size: 1rem;
 }
 
 
 
+
 @media (max-width : 768px) {
+
     header #menu-toggle {
         display: block;
         font-size: 1.5rem;
@@ -136,6 +149,7 @@ header nav ul li a {
         margin-left: auto;
     }
 
+
     header #menu-toggle:hover {
         color: var(--hover-color);
     }
@@ -143,6 +157,7 @@ header nav ul li a {
     header nav ul.open {
         max-height: 500px;
         /* 根據內容調整 */
+        transition: max-height 0.3s ease-in-out;
     }
 
     header nav ul.close {

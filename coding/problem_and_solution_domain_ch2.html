@@ -3,99 +3,141 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>問題與解決方案領域</title>
+    <title>問題領域與解決方案領域下篇 | Problem & Solution Domain</title>
+    <meta name="description" content="問題與解決方案的上篇，關於解決方案領域概念澄清。">
     <link rel="icon" href="/icon.png" type="image/x-icon">
     <link rel="stylesheet" href="/css/styles.css">
     <link rel="stylesheet" href="/css/note.css">
     <link rel="stylesheet" href="/thrid-party/prism-okaidia.min.css" >
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div id = "header-template"></div>
-    <main>
-        <article>
-            <h2 class="note-title">問題領域與解決方案領域下篇 | Problem & Solution Domain</h2>
-            <section class="date-and-tags">
-                <section class="date">
-                    <span class="date">2024-07-06</span>
-                </section>
-                <section class="tags">
-                    <span class="tag"><a href="./tags/glossary.html">名詞解釋</a></span>
-                </section>
-            </section>
-            <hr>
-
-            <section class="abstract">
-            </section>
-
+    <div class="note-content">
+        <aside id="outline">
             <section class="outline">
-                <ol>
-                    <li class="outline-level-1"><a href="#header3">解決方案領域</a></li>
-                    <li class="outline-level-2"><a href="#header3-2">如何設計 ?</a></li>
-                    <li class="outline-level-2"><a href="#header3-3">解決方案領域給我們甚麼 ?</a></li>
-                    <li class="outline-level-1"><a href="#header4">得到了什麼 ?</a></li>
-                </ol>
+                <ul>
+                    <li class="outline-level-1"><a id="outline.1">複習前篇</a></li>
+                    <li class="outline-level-1"><a id="outline.2">解決方案領域</a></li>
+                    <ul>
+                        <li class="outline-level-2"><a id="outline.2-2">如何設計解決方案 ?</a></li>
+                        <li class="outline-level-2"><a id="outline.2-3">獲得了什麼 ?</a></li>
+                    </ul>
+                    <li class="outline-level-1"><a id="outline.3">作者心得</a></li>
+                </ul>
             </section>
-            
-            <a name="header3"></a>
-            <section class="chapter-3">
-                <section class="chapter3-1">
-                    <h2 class="primary_header">解決方案領域 | Solution Domain</h2>
-                    <section class="quote">
-                        <p class="content">“ Solution space includes any product or representation of a product that is used by or intended for use by a customer. It is the opposite of a blank slate. When you build a product, you have chosen a specific implementation. Whether you’ve done so explicitly or not, you’ve determined how the product looks, what it does, and how it works. ”</p>
-                        <p class="author">― DAN OLSEN, THE LEAN PRODUCT PLAYBOOK, CHAPTER 2</p>
+        </aside>
+        <main id="main-content">
+            <div id = "header-template"></div>
+
+            <article>
+                <h2 class="note-title">問題領域與解決方案領域下篇 | Problem & Solution Domain</h2>
+                <section class="date-and-tags">
+                    <section class="date">
+                        <span class="date">2024-07-15</span>
                     </section>
-                    <p>釐清問題領域並獲得釐清過程中的圖或文字敘述後，問題領域的迷霧散盡，一切都變得清晰，
-                        但還有要釐清的東西，才能開始撰寫程式碼，也就是設計方面的問題，<span class="bold">沒有設計過會導致能跑就好的心態</span>，因此需要先進行設計。</p>    
+                    <section class="tags">
+                        <span class="tag"><a href="./tags/glossary.html">名詞解釋</a></span>
+                    </section>
                 </section>
-
-                <a name="header3-2"></a>
-                <section class="chapter3-2">
-                    <h3>如何設計</h3>
-                    <p>在問題領域中，了解產品的功能以及非功能性的要求，也就是 FURPS+，在解決方案領域要考慮的是，如何達成 ?</p>
-                    <p>使用高階的描述方式，不涉及具體的程式碼。在物件導向設計中同樣可以使用 UML 去做圖像化的澄清，要注意的是，<span class="bold">此時的描述相較於問題領域，更加貼近開發者，這意味著需要參考產品的效率、彈性、可擴充性、可讀性、等等系統品質</span>。</p>
-                    <p>因此在問題領域釐清用例以及其脈絡的情況下，就是 GRASP、SOLID、設計模式 (Design Pattern )、CQS、KISS、Dry 、演算法、架構等等... 出場的時候 。</p>    
+                <hr>
+    
+    
+                <section class="abstract">
+                    <img src="/image/p&s_d2.webp" alt="customer wanted vs developer maked.">
+                    <p class="img_description">客戶與開發者的理解</p>
                 </section>
+    
+    
+    
+                <section class="chapter1">
+    
+                    <div id="anchor.1"></div>
+                    <h2 class="primary_header">複習前篇</h2>
+                    <p>在<a target="_blank" href="./problem_and_solution_domain_ch1.html">前篇中</a>
+                        ，澄清了問題領域是什麼、解決什麼情境、以及關注問題領域帶來的好處，而問題領域是接近並十分依賴客戶以及用戶端
+                        ，而在接下來的解決方法領域則是開發者使用技術來解決問題。</p>
+                </section>
+                
+                
+                <section class="chapter2">
+    
+                    <div id="anchor.2"></div>
+    
+                    <section class="chapter2-1">
+                        <h2 class="primary_header">解決方案領域 | Solution Domain</h2>
+                        <section class="quote">
+                            <p class="content">“ Solution space includes any product or representation of a product that is used by or intended for use by a customer. It is the opposite of a blank slate. When you build a product, you have chosen a specific implementation. Whether you’ve done so explicitly or not, you’ve determined how the product looks, what it does, and how it works. ”</p>
+                            <p class="author">― DAN OLSEN, THE LEAN PRODUCT PLAYBOOK, CHAPTER 2</p>
+                        </section>
+                        <p>釐清問題領域並獲得釐清過程中的圖或文字敘述後，問題領域的迷霧散盡，一切都變得清晰，
+                            但還有要釐清的東西，才能開始撰寫程式碼，也就是設計方面的問題，<span class="bold">沒有設計過會導致能跑就好的心態</span>，因此需要先進行設計。</p> 
+                        
+                    </section>
+                    
+                    <section class="chapter2-2">
+                        <div id="anchor.2-2"></div>
+                        <h3>如何設計解決方案 ?</h3>
+                        <p>在問題領域中，了解產品的功能以及非功能性的要求，也就是 FURPS+，在解決方案領域要考慮的是，如何達成 ?</p>
+                        <p>使用高階的描述方式，不涉及具體的程式碼。在物件導向設計中同樣可以使用 UML 去做圖像化的澄清，要注意的是，此時的描述相較於問題領域，更加貼近開發者，這意味著需要<span class="bold">普遍的</span>著重在功能的效率、彈性、可擴充性、可讀性、等等系統品質。</p>
+                        <p>因此在問題領域釐清用例以及其脈絡的情況下，就是 GRASP、SOLID、設計模式 (Design Pattern )、CQS、KISS、Dry 、演算法、架構等等... 出場的時候 。</p>  
 
-                <a name="header3-3"></a>
-                <section class="chapter3-3">
-                    <h3>解決方案領域給我們甚麼</h3>
-                    <p>好的程式碼是可以作為解決方案的的同時也顧好系統品質。問題領域給我們了迷宮的地圖，但我們要選一種效率更高的方式去走出迷宮，效率更高的方式就是解決方案領域給我們的</p>
-                    <p>但要注意的是<span class="bold">滿足系統品質通常代表著取捨</span>，要如何在易擴充與效能間取捨；要如何在一致性、可用性、分區容錯性兼做取捨；如何在開發效率以及程式碼品質兼做取捨等等...</p>
+                    </section>
+                    
+                    <section class="chapter2-3">
+                        <div id="anchor.2-3"></div>
+                        <h3>獲得了什麼 ?</h3>
+                        <p>好的程式碼是可以作為解決方案的的同時也顧好系統品質。</p>
+                        <p>問題領域給我們了迷宮的地圖，但我們要選一種效率更高的方式去走出迷宮，效率更高的方式就是解決方案領域給我們的</p>
+                        <p>但要注意的是<span class="bold">滿足系統品質通常代表著取捨</span>，要如何在易擴充與效能間取捨；要如何在一致性、可用性、分區容錯性兼做取捨；如何在開發效率以及程式碼品質兼做取捨等等...</p>
+                        <hr>
+
+                    </section>
+                </section>
+    
+                
+                <section class="chapter3">
+                    <div id="anchor.3"></div>
+                    <h2 class="primary_header">作者心得</h2>
+                    <p>從一個需求到確認產品的範圍到產品範圍的上下文 (問題領域)，到開發者用設計原則、架構、演算法去用另一個方式描述問題領域澄清的結構 (解決領域)，最後依照解決方案領域的製品編寫程式碼，最後<span class="bold">獲得了高品質並且貼近客戶想要的產品</span>。
+                        要注意的是這看起來很像線性的開發，但多數的時候解決方案領域的澄清有可能造成問題領域的改動，
+                        因此<span class="bold">問題領域與解決方案把需求到產品的過程更加細化的同時，也給予了迭代的調整的特性</span>。</p>
                     <hr>
                 </section>
-            </section>            
-            
-            <a name="header4"></a>
-            <section class="chapter-4">
-                <h2 class="primary_header">得到了什麼?</h2>
-                <p>從一個需求到確認產品的範圍到產品範圍的上下文 (問題領域)，到開發者用設計原則、架構、演算法去用另一個方式描述問題領域澄清的結構 (解決領域)，最後依照解決方案領域的製品編寫程式碼，最後<span class="bold">獲得了高品質並且貼近客戶想要的產品</span>。
-                    要注意的是這看起來很像線性的開發，但多數的時候解決方案領域的澄清有可能造成問題領域的改動，
-                    因此<span class="bold">問題領域與解決方案把需求到產品的過程更加細化的同時，也給予了迭代的調整的特性</span>。</p>
+                
+    
+            </article> 
+            <section class="references">
+                <h3>參考資料</h3>
+                <ul>
+                    <li><a target="_blank" href="https://medium.com/pm%E7%9A%84%E7%94%9F%E7%94%A2%E5%8A%9B%E5%B7%A5%E5%85%B7%E7%AE%B1/ux%E5%AD%B8%E7%BF%92%E7%B3%BB%E5%88%97-%E4%B8%83-ux%E5%88%B0%E5%BA%95%E6%98%AF%E4%BB%80%E9%BA%BC-%E5%B0%87%E4%BD%BF%E7%94%A8%E8%80%85%E9%AB%94%E9%A9%97%E8%A6%96%E8%A6%BA%E5%8C%96-%E5%AD%B8%E7%BF%92%E8%A3%BD%E4%BD%9C-%E9%A1%A7%E5%AE%A2%E6%97%85%E7%A8%8B%E5%9C%B0%E5%9C%96-b60650aa07df">UX學習系列(七) UX到底是什麼？將使用者體驗視覺化！學習製作「顧客旅程地圖」</a></li>
+                    <li><a target="_blank" href="https://www.ithome.com.tw/voice/78672">從問題領域到解題領域的思維過程 | iThome</a></li>
+                    <li><a target="_blank" href="https://www.institutedata.com/blog/what-is-problem-domain-and-solution/#:~:text=The%20problem%20domain%20represents%20the,which%20the%20software%20will%20operate">Susanne Madsen's Project Management and Leadership Blog - Susanne Madsen Intl. Developing Project Leaders</a></li>
+                    <li><a target="_blank" href="https://eandev.com/post/nouns/problem-and-solution-domain/">聊聊名詞 | 問題領域與解決方案領域 | Problem & Solution Domain</a></li>
+                    <li><a target="_blank" href="https://solutionspace.blog/2021/10/29/problem-space-and-solution-space/">問題空間和解決方案空間 – 解決方案空間 (solutionspace.blog)</a></li>
+                    <li><a target="_blank" href="https://medium.com/@jean-huang/%E5%8F%B2%E4%B8%B9%E4%BD%9B%E7%94%A2%E5%93%81%E8%AA%B2-%E5%95%8F%E9%A1%8C%E9%A0%98%E5%9F%9Fvs-%E8%A7%A3%E9%A1%8C%E9%A0%98%E5%9F%9F-problem-space-vs-solution-space-6ea080fc0668">史丹佛產品課: 問題領域vs.解題領域 (Problem Space vs. Solution Space) - Jean Huang - Medium</a></li>
+                </ul>
             </section>
-
-        </article> 
-    </main>
+            <section class="other-file">
+                <h3>也可以看看以下文章</h3>
+                <ul>
+                    <li><a target="_blank" href="./problem_and_solution_domain_ch1.html">問題領域與解決方案領域上篇 | Problem & Solution Domain</a></li>
+                </ul>
+            </section>
+            <script src="https://utteranc.es/client.js"
+                repo="Samcreator123/Samcreator123.github.io"
+                issue-term="https://samcreator123.github.io/coding/problem_and_solution_domain"
+                theme="preferred-color-scheme"
+                crossorigin="anonymous"
+                async>
+            </script>
+            <div id = "footer-template"></div>
+        </main>
+        <div id="sidebar"></div>
+    </div>
     <hr>
-    <section class="references">
-        <h3>參考資料</h3>
-        <p><a target="_blank" href="https://www.susannemadsen.co.uk/blog/5-pitfalls-that-prevent-us-from-delivering-what-the-customer-really-needs">Susanne Madsen's Project Management and Leadership Blog - Susanne Madsen Intl. Developing Project Leaders</a></p>
-        <p><a target="_blank" href="https://www.ithome.com.tw/voice/78672">從問題領域到解題領域的思維過程 | iThome</a></p>
-        <p><a target="_blank" href="https://www.institutedata.com/blog/what-is-problem-domain-and-solution/#:~:text=The%20problem%20domain%20represents%20the,which%20the%20software%20will%20operate">Susanne Madsen's Project Management and Leadership Blog - Susanne Madsen Intl. Developing Project Leaders</a></p>
-        <p><a target="_blank" href="https://eandev.com/post/nouns/problem-and-solution-domain/">聊聊名詞 | 問題領域與解決方案領域 | Problem & Solution Domain</a></p>
-        <p><a target="_blank" href="https://solutionspace.blog/2021/10/29/problem-space-and-solution-space/">問題空間和解決方案空間 – 解決方案空間 (solutionspace.blog)</a></p>
-        <p><a target="_blank" href="https://medium.com/@jean-huang/%E5%8F%B2%E4%B8%B9%E4%BD%9B%E7%94%A2%E5%93%81%E8%AA%B2-%E5%95%8F%E9%A1%8C%E9%A0%98%E5%9F%9Fvs-%E8%A7%A3%E9%A1%8C%E9%A0%98%E5%9F%9F-problem-space-vs-solution-space-6ea080fc0668">史丹佛產品課: 問題領域vs.解題領域 (Problem Space vs. Solution Space) - Jean Huang - Medium</a></p>
-    </section>
-    <section class="other-file">
-        <h3>也可以看看以下文章</h3>
-    </section>
-    <script src="https://utteranc.es/client.js"
-        repo="Samcreator123/Samcreator123.github.io"
-        issue-term="https://samcreator123.github.io/coding/problem_and_solution_domain"
-        theme="preferred-color-scheme"
-        crossorigin="anonymous"
-        async>
-    </script>
-    <div id = "footer-template"></div>
     <script type="module" src="/js/Initialization/acticle-init.js"></script>
     <script src="/thrid-party/prism.min.js"></script>
     <script src="/thrid-party/prism-csharp.min.js"></script>
