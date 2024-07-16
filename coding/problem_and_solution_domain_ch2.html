@@ -46,8 +46,8 @@
     
     
                 <section class="abstract">
-                    <img src="/image/p&s_d2.webp" alt="customer wanted vs developer maked.">
-                    <p class="img_description">客戶與開發者的理解</p>
+                    <img src="/image/p&s_d4.webp" alt="customer wanted vs developer maked.">
+                    <p class="img_description">客戶與開發者的理解，<a target="_blank" href="https://productmanagermeme.com/what-startup-founders-think-customers-want-and-what-customers-actually-want">圖片來源</a></p>
                 </section>
     
     
@@ -72,17 +72,17 @@
                             <p class="content">“ Solution space includes any product or representation of a product that is used by or intended for use by a customer. It is the opposite of a blank slate. When you build a product, you have chosen a specific implementation. Whether you’ve done so explicitly or not, you’ve determined how the product looks, what it does, and how it works. ”</p>
                             <p class="author">― DAN OLSEN, THE LEAN PRODUCT PLAYBOOK, CHAPTER 2</p>
                         </section>
-                        <p>釐清問題領域並獲得釐清過程中的圖或文字敘述後，問題領域的迷霧散盡，一切都變得清晰，
-                            但還有要釐清的東西，才能開始撰寫程式碼，也就是設計方面的問題，<span class="bold">沒有設計過會導致能跑就好的心態</span>，因此需要先進行設計。</p> 
+                        <p>釐清問題領域並獲得釐清過程中的圖或文字敘述後，問題領域的迷霧散盡，一切都變得清晰。</p>
+                        <p>但還有要釐清的東西，才能開始撰寫程式碼，也就是設計方面的問題，<span class="bold">沒有設計過會導致能跑就好的心態</span>，因此需要先進行設計。</p> 
                         
                     </section>
                     
                     <section class="chapter2-2">
                         <div id="anchor.2-2"></div>
                         <h3>如何設計解決方案 ?</h3>
-                        <p>在問題領域中，了解產品的功能以及非功能性的要求，也就是 FURPS+，在解決方案領域要考慮的是，如何達成 ?</p>
+                        <p>在問題領域中，了解產品的功能以及非功能性的要求，例如像 FURPS+，在解決方案領域要考慮的是，<span class="bold">如何達成並兼顧系統品質?</span></p>
                         <p>使用高階的描述方式，不涉及具體的程式碼。在物件導向設計中同樣可以使用 UML 去做圖像化的澄清，要注意的是，此時的描述相較於問題領域，更加貼近開發者，這意味著需要<span class="bold">普遍的</span>著重在功能的效率、彈性、可擴充性、可讀性、等等系統品質。</p>
-                        <p>因此在問題領域釐清用例以及其脈絡的情況下，就是 GRASP、SOLID、設計模式 (Design Pattern )、CQS、KISS、Dry 、演算法、架構等等... 出場的時候 。</p>  
+                        <p>因此在問題領域釐清用例以及其脈絡的情況下，就是 GRASP、SOLID、設計模式 (Design Pattern )、CQS、KISS、Dry、演算法、架構等等... 出場的時候 。</p>  
 
                     </section>
                     
@@ -90,8 +90,8 @@
                         <div id="anchor.2-3"></div>
                         <h3>獲得了什麼 ?</h3>
                         <p>好的程式碼是可以作為解決方案的的同時也顧好系統品質。</p>
-                        <p>問題領域給我們了迷宮的地圖，但我們要選一種效率更高的方式去走出迷宮，效率更高的方式就是解決方案領域給我們的</p>
-                        <p>但要注意的是<span class="bold">滿足系統品質通常代表著取捨</span>，要如何在易擴充與效能間取捨；要如何在一致性、可用性、分區容錯性兼做取捨；如何在開發效率以及程式碼品質兼做取捨等等...</p>
+                        <p>問題領域給我們了迷宮的地圖與指南針，走出迷宮的方法有千百種，但我們要選一種效率更高、耗能最低的方法去走出迷宮，而方法就是解決方案領域給我們的</p>
+                        <p>但要注意的是<span class="bold">滿足系統品質通常代表著取捨</span>，要如何在易擴充、可讀性、效能間取捨；要如何在一致性、可用性、分區容錯性兼做取捨；如何在開發效率以及程式碼品質兼做取捨等等...</p>
                         <hr>
 
                     </section>
@@ -101,9 +101,13 @@
                 <section class="chapter3">
                     <div id="anchor.3"></div>
                     <h2 class="primary_header">作者心得</h2>
-                    <p>從一個需求到確認產品的範圍到產品範圍的上下文 (問題領域)，到開發者用設計原則、架構、演算法去用另一個方式描述問題領域澄清的結構 (解決領域)，最後依照解決方案領域的製品編寫程式碼，最後<span class="bold">獲得了高品質並且貼近客戶想要的產品</span>。
+                    <img src="/image/p&s_d1.webp" alt="Introduce the problem domain and the solution domain briefly.">
+                    <p class="img_description">從需求到產品</p>
+                    <p>從一個需求到確認功能的範圍、上下文，開發者用設計原則、架構、演算法去用另一個方式描述問題領域澄清的結構，最後依照解決方案領域的製品編寫程式碼，最後<span class="bold">獲得了高品質並且貼近客戶想要的產品</span>。
                         要注意的是這看起來很像線性的開發，但多數的時候解決方案領域的澄清有可能造成問題領域的改動，
                         因此<span class="bold">問題領域與解決方案把需求到產品的過程更加細化的同時，也給予了迭代的調整的特性</span>。</p>
+
+                    <p>問題領域、解決方法領域雖然已經細化了從需求到程式碼的過程，但領域要做的事也是非常廣泛與深奧的，對我來說，雖然不知道一套方法，能夠完整將這兩個領域落實，但光了解這兩個領域的概念就已經可以更加明白甚麼是在與客戶的討論中需要明確的，什麼又是開發者可以自由發揮的。</p>
                     <hr>
                 </section>
                 
