@@ -52,7 +52,7 @@
     
     
                 <section class="abstract">
-                    <img src="/image/grasp1_3.png" alt="工程師的秘密武器ChatGPT!">
+                    <img src="/image/grasp1_3.webp" alt="工程師的秘密武器ChatGPT!">
                     <p class="img_description">工程師的秘密武器雀老師!! <a target="_blank" href="https://memes.tw/maker/painter/1583">圖片來源</a></p>
                 </section>
     
@@ -67,11 +67,11 @@
                         <p class="content">“ 最嚴重的錯誤並非來自錯誤的答案，真正危險的是問錯了問題。 ”</p>
                         <p class="author">― Peter Drucker</p>
                     </section>
-                    <p>有沒有遇過遇到一個物件的創建邏輯會寫得很長，此時經驗告訴你，寫在建構子會不太妙，會超過你在網路上看到的一個類別不能超過200行還是80行 ，該怎麼辦?</p>
-                    <p>然後你問ChatGPT，發現有個工廠模式可以用，然後很快的，ChatGPT 把改良後的程式碼給打了出來，複製貼上，ChatGPT我的超人。</p>
+                    <p>有沒有遇過遇到一個物件的創建邏輯會寫得很長，此時經驗告訴你，寫在建構子會不太妙，會超過你在網路上看到的一個類別不能超過200行還是80行，該怎麼辦?</p>
+                    <p>然後你問 ChatGPT，發現有個工廠模式可以用，然後很快的，ChatGPT 把改良後的程式碼給打了出來，複製貼上，ChatGPT 我的超人。</p>
 
-                    <img src="/image/grasp1_1.png" alt="ChatGPT 快救救我呀">
-                    <p class="img_description">ChatGPT 快救救我呀 <a target="_blank" href="https://chatgpt.com">圖片來源</a></p>
+                    <img src="/image/grasp1_1.webp" alt="ChatGPT 快救救我呀">
+                    <p class="img_description">ChatGPT 快救救我呀，<a target="_blank" href="https://chatgpt.com">圖片來源</a></p>
                 
                     <p>隔天的 code review，面對 mentor 的好心提問，為什麼這個類別，名稱後面有一個 Factory ? 為什麼要使用工廠模式?</p>
                     <p>面對看不懂的人，他們會說，我覺得寫在同一個類別這樣我只要開一個檔案就能全部看見就好，幹嘛搞這麼複雜? 此時你除了說會超過200行以外，還能說些甚麼?</p>
@@ -91,7 +91,7 @@
                         </section>
                         <p>在這個上面例子中200行說不定只是實踐設計原則的所產生的結果，一種良好的副產品。在解答越來越容易取得的當下，脈絡的澄清變得十分重要，這有助於理解為甚麼是這個答案以及多個解決方案中有甚麼具體的差異。</p>
                         
-                        <p>模式為在一個脈絡、環境、上下文中常見的問題的解決方法，並且該解決方法是經過實踐可行的，而相較於GOF的設計模式，SOLID 與本文提到的 GRASP 能夠以更全面、更普遍的去解釋一個問題的解決方法，也能使我們辨認出真正的問題，而非表面現象。</p>
+                        <p>模式為在一個脈絡、環境、上下文中常見的問題的解決方法，並且該解決方法是經過實踐可行的，而相較於 GOF 的設計模式，SOLID 與本文提到的 GRASP 能夠以更全面、更普遍的去解釋一個問題的解決方法，也能使我們辨認出真正的問題，而非表面現象。</p>
                         
                         <p><span class="bold">通用職責分配軟體模式 (General Responsibility Assignment Software Patterns, GRASP)</span>提供了一種職責在某些情境下該如何分配的模式。</p>
                     </section>
@@ -102,15 +102,15 @@
 
                         <p>GRASP 注重的是以及切入的角度是<span class="bold">職責的分配</span>，並且能透過 GRASP 去推導出每一種設計模式對於不同情境的解決方法是如何產生的。GRASP 有九個模式。</p>
                         <ul>
-                            <li>信息專家 (information expert) : 如何進行職責的分配?</li>
-                            <li>控制器 (Controller) : 職責分配時，負責接收與協調(控制)來自 UI 層的訊息，以選擇對應的系統操作的第一個物件是哪個?</li>
-                            <li>創造者 (Creator) : 職責分配時，誰有職責創建物件 A?</li>
-                            <li>高內聚 (High Cohsion) : 如何使系統、物件的交互容易理解與管理?</li>
-                            <li>低耦合 (Low Coupling) : 如何減少不相干的元素間的互相影響?</li>
-                            <li>防止變異 (Protected Variation) : 如何處理元素的不確定性、可擴展性?</li>
-                            <li>多態 (Polymorphism) : 出現大量 if - else、switch ，並且在之後需要不斷更改其中的程式碼，要如何實作解決?</li>
-                            <li>純虛構 (Pure Fabrication) : 依照信息專家分配後，仍有職責過多的問題，該如何處理?</li>
-                            <li>間接性、中介 (Indirection) : 如何減少對物件 A 的依賴，從而達到靈活與低耦合?</li>
+                            <li>信息專家 : 如何進行職責的分配?</li>
+                            <li>控制器 : 職責分配時，負責接收與協調(控制)來自 UI 層的訊息，以選擇對應的系統操作的第一個物件是哪個?</li>
+                            <li>創造者 : 職責分配時，誰有職責創建物件 A?</li>
+                            <li>高內聚 : 如何使系統、物件的交互容易理解與管理?</li>
+                            <li>低耦合 : 如何減少不相干的元素間的互相影響?</li>
+                            <li>防止變異 : 如何處理元素的不確定性、可擴展性?</li>
+                            <li>多態 : 出現大量 if - else、switch ，並且在之後需要不斷更改其中的程式碼，要如何實作解決?</li>
+                            <li>純虛構 : 依照信息專家分配後，仍有職責過多的問題，該如何處理?</li>
+                            <li>間接性、中介 : 如何減少對物件 A 的依賴，從而達到靈活與低耦合?</li>
                         </ul>
                         <p>以信息專家為主，高內聚、低耦合為輔，控制器、創造者、防止變異、多態、純虛構、中介為具體實現，GRASP 提供了一套層次不一的原則用以建構一個靈活易懂的系統。</p>
                     </section>
@@ -118,8 +118,8 @@
                     <section class="chapter2-3">
                         <div id="anchor.2-3"></div>
                         <h3>獲得了什麼?</h3>
-                        <img src="/image/grasp1_2.png" alt="grasp的厲害!">
-                        <p class="img_description">grasp的組合拳 <a target="_blank" href="https://memes.tw/maker/painter/16145#!">圖片來源</a></p>
+                        <img src="/image/grasp1_2.webp" alt="grasp的厲害!">
+                        <p class="img_description">grasp的組合拳，<a target="_blank" href="https://memes.tw/maker/painter/16145#!">圖片來源</a></p>
 
                         <p>靈活易懂的系統，或許太宏大了，用 GRASP 來解釋在開頭提到的工廠模式，過程會是這樣的。</p>
                         <ol>
