@@ -39,10 +39,6 @@
     --highlight: #453f34;
 }
 
-.high-light {
-    background: var(--highlight);
-}
-
 /* 全局樣式 */
 body {
     font-family: "Poppins", "Noto Sans TC", "Segoe UI", Arial, '文泉驛正黑', 'WenQuanYi Zen Hei', '儷黑 Pro', 'LiHei Pro', '微軟正黑體', 'Microsoft JhengHei', sans-serif;
@@ -54,6 +50,7 @@ body {
     /* 使用淺色背景 */
     color: var(--color);
     /* 深色文字 */
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 h1 {

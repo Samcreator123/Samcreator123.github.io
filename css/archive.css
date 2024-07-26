@@ -18,7 +18,7 @@
 }
 
 main {
-    max-width: 550px;
+    max-width: 730px;
     /* 設置最大寬度 */
 }
 
@@ -47,13 +47,12 @@ main .archive .vertical-line .record {
     display: flex;
     margin: 0 auto;
     /* 居中對齊 */
-    max-width: 650px;
-    /* 設置最大寬度 */
     align-items: baseline;
     /* 確保子元素在同一條底線上 */
 }
 
 main .archive .vertical-line .record {
+    padding: 0.5rem 0 0.5rem 0;
     border-left: var(--color) 1px dashed;
 }
 

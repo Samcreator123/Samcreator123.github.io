@@ -1,5 +1,5 @@
 const config = {
-    isDevelopmentEnv : false,
+    isDevelopmentEnv: true,
 };
 
 export default config;

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GRASP概論</title>
+    <link rel="icon" href="/icon.png" type="image/x-icon">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/note.css">
+    <link rel="stylesheet" href="/thrid-party/prism-okaidia.min.css" >
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap" rel="stylesheet">
+    <script>
+        (function() {
+          var theme = localStorage.getItem('theme') || (window.matchMedia("(prefers-color-scheme: dark)").matches ? 'dark' : 'light');
+          document.documentElement.classList.add(theme + '-theme');
+        })();
+      </script>
+</head>
+<body>
+    <div class="note-content">
+        <aside id="outline">
+            <section class="outline">
+                <ul>
+                    <li class="outline-level-1"><a id="outline.1">情境</a></li>
+                    <li class="outline-level-1"><a id="outline.2">GRASP 概論</a></li>
+                    <ul>
+                        <li class="outline-level-2"><a id="outline.2-2">GRASP怎麼實作?</a></li>
+                        <li class="outline-level-2"><a id="outline.2-3">獲得了什麼?</a></li>
+                    </ul>
+                    <li class="outline-level-1"><a id="outline.3">作者心得</a></li>
+                </ul>
+            </section>
+        </aside>
+        <main id="main-content">
+            <div id = "header-template"></div>
+
+            <article>
+                <h2 class="note-title">通用職責分配軟體模式概要 | General Responsibility Assignment Software Patterns, GRASP</h2>
+                <section class="date-and-tags">
+                    <section class="date">
+                        <span class="date">2024-07-26</span>
+                    </section>
+                    <section class="tags">
+                        <span class="tag"><a href="./tags/grasp.html">GRASP</a></span>
+                    </section>
+                </section>
+                <hr>
+    
+    
+                <section class="abstract">
+                    <img src="/image/grasp1_3.png" alt="工程師的秘密武器ChatGPT!">
+                    <p class="img_description">工程師的秘密武器雀老師!! <a target="_blank" href="https://memes.tw/maker/painter/1583">圖片來源</a></p>
+                </section>
+    
+    
+    
+                <section class="chapter1">
+    
+                    <div id="anchor.1"></div>
+                    
+                    <h2 class="primary_header">情境</h2>
+                    <section class="quote">
+                        <p class="content">“ 最嚴重的錯誤並非來自錯誤的答案，真正危險的是問錯了問題。 ”</p>
+                        <p class="author">― Peter Drucker</p>
+                    </section>
+                    <p>有沒有遇過遇到一個物件的創建邏輯會寫得很長，此時經驗告訴你，寫在建構子會不太妙，會超過你在網路上看到的一個類別不能超過200行還是80行 ，該怎麼辦?</p>
+                    <p>然後你問ChatGPT，發現有個工廠模式可以用，然後很快的，ChatGPT 把改良後的程式碼給打了出來，複製貼上，ChatGPT我的超人。</p>
+
+                    <img src="/image/grasp1_1.png" alt="ChatGPT 快救救我呀">
+                    <p class="img_description">ChatGPT 快救救我呀 <a target="_blank" href="https://chatgpt.com">圖片來源</a></p>
+                
+                    <p>隔天的 code review，面對 mentor 的好心提問，為什麼這個類別，名稱後面有一個 Factory ? 為什麼要使用工廠模式?</p>
+                    <p>面對看不懂的人，他們會說，我覺得寫在同一個類別這樣我只要開一個檔案就能全部看見就好，幹嘛搞這麼複雜? 此時你除了說會超過200行以外，還能說些甚麼?</p>
+
+                </section>
+                <hr>
+
+                
+                <section class="chapter2">
+    
+                    <div id="anchor.2"></div>
+                    <section class="chapter2-1">
+                        <h2 class="primary_header">GRASP 概論</h2>
+                        <section class="quote">
+                            <p class="content">“ GRASP原則或模式是一種學習工具，它能幫助你理解基本物件設計，並以一種系統的、合理的、可解釋的方式來運用設計推理 ”</p>
+                            <p class="author">―  Craig Larman, applying uml and patterns 3rd edition, ch17.4</p>
+                        </section>
+                        <p>在這個上面例子中200行說不定只是實踐設計原則的所產生的結果，一種良好的副產品。在解答越來越容易取得的當下，脈絡的澄清變得十分重要，這有助於理解為甚麼是這個答案以及多個解決方案中有甚麼具體的差異。</p>
+                        
+                        <p>模式為在一個脈絡、環境、上下文中常見的問題的解決方法，並且該解決方法是經過實踐可行的，而相較於GOF的設計模式，SOLID 與本文提到的 GRASP 能夠以更全面、更普遍的去解釋一個問題的解決方法，也能使我們辨認出真正的問題，而非表面現象。</p>
+                        
+                        <p><span class="bold">通用職責分配軟體模式 (General Responsibility Assignment Software Patterns, GRASP)</span>提供了一種職責在某些情境下該如何分配的模式。</p>
+                    </section>
+                    
+                    <section class="chapter2-2">
+                        <div id="anchor.2-2"></div>
+                        <h3>GRASP怎麼實作?</h3>
+
+                        <p>GRASP 注重的是以及切入的角度是<span class="bold">職責的分配</span>，並且能透過 GRASP 去推導出每一種設計模式對於不同情境的解決方法是如何產生的。GRASP 有九個模式。</p>
+                        <ul>
+                            <li>信息專家 (information expert) : 如何進行職責的分配?</li>
+                            <li>控制器 (Controller) : 職責分配時，負責接收與協調(控制)來自 UI 層的訊息，以選擇對應的系統操作的第一個物件是哪個?</li>
+                            <li>創造者 (Creator) : 職責分配時，誰有職責創建物件 A?</li>
+                            <li>高內聚 (High Cohsion) : 如何使系統、物件的交互容易理解與管理?</li>
+                            <li>低耦合 (Low Coupling) : 如何減少不相干的元素間的互相影響?</li>
+                            <li>防止變異 (Protected Variation) : 如何處理元素的不確定性、可擴展性?</li>
+                            <li>多態 (Polymorphism) : 出現大量 if - else、switch ，並且在之後需要不斷更改其中的程式碼，要如何實作解決?</li>
+                            <li>純虛構 (Pure Fabrication) : 依照信息專家分配後，仍有職責過多的問題，該如何處理?</li>
+                            <li>間接性、中介 (Indirection) : 如何減少對物件 A 的依賴，從而達到靈活與低耦合?</li>
+                        </ul>
+                        <p>以信息專家為主，高內聚、低耦合為輔，控制器、創造者、防止變異、多態、純虛構、中介為具體實現，GRASP 提供了一套層次不一的原則用以建構一個靈活易懂的系統。</p>
+                    </section>
+                    
+                    <section class="chapter2-3">
+                        <div id="anchor.2-3"></div>
+                        <h3>獲得了什麼?</h3>
+                        <img src="/image/grasp1_2.png" alt="grasp的厲害!">
+                        <p class="img_description">grasp的組合拳 <a target="_blank" href="https://memes.tw/maker/painter/16145#!">圖片來源</a></p>
+
+                        <p>靈活易懂的系統，或許太宏大了，用 GRASP 來解釋在開頭提到的工廠模式，過程會是這樣的。</p>
+                        <ol>
+                            <li>高內聚 (High Cohsion) : 也就是一個物件當中的子元素，必須是彼此相關的並且物件應該是要關注他的職責，而不是創建邏輯，創建邏輯過長會導致模糊了關注點，因此必須將創建邏輯分離。</li>
+                            <li>純虛構 (Pure Fabrication) : 依照純虛構，我們可以將這個創建的職責，憑空創建一個物件來負責，在這個語境下，該物件被稱為工廠，因為純虛構本身只負責一個職責，因此它是高內聚的。</li>
+                            <li>低耦合 (Low Couping) : 也因為將創建邏輯分離出去，因此可以避免以下幾種麻煩，降低被創建物件與系統的耦合，達到重複利用的效果。
+                                <ol>
+                                    <li>注入的物件多，將創建邏輯分離出去，可以達到被創建物件與注入物件的低耦合。</li>
+                                    <li>判斷條件複雜，通常判斷條件是與該物件被創建的情境有關，將判斷條件分離出去，可以達到情境與被注入物件的低耦合。</li>
+                                </ol>
+                            </li>
+                        </ol>
+                        <p>相信這一套組合拳下來，mentor 滿意的微笑、看不懂的其他人也會看傻的贊同。</p>
+                    </section>
+                </section>
+                <hr>
+
+                
+                <section class="chapter3">
+                    <div id="anchor.3"></div>
+                    <h2 class="primary_header">作者心得</h2>
+                    <p>我的大四第一份實習時，mentor 一步一步的帶我完成了一個 ETL 的簡單 Project 後，就交給我一本大話設計模式，感覺很多人都看過這本，應該是中文講解設計模式很出名的一本書。</p>
+                    <p>裡面透過一連串的故事，逐步的講解每個設計模式與運用的情境，很快就看完了，但就是覺得還是不太懂，在之後的實習過程，才發現了解一些更加普遍的背景知識之後，書裡面的內容都可以使用解數學方程式一般從問題推理出答案。</p>
+                    <p>就像我在<a href="./problem_and_solution_domain_ch1.html" target="_blank">問題領域與解決方案領域</a>提到的，只有瞭解了脈絡才能懂問題跟解決方案，因此只有瞭解了甚麼是物件導向、物件導向分析、更底層設計原理才能了解設計模式。</p>
+                </section>
+                <hr>
+
+    
+            </article> 
+            <section class="references">
+                <h3>參考資料</h3>
+                <ul>
+                    <li><a target="_blank" href="https://www.amazon.com/Applying-UML-Patterns-Introduction-Object-Oriented/dp/0131489062">Applying UML and Patterns: An Introduction to Object-Oriented Analysis and Design and Iterative Development</a></li>
+                    <li><a target="_blank" href="https://langzi989.github.io/2017/01/08/GRASP%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%EF%BC%88%E8%81%8C%E8%B4%A3%E5%88%86%E9%85%8D%E5%8E%9F%E5%88%99%EF%BC%89/">GRASP设计原则（职责分配原则）</a></li>
+                </ul>
+            </section>
+            <section class="other-file">
+                <h3>也可以看看以下文章</h3>
+                <ul>
+                    <li><a target="_blank" href="./problem_and_solution_domain_ch1.html">問題領域與解決方案領域上篇 | Problem & Solution Domain</a></li>
+                    <li><a target="_blank" href="./problem_and_solution_domain_ch2.html">問題領域與解決方案領域下篇 | Problem & Solution Domain</a></li>
+                </ul>
+            </section>
+            <script src="https://utteranc.es/client.js"
+                repo="Samcreator123/Samcreator123.github.io"
+                issue-term="https://samcreator123.github.io/coding/problem_and_solution_domain"
+                theme="preferred-color-scheme"
+                crossorigin="anonymous"
+                async>
+            </script>
+            <hr>
+            <div id = "footer-template"></div>
+        </main>
+        <div id="sidebar"></div>
+    </div>
+    
+    <script type="module" src="/js/Initialization/acticle-init.js"></script>
+    <script src="/thrid-party/prism.min.js"></script>
+    <script src="/thrid-party/prism-csharp.min.js"></script>
+</body>
+</html>

@@ -13,6 +13,12 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap" rel="stylesheet">
+    <script>
+        (function() {
+          var theme = localStorage.getItem('theme') || (window.matchMedia("(prefers-color-scheme: dark)").matches ? 'dark' : 'light');
+          document.documentElement.classList.add(theme + '-theme');
+        })();
+      </script>
 </head>
 <body>
     <div class="note-content">
@@ -39,7 +45,7 @@
                         <span class="date">2024-07-12</span>
                     </section>
                     <section class="tags">
-                        <span class="tag"><a href="./tags/glossary.html">名詞解釋</a></span>
+                        <span class="tag"><a href="./tags/problem_and_solution_domain.html">問題與解決方案</a></span>
                     </section>
                 </section>
                 <hr>
@@ -85,7 +91,7 @@
                     <section class="chapter2-1">
                         <h2 class="primary_header">問題領域 | Problem Domain</h2>
                         <section class="quote">
-                            <p class="content">“ Problem space is where all the customer needs that you’d like your product to deliver live. You shouldn’t interpret the word “needs” too narrowly: Whether it’s a customer pain point, a desire, a job to be done, or a user story, it lives in problem space. ”</p>
+                            <p class="content">“ 問題空間是指包含了你希望你的產品能滿足的所有客戶需求的領域。你不應該將"需求"一詞理解得太狹隘:無論是客戶的痛點、願望、待完成的工作,還是用戶故事,都存在於問題空間中。 ”</p>
                             <p class="author">― DAN OLSEN, THE LEAN PRODUCT PLAYBOOK, CHAPTER 2</p>
                         </section>
                         <p>只有知道問題長怎麼樣，才能去正確的解決。問題與解決方案如同感覺與語言，只有真確地了解到自己的感覺，才能用適當的語言表達，否則就是胡言亂語、心口不一了。</p>
@@ -172,11 +178,12 @@
                 crossorigin="anonymous"
                 async>
             </script>
+            <hr>
             <div id = "footer-template"></div>
         </main>
         <div id="sidebar"></div>
     </div>
-    <hr>
+    
     <script type="module" src="/js/Initialization/acticle-init.js"></script>
     <script src="/thrid-party/prism.min.js"></script>
     <script src="/thrid-party/prism-csharp.min.js"></script>
