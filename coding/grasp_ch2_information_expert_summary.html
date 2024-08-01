@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sam's blog 工廠模式</title>
+    <title>Sam's blog 訊息專家模式</title>
+    <meta name="description" content="訊息專家原則是，把職責分配給具有完成該職責所需訊息的那個類別。透過訊息專家的方法，可以大幅度的解決物件擁有過多職責，並且獲得一個容易理解的系統。">
     <link rel="icon" href="/icon.png" type="image/x-icon">
     <link rel="stylesheet" href="/css/styles.css">
     <link rel="stylesheet" href="/css/note.css">
@@ -17,18 +18,18 @@
           var theme = localStorage.getItem('theme') || (window.matchMedia("(prefers-color-scheme: dark)").matches ? 'dark' : 'light');
           document.documentElement.classList.add(theme + '-theme');
         })();
-      </script>
+    </script>
 </head>
 <body>
     <div class="note-content">
         <aside id="outline">
             <section class="outline">
                 <ul>
-                    <li class="outline-level-1"><a id="outline.1">1</a></li>
-                    <li class="outline-level-1"><a id="outline.2">2</a></li>
+                    <li class="outline-level-1"><a id="outline.1">情境</a></li>
+                    <li class="outline-level-1"><a id="outline.2">訊息專家</a></li>
                     <ul>
-                        <li class="outline-level-2"><a id="outline.2-2">2-2</a></li>
-                        <li class="outline-level-2"><a id="outline.2-3">2-3</a></li>
+                        <li class="outline-level-2"><a id="outline.2-2">職責</a></li>
+                        <li class="outline-level-2"><a id="outline.2-3">訊息專家怎麼實作?</a></li>
                     </ul>
                     <li class="outline-level-1"><a id="outline.3">3</a></li>
                 </ul>

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sam's blog 訊息專家模式</title>
+    <meta name="description" content="訊息專家原則是，把職責分配給具有完成該職責所需訊息的那個類別。透過訊息專家的方法，可以大幅度的解決物件擁有過多職責，並且獲得一個容易理解的系統。">
+    <link rel="icon" href="/icon.png" type="image/x-icon">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/note.css">
+    <link rel="stylesheet" href="/thrid-party/prism-okaidia.min.css" >
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap" rel="stylesheet">
+    <script>
+        (function() {
+          var theme = localStorage.getItem('theme') || (window.matchMedia("(prefers-color-scheme: dark)").matches ? 'dark' : 'light');
+          document.documentElement.classList.add(theme + '-theme');
+        })();
+    </script>
+</head>
+<body>
+    <div class="note-content">
+        <aside id="outline">
+            <section class="outline">
+                <ul>
+                    <li class="outline-level-1"><a id="outline.1">情境</a></li>
+                    <li class="outline-level-1"><a id="outline.2">訊息專家</a></li>
+                    <ul>
+                        <li class="outline-level-2"><a id="outline.2-2">訊息專家怎麼實作?</a></li>
+                        <li class="outline-level-2"><a id="outline.2-3">例子的情境</a></li>
+                    </ul>
+                    <li class="outline-level-1"><a id="outline.3">作者心得</a></li>
+                </ul>
+            </section>
+        </aside>
+        <main id="main-content">
+            <div id = "header-template"></div>
+
+            <article>
+                <h2 class="note-title">訊息專家三部曲 概論篇 | Information Expert </h2>
+                <section class="date-and-tags">
+                    <section class="date">
+                        <span class="date">2024-08-01</span>
+                    </section>
+                    <section class="tags">
+                        <span class="tag"><a href="./tags/grasp.html">GRASP</a></span>
+                    </section>
+                </section>
+                <hr>
+    
+    
+                <section class="abstract">
+                    <img src="/image/grasp2_1.webp" alt="資訊專家就是老大。">
+                    <p class="img_description">資訊專家就是老大，<a target="_blank" href="https://memes.tw/maker/painter/49790">圖片來源</a></p>
+                </section>
+    
+    
+    
+                <section class="chapter1">
+    
+                    <div id="anchor.1"></div>
+                    
+                    <h2 class="primary_header">情境</h2>
+                    <section class="quote">
+                        <p class="content">“ 在物件導向開發中，至關重要的能力是熟練的為物件分配職責。 ”</p>
+                        <p class="author">― Craig Larman, Applying UML and Patterns 3rd, ch1.2</p>
+                    </section>
+
+                    <p>如果是剛出社會的軟體工程師，相信大家都有看過古老的程式，
+                        裡面有著許多物件，你不知道那些物件，因為那些物件是屬於專業領域的專業術語，然後你想說</p>
+
+                    <section class="content-explanation">
+                        <p class="content">「我想要成為一名優秀的員工哼! 才區區幾萬行，當學生都不知道讀了多少書，輕輕鬆鬆!。」</p>
+                    </section>
+                    <p>然後前輩跟你講，這個很複雜喔，你先看，有不會再問我們。</p>
+
+                    <p>過了兩三天，你的心態開始有些轉變了，你發現了以下幾個問題</p>
+                    <ul>
+                        <li>這隻企鵝怎麼會飛啊!</li>
+                        <li>這個物件怎麼包山包海啊!</li>
+                        <li>這個專業術語怎麼跟網路上查的好不一樣!</li>
+                    </ul>
+                    <p>此時前輩的叮嚀「這個很複雜喔，你先看，有不會再問我們」，就像是最後一根救命稻草，你拿著筆電去詢問，詢問結束後，大概會有以下情況 :</p>
+                    <ul>
+                        <li>前輩劈哩趴拉說了一堆，你也是糊里糊塗的似懂非懂。</li>
+                        <li>講到一半，前輩反問你「考考你那為甚麼這程式碼是這樣寫」。</li>
+                        <li>前輩搖頭說，這就是技術債，沒辦法…</li>
+                    </ul>
+                    <p>此時你的腦袋是混亂的、心態是崩潰的，開始想著，我是不是不適合當軟體工程師….</p>
+
+                </section>
+                <hr>
+
+                
+                <section class="chapter2">
+    
+                    <div id="anchor.2"></div>
+    
+                    <section class="chapter2-1">
+                        <h2 class="primary_header">訊息專家</h2>
+                        <p><span class="bold">職責為一個物件需要做的操作</span>，在 UML 中職責被定義為類元的契約或義務；在編寫程式碼中方法為職責的實作，職責是某個<span class="bold">概念的行為</span>，例如 : 狗會『跑』、羊會『叫』、玩家會『抽牌』、骰子會『呈現數字』。</p>
+                        <p>那具體的職責分配該怎麼實作呢? 我需要一套SOP! 此時就是訊息專家的步驟出場的時候了。</p>
+                    </section>
+                    
+                    <section class="chapter2-2">
+                        <div id="anchor.2-2"></div>
+                        <h3>訊息專家怎麼實作?</h3>
+                        <section class="quote">
+                            <p class="content">“ 把職責分配給具有完成該職責所需訊息的那個類別。 ”</p>
+                            <p class="author">― Craig Larman. Applying UML and Patterns 3rd, ch17.8</p>
+                        </section>
+                        <p>在進行分析與設計時，<span class="bold">概念會有其所攜帶的訊息，也就是類別的屬性</span>。</p>
+                        <p>行為的完成通常需要這些屬性來進行，因此<span class="bold">當一個物件具有某行為 (方法) 需要的所有訊息 (入參)，則可以將該職責分配給物件</span>，可以說因為該物件是這個職責的訊息專家，所以將職責由它實現。</p>
+                        <p>而具體的有四步驟</p>
+                        <ol>
+                            <li>陳述職責</li>
+                            <li>概括該職責所需訊息</li>
+                            <li>列出所需資料的提供者(物件)</li>
+                            <li>判斷職責的歸屬</li>
+                        </ol>
+                        <p>透過以上四步驟、再配合用例分析出的物件與職責，基本上對於物件的職責分配有個基礎的理解與手段。</p>
+                    </section>
+                    
+                    <section class="chapter2-3">
+                        <div id="anchor.2-3"></div>
+                        <h3>例子的情境</h3>
+                        <p>以下是一個簡化版本的訂單總價的計算，以下是用例分析。</p>
+                        <section class="content-explanation">
+用例 : 計算訂單總價<br>
+<br>
+主要參與者 : 顧客<br>
+<br>
+前置條件<br>
+顧客已經選擇了一些商品並添加到購物車中<br>
+系統中已經有這些商品的價格信息<br>
+顧客開始結賬流程<br>
+<br>
+主要流程<br>
+1. 計算每件訂單項目的小計（商品單價 * 數量）<br>
+2. 將所有訂單項目相加，得出訂單總價<br>
+3. 顯示計算出的總價給顧客<br>
+<br>
+後置條件<br>
+訂單的總價被正確計算並顯示給顧客<br>
+                        </section>
+
+                        <p>在這個案例中，我們能知道職責是計算訂單總價，並且從主要流程中知道有訂單、訂單項目、商品這幾個物件，知道了訊息專家的四步驟，接下來你會怎麼用程式碼表達呢? </p>
+                    
+                    </section>
+                </section>
+                <hr>
+
+                
+                <section class="chapter3">
+                    <div id="anchor.3"></div>
+                    <h2 class="primary_header">作者心得</h2>
+                    <p>雖然在 Applying UML and Patterns 書裡，相較於訊息專家，控制器、創建者是先介紹的，但訊息專家在我心中是在GRASP中最重要的，因此就先介紹了。</p>
+                    <p>信息專家雖然只有四個步驟跟<span class="bold">把職責分配給具有完成該職責所需訊息的那個類別這個簡單的敘述</span>，但其實包含了其他很多的設計原則，這在之後的第三篇會進行介紹。</p>
+                    <p>沒想到吧! 一個訊息專家可以寫三篇。</p>
+                </section>
+                
+    
+            </article> 
+            <section class="references">
+                <h3>參考資料</h3>
+                <ul>
+                    <li><a target="_blank" href="https://www.amazon.com/Applying-UML-Patterns-Introduction-Object-Oriented/dp/0131489062">Applying UML and Patterns: An Introduction to Object-Oriented Analysis and Design and Iterative Development</a></li>
+                </ul>
+               
+            </section>
+            <section class="other-file">
+                <h3>也可以看看以下文章</h3>
+                <ul>
+                    <li><a target="_blank" href="./grasp_ch1.html">GRASP概論</a></li>
+                </ul>
+            </section>
+            <script src="https://utteranc.es/client.js"
+                repo="Samcreator123/Samcreator123.github.io"
+                issue-term="https://samcreator123.github.io/coding/problem_and_solution_domain"
+                theme="preferred-color-scheme"
+                crossorigin="anonymous"
+                async>
+            </script>
+            <hr>
+            <div id = "footer-template"></div>
+        </main>
+        <div id="sidebar"></div>
+    </div>
+    <script type="module" src="/js/Initialization/acticle-init.js"></script>
+    <script src="/thrid-party/prism.min.js"></script>
+    <script src="/thrid-party/prism-csharp.min.js"></script>
+</body>
+</html>
