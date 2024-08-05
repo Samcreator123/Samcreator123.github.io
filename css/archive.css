@@ -74,7 +74,6 @@ main .archive .vertical-line .record ::before {
 
 main .archive .vertical-line .record .date {
     color: #969393;
-    ;
     padding-left: 2rem;
     font-size: 10px;
 }

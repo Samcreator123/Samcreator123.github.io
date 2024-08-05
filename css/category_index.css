@@ -4,7 +4,9 @@ a.note {
 
 span.date {
     color: #969393;
+    max-width: 100px;
 }
+
 
 .category_title {
     margin-bottom: 0;
@@ -13,4 +15,14 @@ span.date {
 ul {
     margin-top: 1rem;
     color: #969393;
+}
+
+.tags-section .date,
+.tags-section .note {
+    display: table-cell;
+}
+
+.tags-section .date {
+    width: 100px;
+    /* 根據需要調整寬度 */
 }
