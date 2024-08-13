@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sam's blog 訊息專家模式 例子篇</title>
-    <meta name="description" content="透過反面例子，來凸顯如果沒有一套分配職責的原則，最後程式碼會變成怎樣的一個結果，並利用訊息專家的思路，去修改，讓程式變得更易懂。">
+    <title>Sam's blog 訊息專家模式 總結篇</title>
+    <meta name="description" content="在確定商業流程後，訊息專家做為分配職責的第一個步驟，而透過訊息專家分配職責的程式符合低表示差異(Low Representional Gap, LRG)、迪米特法則的特性，在讓程式的可讀性、耦合度大幅下降。">
     <link rel="icon" href="/icon.png" type="image/x-icon">
     <link rel="stylesheet" href="/css/styles.css">
     <link rel="stylesheet" href="/css/note.css">
@@ -25,13 +25,14 @@
         <aside id="outline">
             <section class="outline">
                 <ul>
-                    <li class="outline-level-1"><a id="outline.1">情境</a></li>
-                    <li class="outline-level-1"><a id="outline.2">訊息專家</a></li>
+                    <li class="outline-level-1"><a id="outline.1">複習前篇</a></li>
+                    <li class="outline-level-1"><a id="outline.2">低表示差異、迪米特法則</a></li>
                     <ul>
-                        <li class="outline-level-2"><a id="outline.2-2">職責</a></li>
-                        <li class="outline-level-2"><a id="outline.2-3">訊息專家怎麼實作?</a></li>
+                        <li class="outline-level-2"><a id="outline.2-2">低表示差異</a></li>
+                        <li class="outline-level-2"><a id="outline.2-3">迪米特法則</a></li>
                     </ul>
-                    <li class="outline-level-1"><a id="outline.3">3</a></li>
+                    <li class="outline-level-1"><a id="outline.3">訊息專家的極限</a></li>
+                    <li class="outline-level-1"><a id="outline.4">作者心得</a>
                 </ul>
             </section>
         </aside>
@@ -39,21 +40,21 @@
             <div id = "header-template"></div>
 
             <article>
-                <h2 class="note-title">問題領域與解決方案領域上篇 | Problem & Solution Domain</h2>
+                <h2 class="note-title">訊息專家三部曲(三) 總結篇 | Information Expert's Summary </h2>
                 <section class="date-and-tags">
                     <section class="date">
-                        <span class="date">2024-07-12</span>
+                        <span class="date">2024-08-13</span>
                     </section>
                     <section class="tags">
-                        <span class="tag"><a href="./tags/grasp.html">名詞解釋</a></span>
+                        <span class="tag"><a href="./tags/grasp.html">GRASP</a></span>
                     </section>
                 </section>
                 <hr>
     
     
                 <section class="abstract">
-                    <img src="/image/p&s_d2.webp" alt="customer wanted vs developer maked.">
-                    <p class="img_description">客戶與開發者的理解</p>
+                    <img src="/image/grasp3_1.webp" alt="What are you doing! Billy!">
+                    <p class="img_description">What are you doing! Billy!，<a target="_blank" href="https://memes.tw/wtf/562146">圖片來源</a></p>
                 </section>
     
     
@@ -62,8 +63,10 @@
     
                     <div id="anchor.1"></div>
                     
-                    <h2 class="primary_header">情境</h2>
-                    
+                    <h2 class="primary_header">複習前篇</h2>
+                    <p>在<a target="_blank" href="./grasp_ch2_information_expert_example.html">前篇中</a>展示了反面例子，以及如何按照了訊息專家的四步驟讓職責找到歸屬，並提及使用職責與實現職責的區別，在本篇中將會使用低表示差異與迪米特法則去支持資訊專家的論點。</p>
+
+                    <p>但資訊專家也有他的極限，就像某個角色是最強的，但還是逃不過龍鱗、反發、成雙之流星一樣，在最後也會提及資訊專家的極限。</p>
                 </section>
                 <hr>
 
@@ -73,19 +76,70 @@
                     <div id="anchor.2"></div>
     
                     <section class="chapter2-1">
-                        <h2 class="primary_header">問題領域 | Problem Domain</h2>
+                        <h2 class="primary_header">低表示差異、迪米特法則</h2>
+                        <p><span class="bold">一個好的概念或原則不會孤立的存在</span>，而資訊專家作為分配職責的基本原則，當然是與許多設計原則相交呼應，但礙於個人的知識也有極限，覺得比較接近的就是以下兩個</p>
+                        <ul>
+                            <li>低表示差異</li>
+                            <li>迪米特法則</li>
+                        </ul>
                     </section>
                     
                     <section class="chapter2-2">
                         <div id="anchor.2-2"></div>
-                        <h3>問題領域.1</h3>
-
+                        <h3>低表示差異 | Low Representional Gap, LRG</h3>
+                        <section class="quote">
+                            <p class="content">“ 選擇反映領域詞彙的名稱可以，能夠增強且快速的理解，並且為程式碼區塊的預期功能提供線索。 ”</p>
+                            <p class="author">― Craig Larman. Applying UML and Patterns, ch10.9</p>
+                        </section>
+                        <p>在最一開始<a target="_blank" href="./grasp_ch2_information_expert.html">情境</a>描述的</p>
+                        <ul>
+                            <li>這隻企鵝怎麼會飛啊 ! </li>
+                            <li>這個物件怎麼包山包海啊 !  </li>
+                            <li>這個專業術語怎麼跟網路上查的好不一樣 !</li>
+                        </ul>
+                        <p>都可以不嚴謹的都可以歸因成<span class="bold">軟體與認知、真實世界差異過大</span>，而當差異過大，導致軟體是另一個世界，後續維護者要認識兩個世界，並且還要當其中的翻譯官。</p>
+                        <p>低表示差異提倡，<span class="bold">現實中的概念與關係要能實在地反映在軟體中</span>，這樣有兩個好處</p>
+                        <ul>
+                            <li>該系統貼近常識與認知。</li>
+                            <li>就算沒有接觸過該軟體呈現的領域，但其中的概念與關係要 google 或查 ChatGPT 會十分方便。</li>
+                        </ul>
+                        <p>資訊專家透過一套原則將職責分配給對應類別，或者說概念，使得不會開發時新增一堆純虛構的概念，同時，也讓概念與對應的行為有著緊密的聯繫。</p>
+                        <p>在領域驅動設計中，更進一步要求開發者、客戶、業務在開發時針對某一概念的名稱一致，也就是統一語言 (Ubiquitouse language)，更進一步減少溝通時的成本。</p>
                     </section>
                     
                     <section class="chapter2-3">
                         <div id="anchor.2-3"></div>
-                        <h3>問題領域.2</h3>
-
+                        <h3>迪米特法則 | Law of Demeter</h3>
+                        <section class="quote">
+                            <p class="content">“ Only talk to your immediate friends ”</p>
+                        </section>
+                        <p>在反面例子，以及講解為什麼他是反面例子中，我們看到以下的程式碼</p>
+                        <div class="code-container">
+                            <div class="code-information">
+                                <div class="language">csharp</div>
+                                <div class="copy_button">📝copy</div>
+                            </div>
+                            <pre class="code">
+                                <code class="language-csharp">
+total += item.GetProduct().GetPrice() * item.GetQuantity();                
+                                </code>
+                            </pre>
+                        </div>
+                        <p>這種 A 物件利用 B 物件去獲得 C 物件的操作，並且沒有領域概念的支援，將會拉大表示差異、提高系統的耦合度。</p>
+                        <p>而迪米特原則 (Law of Demeter)，也稱為最少知識原則 (The Least Knowledge Principle) 提倡物件 A 的方法 M 只能調用以下的方法 </p>
+                        <section class="content-explanation">
+                            <ul>
+                                <li>物件 A 本身的方法</li>
+                                <li>作為該方法 M 入參物件 B 的方法</li>
+                                <li>該方法 M 建立的物件 C 的方法</li>
+                                <li>任何直接的物件的方法</li>
+                            </ul>
+                        </section>
+                        <p>迪米特原則也是封裝性的一種展現，通常會違反迪米特法則，都是物件暴露了太多自身的訊息，因此當一個物件全部都是 Getter、Setter，就要問自己以下的問題</p>
+                        <section class="question">
+                            <p>這是物件導向設計嗎 ? 還是我只是用著物件導向的語言，然後寫著 DTO 跟方法拼湊而成的程式碼 ?</p>
+                        </section>
+                        <p>資訊專家將職責分配給擁有所需資訊的類別，極大程度避免 A 類別的屬性暴露給 B 類別去進行操作，可以說資訊專家自帶了迪米特原則的特性。</p>
                     </section>
                 </section>
                 <hr>
@@ -93,22 +147,45 @@
                 
                 <section class="chapter3">
                     <div id="anchor.3"></div>
-                    <h2 class="primary_header">作者心得</h2>
-
+                    <h2 class="primary_header">訊息專家的極限</h2>
+                    <section class="quote">
+                        <p class="content">“ 一切的確定皆是否定。 ”</p>
+                        <p class="author">― Baruch Spinoza</p>
+                    </section>
+                    <p>資訊專家看起來就很完美了，將領域映射在軟體，怎麼還會有其他 8 個模式呢 ? 這就要來談設計與分析的差別了</p>
+                    <p>設計與分析的不同在於，分析的目的是知道<span class="bold">系統該做什麼</span>，而設計的目的則是<span class="bold">系統如何做到</span>，前一個貼近問題領域，後一個更關注解決方法領域。</p>
+                    上面的論述太空虛了，來點實例，也就是完全按照資訊專家會有甚麼後果呢 ?
+                    <ul>
+                        <li>職責的擴增 : 訂單具有所有訊息，所以將資料持久化的職責給他是正常的；現在需要驗證訂單，所以驗證的職責交給他是正常的。</li>
+                        <li>職責的複雜度增加 : 隨著開發與依賴項的增加，訂單的結構複雜，導致建構子十分冗長。</li>
+                        <li>屬性的擴增 : 因為持久化，所以將訂單更改時間、訂單創建時間等等，需要追蹤該筆資料非領域知識方面的資訊都加在訂單這個物件上。</li>
+                    </ul>
+                    訂單就這樣一步一步成為 God Class。
+                    <p>因此只有資訊專家是不夠的，還需要低耦合、高內聚、純虛構、SOLID 等等模式加以制衡，制衡資訊專家的同時，也<span class="bold">分解因為要落實在程式碼所以增加的複雜度</span>。</p>
                 </section>
                 
+                <section class="chapter4">
+                    <div id="anchor.4"></div>
+                    <h2 class="primary_header">作者心得</h2>
+                    <p>我非常喜歡要認識一個東西要知道<span class="bold">他不是什麼</span>，否定一個東西來確認他的邊界可以有效的避免胡亂使用。</p>
+                    <p>這也是我認為直接接觸設計模式對一個開發者有害的原因，設計模式通常是為了解決一個複雜的交互、結構所提出的模式，但許多的複雜是人為的，有時候是因為沒有適當的分配職責造成的。</p>
+                </section>
     
             </article> 
             <section class="references">
                 <h3>參考資料</h3>
                 <ul>
-                    <li><a target="_blank" href="/">..</a></li>
-                    
+                    <li><a target="_blank" href="https://www.amazon.com/Applying-UML-Patterns-Introduction-Object-Oriented/dp/0131489062">Applying UML and Patterns: An Introduction to Object-Oriented Analysis and Design and Iterative Development</a></li>                    
+                    <li><a target="_blank" href="https://www.oreilly.com/library/view/applying-uml-and/0130925691/0130925691_ch10lev1sec10.html">10.9. Lowering the Representational Gap</a></li>
+                    <li><a target="_blank" href="https://daniel-delimata.medium.com/mastering-the-law-of-demeter-a-testers-guide-to-code-excellence-52b91df658ad.html">Mastering the Law of Demeter: A Tester’s Guide to Code Excellence</a></li>
                 </ul>
                
             </section>
             <section class="other-file">
                 <h3>也可以看看以下文章</h3>
+                <ul>
+                    <li><a target="_blank" href="./grasp_ch2_information_expert_example.html">訊息專家三部曲(二) 例子篇</a></li>
+                </ul>
             </section>
             <script src="https://utteranc.es/client.js"
                 repo="Samcreator123/Samcreator123.github.io"

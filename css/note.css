@@ -3,6 +3,7 @@
     --quote_color: #333333;
     --quote_border: #333333;
     --content_explanation_border: #383866;
+    --question_border: #383866;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -11,7 +12,7 @@
         --quote_color: #c7c4c4;
         --quote_border: #918f8f;
         --content_explanation_border: #6767ba;
-
+        --question_border: #6767ba;
     }
 }
 
@@ -20,6 +21,7 @@
     --quote_color: #333333;
     --quote_border: #333333;
     --content_explanation_border: #0a0a9d;
+    --question_border: #0a0a9d;
 
 }
 
@@ -28,6 +30,7 @@
     --quote_color: #c7c4c4;
     --quote_border: #918f8f;
     --content_explanation_border: #6767ba;
+    --question_border: #6767ba;
 }
 
 div.note-content {
@@ -146,6 +149,7 @@ main .code-container code[class*="language-"] {
     font-size: 0.8rem;
 }
 
+main .question,
 main .content-explanation,
 main .quote {
     border-left: 2px solid var(--quote_border);
@@ -166,9 +170,12 @@ main .quote {
     border-left: 2px solid var(--quote_border);
 }
 
-
 main .quote .author {
     text-align: right;
+}
+
+main .question {
+    border-left: 2px solid var(--question_border);
 }
 
 p.list-context {
