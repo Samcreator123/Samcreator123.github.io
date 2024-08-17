@@ -30,6 +30,7 @@
                     <ul>
                         <li class="outline-level-2"><a id="outline.2-2">低表示差異</a></li>
                         <li class="outline-level-2"><a id="outline.2-3">迪米特法則</a></li>
+                        <li class="outline-level-2"><a id="outline.2-4">奧卡姆剃刀原則</a></li>
                     </ul>
                     <li class="outline-level-1"><a id="outline.3">訊息專家的極限</a></li>
                     <li class="outline-level-1"><a id="outline.4">作者心得</a>
@@ -43,7 +44,7 @@
                 <h2 class="note-title">訊息專家三部曲(三) 總結篇 | Information Expert's Summary </h2>
                 <section class="date-and-tags">
                     <section class="date">
-                        <span class="date">2024-08-13</span>
+                        <span class="date">2024-08-17</span>
                     </section>
                     <section class="tags">
                         <span class="tag"><a href="./tags/grasp.html">GRASP</a></span>
@@ -81,6 +82,7 @@
                         <ul>
                             <li>低表示差異</li>
                             <li>迪米特法則</li>
+                            <li>奧卡姆剃刀原則</li>
                         </ul>
                     </section>
                     
@@ -141,6 +143,27 @@ total += item.GetProduct().GetPrice() * item.GetQuantity();
                         </section>
                         <p>資訊專家將職責分配給擁有所需資訊的類別，極大程度避免 A 類別的屬性暴露給 B 類別去進行操作，可以說資訊專家自帶了迪米特原則的特性。</p>
                     </section>
+
+                    <section class="chapter2-4">
+                        <div id="anchor.2-4"></div>
+                        <h3>奧卡姆剃刀原則 | novacula Occami</h3>
+                        <section class="quote">
+                            <p class="content">“ 若無必要，勿增實體。 ”</p>
+                            <p class="author">― John Punch</p>
+                        </section>
+                        <p>
+                            奧卡姆剃刀原則為，通常對於某個現象或問題，會有各種的解決方案，而當中會有簡單的解決方案與複雜的解決方案，<span class="bold">當兩者等效時，則選擇較為簡單的那一個</span>。
+                        </p>
+                        <p>
+                            用例分析後，我們可以採用不同的實現方法，在<a target="_blank" href="./grasp_ch2_information_expert_example.html">前篇中</a>，我們看到兩種不一樣的解決方案，在其中反面例子相較於修改後的版本，要求我們多認識 OrderCalculator 這個類別。
+                        </p>
+                        <p>
+                            而複雜會隨著元素的增加而同步遞增，除非你很清楚知道該用例在幹嘛，以及背起來解決方案，否則反面例子的複雜性永遠比修正後的要來的複雜，更何況反面例子的分配職責並沒有一個明顯的準則。
+                        </p>
+                        <p>
+                            而資訊專家提供了一個簡明扼要的準則，即當<span class="bold">一個類別擁有某職責的所有訊息，則分配職責到該類別</span>，這會要求<span class="bold">職責永遠分配在用例分析所揭示的元素</span>，而不會另增一個實體(類別)去實作職責。
+                        </p>
+                    </section>
                 </section>
                 <hr>
 
@@ -163,7 +186,8 @@ total += item.GetProduct().GetPrice() * item.GetQuantity();
                     訂單就這樣一步一步成為 God Class。
                     <p>因此只有資訊專家是不夠的，還需要低耦合、高內聚、純虛構、SOLID 等等模式加以制衡，制衡資訊專家的同時，也<span class="bold">分解因為要落實在程式碼所以增加的複雜度</span>。</p>
                 </section>
-                
+                <hr>
+
                 <section class="chapter4">
                     <div id="anchor.4"></div>
                     <h2 class="primary_header">作者心得</h2>
