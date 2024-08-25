@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GRASP 之創建者模式</title>
+    <meta name ="description" content="分配職責時絕對要面臨一個問題，那就是創建物件的職責怎麼分配? 依照資訊專家，建構子一定是物件 A 實現，但誰負責調用並創建該實例呢? 利用 GRASP 的創建者模式來解決以上問題，並且解釋與工廠模式的區別。">
+    <link rel="icon" href="/icon.png" type="image/x-icon">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/note.css">
+    <link rel="stylesheet" href="/thrid-party/prism-okaidia.min.css" >
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap" rel="stylesheet">
+    <script>
+        (function() {
+          var theme = localStorage.getItem('theme') || (window.matchMedia("(prefers-color-scheme: dark)").matches ? 'dark' : 'light');
+          document.documentElement.classList.add(theme + '-theme');
+        })();
+      </script>
+</head>
+<body>
+    <div class="note-content">
+        <aside id="outline">
+            <section class="outline">
+                <ul>
+                    <li class="outline-level-1"><a id="outline.1">情境</a></li>
+                    <li class="outline-level-1"><a id="outline.2">創建者</a></li>
+                    <li class="outline-level-1"><a id="outline.3">創建者案例</a></li>
+                    <ul>
+                        <li class="outline-level-2"><a id="outline.3-2">B 包含 A</a></li>
+                        <li class="outline-level-2"><a id="outline.3-3">B 紀錄 A</a></li>
+                        <li class="outline-level-2"><a id="outline.3-4">B 直接使用 A</a></li>
+                        <li class="outline-level-2"><a id="outline.3-5">B 具有 A 的初始化資訊</a></li>
+                    </ul>
+                    <li class="outline-level-1"><a id="outline.4">創建者與工廠</a></li>
+                    <li class="outline-level-1"><a id="outline.5">作者心得</a></li>
+                </ul>
+            </section>
+        </aside>
+        <main id="main-content">
+            <div id = "header-template"></div>
+
+            <article>
+                <h2 class="note-title">創建者模式 | Creator</h2>
+                <section class="date-and-tags">
+                    <section class="date">
+                        <span class="date">2024-08-25</span>
+                    </section>
+                    <section class="tags">
+                        <span class="tag"><a href="./tags/grasp.html">GRASP</a></span>
+                    </section>
+                </section>
+                <hr>
+    
+    
+                <section class="abstract">
+                    <img src="/image/grasp3_1.webp" alt="創建物件的職責誰負責">
+                    <p class="img_description">設計酒駕眼中的創建物件的職責分配，<a target="_blank" href="https://memes.tw/wtf/517584">圖片來源</a></p>
+                </section>
+    
+    
+    
+                <section class="chapter1">
+    
+                    <div id="anchor.1"></div>
+                    <h2 class="primary_header">情境</h2>
+                    <p>
+                        分配職責時絕對要面臨一個問題，那就是<span class="bold">創建物件的職責怎麼分配? </span>
+                        依照資訊專家，建構子一定是物件 A 實現，但誰負責調用並創建該實例呢 ? 
+                    </p>
+                    <p>
+                        此時就有聰明的同學舉手了，很簡單呀 ! 創建物件不就交給工廠類別負責創建嗎 ? 
+                        在解決創建物件的同時，也不會提升系統的耦合了。
+                        如果真的像這位聰明的同學說的一樣，那這篇文章到這邊就可以結束了，
+                        但後面還有內容，因此繼續看吧 !
+                    </p>
+                    <p>
+                        如果都用工廠模式，就會看到工廠多到滿出來，造成領域概念是工業區的錯覺，
+                        GRASP 的創建者就是解決創建物件這個職責而提出的通用性法則。
+                    </p>                    
+                </section>
+                <hr>
+
+                
+                <section class="chapter2">
+                    <div id="anchor.2"></div>
+                    <section class="chapter2-1">
+                        <h2 class="primary_header">創建者</h2>
+                        <section class="quote">
+                            <p class="content">“ 有一些通用的原則以用於創建職責的分配。如果分配的好，設計就能夠支持低耦合，提高清晰度、封裝性、可複用性。 ”</p>
+                            <p class="author">― Craig Larman, Applying UML and Patterns 3rd, ch17.10</p>
+                        </section>
+                        面對分配創建職責這個問題，可以透過以下關係去分配
+                        <ol>
+                            <li>B 包含 A </li>
+                            <li>B 紀錄 A </li>
+                            <li>B 直接使用 A </li>
+                            <li>B 具有 A 的初始化資訊，並且創建時會傳遞給 A</li>
+                        </ol>
+                        <p>
+                            而如果有超過一個以上的候選人，通常以 B 包含 A 作為首選。
+                        </p>
+                    </section>
+                </section>
+                <hr>
+
+                
+                <section class="chapter3">
+                    <div id="anchor.3"></div>
+                    <h2 class="primary_header">創建者案例</h2>
+                    <p>
+                        talk is cheap, show me the code，所以看看例子吧。
+                    </p>
+                    <section class="chapter3-2">
+                        <div id="anchor.3-2"></div>
+                        <h3>B 包含 A</h3>
+                        <p>
+                            實現新增書籍用例時，因為 Library 包含著 Book，所以可以讓創建 Book 的職責交付給 Library。
+                        </p>
+                        <div class="code-container">
+                            <div class="code-information">
+                                <div class="language">csharp</div>
+                                <div class="copy_button">📝copy</div>
+                            </div>
+                            <pre class="code">
+                               <code class="language-csharp">
+public class Library
+{
+    private List<Book> books = new List<Book>();
+
+    public void AddBook(string title, string author)
+    {
+        Book newBook = new Book(title, author);  // Library 創建 Book
+        books.Add(newBook);
+    }
+}
+
+public class Book
+{
+    public string Title { get; private set;}
+    public string Author { get; private set;}
+
+    public Book(string title, string author)
+    {
+        Title = title;
+        Author = author;
+    }
+}         
+                                 </code>
+                            </pre>
+                        </div>
+                    </section>
+                    
+                    <section class="chapter3-3">
+                        <div id="anchor.3-3"></div>
+                        <h3>B 紀錄 A </h3>
+                        <p>
+                            實現記錄書籍修改用例時，因為 BookLog 紀錄著每個 Book 的修改紀錄，所以 BookLog 可以創建 Book。
+                        </p>
+                        <div class="code-container">
+                            <div class="code-information">
+                                <div class="language">csharp</div>
+                                <div class="copy_button">📝copy</div>
+                            </div>
+                            <pre class="code">
+                               <code class="language-csharp">
+public class BookLog
+{
+    private List<string> _logs = new List<string>();
+
+    public void Record(string title, string author, string action)
+    {
+        Book newBook = new Book(title, author);
+        _logs.Add(newBook.GetBookIdentifier() + "_" + action);
+    }
+}
+
+public class Book
+{
+    public string Title { get; private set; }
+    public string Author { get; private set; }
+    
+    public Book(string title, string author)
+    {
+        Title = title;
+        Author = author;
+    }
+
+    public string GetBookIdentifier()
+    {
+        return $"{this.Author}_{this.Title}";
+    }
+}         
+                                 </code>
+                            </pre>
+                        </div>
+
+                    </section>
+
+                    <section class="chapter3-4">
+                        <div id="anchor.3-4"></div>
+                        <h3>B 直接使用 A</h3>
+                        <p>
+                            實現呈現書本內容用例時，BookDisplay 在呈現書本內容時需要直接使用 Book 類別，所以 BookDisplay 可以創建 Book ，而 IRepository 負責從資料庫獲取到書本內容。
+                        </p>
+                        <div class="code-container">
+                            <div class="code-information">
+                                <div class="language">csharp</div>
+                                <div class="copy_button">📝copy</div>
+                            </div>
+                            <pre class="code">
+                               <code class="language-csharp">
+public interface IRepository 
+{
+    public string GetBookContent(string title, string author);
+}
+
+public class Book
+{
+    public string Title { get; private set; }
+    public string Author { get; private set; }
+    public string Content { get; private set; }
+
+    public Book(string title, string author, string content)
+    {
+        Title = title;
+        Author = author;
+        Content = content;
+    }
+}
+
+public class BookDisplay
+{
+    private ConsoleColor _foregroundColor;
+
+    private IRepository _bookRepository;
+
+    public BookDisplay(IRepository repository, ConsoleColor fontColor)
+    {
+        _bookRepository = repository;
+        _foregroundColor = fontColor;
+    }
+
+    public void DisplayBook(string title, string author)
+    {
+        string content = _bookRepository.GetBookContent(title, author);
+        Book book = new Book(title, author, content);  // BookDisplay 創建並直接使用 Book
+        Console.ForegroundColor = _foregroundColor;
+        Console.WriteLine(book.Content);
+    }
+}        
+                                 </code>
+                            </pre>
+                        </div>
+
+                    </section>
+                    
+                    <section class="chapter3-5">
+                        <div id="anchor.3-5"></div>
+                        <h3>B 具有 A 的初始化資訊，並且創建時會傳遞給 A</h3>
+                        <p>
+                            實現出版社出版某書用例時，BookPublisher 具有 Book 的初始化資訊，因此可以將 Book 的創建職責給 BookPublisher。 
+                        </p>
+                        <div class="code-container">
+                            <div class="code-information">
+                                <div class="language">csharp</div>
+                                <div class="copy_button">📝copy</div>
+                            </div>
+                            <pre class="code">
+                               <code class="language-csharp">
+public class BookPublisher
+{
+    private string _publisher;
+
+    public BookPublisher(string publisher)
+    {
+        this._publisher = publisher;
+    }
+
+    public Book CreateBook(string title, string author)
+    {
+        return new Book(title, author, _publisher);  // BookFactory 創建 Book 並傳遞初始化資訊
+    }
+}
+
+public class Book
+{
+    public string Title { get; private set; }
+    public string Author { get; private set; }
+    public string Publisher { get; private set; }
+
+    public Book(string title, string author, string publisher)
+    {
+        Title = title;
+        Author = author;
+        Publisher = publisher;
+    }
+}      
+                                 </code>
+                            </pre>
+                        </div>
+                    </section>
+
+                </section>
+                <hr>
+
+                <section class="chapter4">
+                    <div id="anchor.4"></div>
+                    <h2 class="primary_header">創建者與工廠</h2>
+                    <img src="/image/grasp3_2.webp" alt="我全都要">
+                    <p class="img_description">我全都要，<a target="_blank" href="https://memes.tw/maker/painter/27545">圖片來源</a></p>
+                    <p>
+                        經過以上的概念講解與案例解釋，不知道心中是否冒出一個疑問，工廠模式、抽象工廠模式難道都是小丑嗎? 都不必要嗎? 
+                    </p>
+                    <p>
+                        其實創建者與工廠模式都是面對哪個物件有職責創建物件 A 的解決方案，只是面對創建物件的複雜程度有不同的選擇，
+                        基本上來講<span class="bold">創建者負責處理簡單的創建</span>而<span class="bold">工廠模式負責複雜的創建邏輯</span>。
+                        可以看看以下例子。
+                    </p>
+                    <div class="code-container">
+                        <div class="code-information">
+                            <div class="language">csharp</div>
+                            <div class="copy_button">📝copy</div>
+                        </div>
+                        <pre class="code">
+                           <code class="language-csharp">
+// 簡單創建者範例
+public class Order
+{
+    public string ProductName { get; private set; }
+    public int Quantity { get; private set; }
+
+    // 創建者負責簡單的創建
+    public Order(string productName, int quantity)
+    {
+        ProductName = productName;
+        Quantity = quantity;
+    }
+}
+
+public class Customer
+{
+    public string Name { get; private set; }
+
+    public Customer(string name)
+    {
+        Name = name;
+    }
+
+    // Customer 創建 Order，簡單的創建邏輯由創建者負責
+    public Order CreateOrder(string productName, int quantity)
+    {
+        return new Order(productName, quantity);
+    }
+}
+
+// 複雜創建邏輯使用工廠模式
+public class OrderFactory
+{
+    public static Order CreateOrder(string productName, int quantity, string discountCode, bool isPriority)
+    {
+        // 複雜的創建邏輯，例如根據折扣碼和優先級來決定不同的創建過程
+        if (isPriority)
+        {
+            // 處理優先訂單邏輯
+        }
+
+        if (!string.IsNullOrEmpty(discountCode))
+        {
+            // 根據折扣碼應用折扣
+        }
+
+        return new Order(productName, quantity);
+    }
+}  
+                             </code>
+                        </pre>
+                    </div>
+                    而複雜通常來自於
+                    <ol>
+                        <li>驗證邏輯</li>
+                        <li>物件需要客製化</li>
+                        <li>物件依賴外部資源</li>
+                        <li>多步驟的創建邏輯</li>
+                        <li>異常處理</li>
+                    </ol>
+                    創建者與工廠這兩個概念並非互斥的，而是用來解決在不同情境下的創建物件的職責。
+                </section>
+                <hr>
+
+                <section class="chapter5">
+                    <div id="anchor.5"></div>
+                    <h2 class="primary_header">作者心得</h2>
+                    <p>
+                        就像<a target="_blank" href="./grasp_ch2_information_expert_summary.html">上一篇</a>提到的剃刀原則，在很多時候，物件的創建不需要用到工廠模式，
+                        而是可以利用類別間以存在的關係進行職責的分配，因為已經存在關係，所以不會增加類別間的耦合性的同時又完成了職責的分配。
+                    </p>
+                    <p>
+                        在寫下這篇文章的時候，咒術回戰只剩下 4 話了，雖然從 236 話之後就抱著樂子人的心態看，但看到藥完結了還是莫名感慨。
+                    </p>
+                </section>
+            </article> 
+            <hr>
+            <section class="references">
+                <h3>參考資料</h3>
+                <ul>
+                    <li><a target="_blank" href="https://www.amazon.com/Applying-UML-Patterns-Introduction-Object-Oriented/dp/0131489062">Applying UML and Patterns: An Introduction to Object-Oriented Analysis and Design and Iterative Development</a></li>
+                    <li><a target="_blank" href="https://langzi989.github.io/2017/01/08/GRASP%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%EF%BC%88%E8%81%8C%E8%B4%A3%E5%88%86%E9%85%8D%E5%8E%9F%E5%88%99%EF%BC%89/">GRASP设计原则（职责分配原则）</a></li>
+                </ul>
+               
+            </section>
+            <section class="other-file">
+                <h3>也可以看看以下文章</h3>
+                <ul>
+                    <li><a target="_blank" href="./grasp_ch2_information_expert_summary.html">訊息專家三部曲(三) 總結篇</a></li>
+                </ul>
+            </section>
+            <script src="https://utteranc.es/client.js"
+                repo="Samcreator123/Samcreator123.github.io"
+                issue-term="https://samcreator123.github.io/coding/problem_and_solution_domain"
+                theme="preferred-color-scheme"
+                crossorigin="anonymous"
+                async>
+            </script>
+            <hr>
+            <div id = "footer-template"></div>
+        </main>
+        <div id="sidebar"></div>
+    </div>
+    <script type="module" src="/js/Initialization/acticle-init.js"></script>
+    <script src="/thrid-party/prism.min.js"></script>
+    <script src="/thrid-party/prism-csharp.min.js"></script>
+</body>
+</html>
