@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GRASP 之控制器模式</title>
+    <link rel="icon" href="/icon.png" type="image/x-icon">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/note.css">
+    <link rel="stylesheet" href="/thrid-party/prism-okaidia.min.css" >
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap" rel="stylesheet">
+    <script>
+        (function() {
+          var theme = localStorage.getItem('theme') || (window.matchMedia("(prefers-color-scheme: dark)").matches ? 'dark' : 'light');
+          document.documentElement.classList.add(theme + '-theme');
+        })();
+      </script>
+</head>
+<body>
+    <div class="note-content">
+        <aside id="outline">
+            <section class="outline">
+                <ul>
+                    <li class="outline-level-1"><a id="outline.1">情境</a></li>
+                    <li class="outline-level-1"><a id="outline.2">控制器是什麼 ?</a></li>
+                    <ul>
+                        <li class="outline-level-2"><a id="outline.2-2">根物件控制器</a></li>
+                        <li class="outline-level-2"><a id="outline.2-3">用例控制器</a></li>
+                    </ul>
+                    <li class="outline-level-1"><a id="outline.3">控制器不是什麼 ?</a></li>
+                    <ul>
+                        <li class="outline-level-2"><a id="outline.3-2">不是 MVC 的 Controller</a></li>
+                        <li class="outline-level-2"><a id="outline.3-3">不是 Application Layer</a></li>
+                        <li class="outline-level-2"><a id="outline.3-4">不是 Facade、Command</a></li>
+                    </ul>
+                    <li class="outline-level-1"><a id="outline.4">作者心得</a></li>
+                </ul>
+            </section>
+        </aside>
+        <main id="main-content">
+            <div id = "header-template"></div>
+
+            <article>
+                <h2 class="note-title">控制器模式 | Controller </h2>
+                <section class="date-and-tags">
+                    <section class="date">
+                        <span class="date">2024-08-28</span>
+                    </section>
+                    <section class="tags">
+                        <span class="tag"><a href="./tags/grasp.html">GRASP</a></span>
+                    </section>
+                </section>
+                <hr>
+    
+    
+                <section class="abstract">
+                    <img src="/image/grasp4_1.webp" alt="開開心心寫完 mentor 出的作業後，被告知要前後端分離">
+                    <p class="img_description">開開心心寫完 mentor 出的作業後，被告知要前後端分離，<a target="_blank" href="https://memes.tw/wtf/562884">圖片來源</a></p>
+                </section>
+    
+    
+    
+                <section class="chapter1">
+    
+                    <div id="anchor.1"></div>
+                    
+                    <h2 class="primary_header">情境</h2>
+                    <p>前後端分離後，會遇到一個問題，也就是做為後端，誰負責<span class="bold">作為第一個物件去接收來自前端的請求，並進行系統操作。</span></p>
+                    <p>比如說一個網路書店的 API ，允許客戶添加新書籍到我的最愛，當使用者點下書籍圖案旁邊的愛心的時候，來自前端請求傳到後端，哪個物件負責處理這個請求呢 ?</p>
+                </section>
+                <hr>
+
+                
+                <section class="chapter2">
+    
+                    <div id="anchor.2"></div>
+    
+                    <section class="chapter2-1">
+                        <h2 class="primary_header">控制器是什麼 ?</h2>
+                        <section class="quote">
+                            <p class="content">“ 控制器 (Controller) 是 UI 層之上的第一個物件，它負責接收和處理系統操作消息。 ”</p>
+                            <p class="author">― Craig Larman, Applying UML and Patterns 3rd, ch17.13</p>
+                        </section>
+                        <p>作為第一個物件去接收來自前端的請求，並進行系統操作，控制器提供了兩個思路</p>
+                        <ol>
+                            <li>代表整個系統的物件或根物件 (Root Entity)</li>
+                            <li>虛構一個代表某個用例的物件，該物件代表了這個案例，此時該物件稱為用例控制器。</li>
+                        </ol>
+                        <p>根物件通常是已有的領域概念，因此並不會增加系統的耦合，然而根物件有可能在後續維護與新增特性的過程中，變得逐漸臃腫。</p>
+                        <p>利用純虛構的用例控制器可以有效緩解，<span class="bold">但是要注意系統是否足以複雜到需要用例控制器</span>，因為用例控制器屬於純虛構的物件。</p>
+                    </section>
+                    
+                    <section class="chapter2-2">
+                        <div id="anchor.2-2"></div>
+                        <h3>根物件控制器</h3>
+                        <p>根物件作為控制器，可以在不增加系統耦合的情況下，<span class="bold">作為第一個物件去接收來自前端的請求，並進行系統操作</span>，提供一種簡潔的解決方案。</p>
+                        <img src="/image/grasp4_2.webp" alt="大老二領域模型">
+                        <p class="img_description">大老二領域模型</p>
+
+                        <p>在上圖，我們能看到 Game 這個概念作為整個領域模型的根物件，因此無論是玩家加入或者出牌，Game 作為第一個物件去接收請求，並分配並調用給那些聚合成為他的物件。</p>
+                        <img src="/image/grasp4_3.webp" alt="出牌">
+                        <p class="img_description">出牌交互圖</p>
+                        <p>例如在出牌這個用例中，Game 接收到玩家出的牌後</p>
+                        <ol>
+                            <li>調用 VaildHand 去識別手牌類型是單張、對子還是順子後並驗證是否為本場遊戲規範合理的卡牌組合。</li>
+                            <li>調用 CurrentValidHand 去比較點數是否較大。</li>
+                            <li>調用 CurrentPlayer 去丟棄該手牌。</li>
+                            <li>調用 CurrentValidHand 更新當前遊戲中的卡牌組合。</li>
+                            <li>調用 CurrentPlayer 設定下一名玩家。</li>
+                        </ol>
+                        <p>Game 這個根物件在以上範例中，達成了接收請求，並調用系統中的物件去完成請求。</p>
+                    </section>
+                    
+                    <section class="chapter2-3">
+                        <div id="anchor.2-3"></div>
+                        <h3>用例控制器</h3>
+                        <p>隨著業務發展，聚合不是一次就會出現，而是會逐漸發酵，這導致根物件的職責會逐漸膨脹，需要控制的用例越來越多。</p>
+                        <p>又或者在分析時，發現可以將系統分成許多聚合，彼此關聯性較低。</p>
+                        <p>此時可以考慮替每個用例都虛構出一個控制器，作為用例控制器，並讓用例控制器<span class="bold">以用例為最小顆粒度</span>，作為第一個物件去接收來自前端的請求，並進行系統操作。</p>
+                    </section>
+                </section>
+                <hr>
+
+                <section class="chapter3">
+    
+                    <div id="anchor.3"></div>
+    
+                    <section class="chapter3-1">
+                        <h2 class="primary_header">控制器不是什麼 ?</h2>
+                        <p>Controller這個名稱，以及他做為系統的代理物件，很容易跟以下概念搞混</p>
+                        <ul>
+                            <li>MVC 中的 Controller</li>
+                            <li>DDD 中的 Application Layer</li>
+                            <li>設計模式中的 Facade 模式與 Command 模式</li>
+                        </ul>
+                    </section>
+                    
+                    <section class="chapter3-2">
+                        <div id="anchor.3-2"></div>
+                        <h3>不是 MVC 的 Controller</h3>
+                        <p>MVC 的 Controller 與 Model、View 進行交互。</p>
+                        <p>而 GRASP 的 Controller 關注的是接收到請求後，整個系統的操作與交互，並沒有一個 View 需要控制。</p>
+                    </section>
+                    
+                    <section class="chapter3-3">
+                        <div id="anchor.3-3"></div>
+                        <h3>不是 Application Layer</h3>
+                        <p>領域驅動設計中的 Application Layer 負責接收來自用戶的請求並且調用領域物件進行操作。</p>
+                        <p>當比較對象是做為根物件的 Controller ，因為是根物件所以必然是有狀態的，這與 DDD 中的 Application Layer 的無狀態不一致。</p>
+                        <p>而當比較對象是作為用例控制器，用例控制器是否有狀態並不是一種設計目的，而也因為如此，如果用例控制器無狀態，可以視為一種 Application。</p>
+                    </section>
+
+                    <section class="chapter3-4">
+                        <div id="anchor.3-4"></div>
+                        <h3>不是 Facade、Command</h3>
+                        <p>設計模式中 Facade Pattern、Command Pattern 前者是設計接口的簡化系統，後者是針對封裝請求以便進行請求的多樣化操作。</p>
+                        <p>這與 GRASP 的 Controller 設計目的不同，也就是系統的操作與交互，Facade Pattern 較關注簡化系統的接口以便前端使用；Command 較關注對於請求的不同處理方式。</p>
+                    </section>
+                </section>
+                <hr>
+                
+                <section class="chapter4">
+                    <div id="anchor.4"></div>
+                    <h2 class="primary_header">作者心得</h2>
+                    <p>Controller模式替前後端分離中的後端提供了<span class="bold">誰是第一個物件來處理請求，並處理系統操作消息</span>的原則。</p>
+                    <p>雖然在現實狀況中，有更複雜的情況，因此出現 Command Pattern 這種專注處理請求的方案，也有 Application Layer 這種將請求消化後轉手給 Aggreagte Root 處理的方案。</p>
+                    <p>但對於想要打造一個易懂的程式，如果其用例較少，利用根物件作為控制器的方案無疑是最適合的。</p>
+                </section>
+            </article> 
+            <hr>
+
+            <section class="references">
+                <h3>參考資料</h3>
+                <ul>
+                    <li><a target="_blank" href="https://www.amazon.com/Applying-UML-Patterns-Introduction-Object-Oriented/dp/0131489062">Applying UML and Patterns: An Introduction to Object-Oriented Analysis and Design and Iterative Development</a></li>
+                    <li><a target="_blank" href="https://langzi989.github.io/2017/01/08/GRASP%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%EF%BC%88%E8%81%8C%E8%B4%A3%E5%88%86%E9%85%8D%E5%8E%9F%E5%88%99%EF%BC%89/">GRASP设计原则（职责分配原则）</a></li>
+                </ul>
+               
+            </section>
+            <section class="other-file">
+                <h3>也可以看看以下文章</h3>
+                <ul>
+                    <li><a target="_blank" href="./grasp_ch3_creator.html">創建者</a></li>
+                </ul>
+            </section>
+            <script src="https://utteranc.es/client.js"
+                repo="Samcreator123/Samcreator123.github.io"
+                issue-term="https://samcreator123.github.io/coding/problem_and_solution_domain"
+                theme="preferred-color-scheme"
+                crossorigin="anonymous"
+                async>
+            </script>
+            <hr>
+            <div id = "footer-template"></div>
+        </main>
+        <div id="sidebar"></div>
+    </div>
+    <script type="module" src="/js/Initialization/acticle-init.js"></script>
+    <script src="/thrid-party/prism.min.js"></script>
+    <script src="/thrid-party/prism-csharp.min.js"></script>
+</body>
+</html>
