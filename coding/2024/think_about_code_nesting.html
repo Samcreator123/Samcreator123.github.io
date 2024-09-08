@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>關於程式碼巢狀的思考(thoughts about code nesting)</title>
+    <meta name="description" content="從講解程式碼巢狀的情境到認識設計模式、Early Return...等等不同的模式與問題後，對於巢狀程式碼的認知與解決方法有不一樣看法的旅程。">
+    <link rel="icon" href="/icon.png" type="image/x-icon">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/note.css">
+    <link rel="stylesheet" href="/thrid-party/prism-okaidia.min.css" >
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap" rel="stylesheet">
+    <script>
+        (function() {
+          var theme = localStorage.getItem('theme') || (window.matchMedia("(prefers-color-scheme: dark)").matches ? 'dark' : 'light');
+          document.documentElement.classList.add(theme + '-theme');
+        })();
+      </script>
+</head>
+<body>
+    <div class="note-content">
+        <aside id="outline">
+            <section class="outline">
+                <ul>
+                    <li class="outline-level-1"><a id="outline.1">前言</a></li>
+                    <li class="outline-level-1"><a id="outline.2">探索</a></li>
+                    <ul>
+                        <li class="outline-level-2"><a id="outline.2-2">設計模式</a></li>
+                        <li class="outline-level-2"><a id="outline.2-3">有毒的通用</a></li>
+                        <li class="outline-level-2"><a id="outline.2-4">Early Return</a></li>
+                        <li class="outline-level-2"><a id="outline.2-5">小而精美的模塊</a></li>
+                    </ul>
+                    <li class="outline-level-1"><a id="outline.3">那現在呢?</a></li>
+                </ul>
+            </section>
+        </aside>
+        <main id="main-content">
+            <div id = "header-template"></div>
+
+            <article>
+                <h2 class="note-title">關於程式碼巢狀的思考 | Thoughts about code nesting </h2>
+                <section class="date-and-tags">
+                    <section class="date">
+                        <span class="date">2024-09-08</span>
+                    </section>
+                    <section class="tags">
+                        <span class="tag"><a href="/coding/tags/readability.html">程式可讀性</a></span>
+                    </section>
+                </section>
+                <hr>
+    
+    
+                <section class="abstract">
+                    <img src="/image/2024/readability1_1.webp" alt="波動拳">
+                    <p class="img_description">波動拳!!，<a target="_blank" href="https://www.reddit.com/r/ProgrammerHumor/comments/27yykv/indent_hadouken/">圖片來源</a></p>
+                </section>
+    
+    
+    
+                <section class="chapter1">
+    
+                    <div id="anchor.1"></div>
+                    
+                    <h2 class="primary_header">前言</h2>
+                    <section class="quote">
+                        <p class="content">“ 如果你需要三層以上的縮進，那麼你的代碼已經有問題了，應該修正你的程式。 ”</p>
+                        <p class="author">― Linux 內核代碼風格</p>
+                    </section>
+                    <p>實習一年，出社會一年，雖然只有短短兩年，但因為前後維運了兩個年齡只小我一輪的產品，看到許多巢狀的非常嚴重的程式碼，也就是俗稱的波動拳。</p>
+                    <p>因為是寫 C# ，是一套有 if-else、switch、try-catch、using 的組合拳，然後通常波動拳會跟千百字長文合體，對你展開無量空處。</p>
+                    <p>最可悲的是，一開始接觸只會有<span class="bold">一定是我看得不夠熟</span>的心態，說是也不是，畢竟還有<span class="bold">可讀性</span>這種東西。</p>
+                    <p>然而當我意識到可讀性時，我跟大部分人一樣，將<span class="bold">設計模式視為萬能藥</span>一般，頂禮膜拜，策略模式、狀態模式、模板方法模式，當然還有我們最愛的工廠模式系列，畢竟<span class="bold">寫物件導向，必讀GOF的設計模式，那是經典中的經典</span>。</p>
+                    <p>但設計模式真的有這麼神嗎? 來談談我對於程式碼巢狀的思考之旅。</p>
+                </section>
+                <hr>
+
+                
+                <section class="chapter2">
+    
+                    <div id="anchor.2"></div>
+    
+                    <section class="chapter2-1">
+                        <h2 class="primary_header">探索</h2>
+                        <p>開始分享心得前先疊個甲，我說的不一定是對的，只是分享一下心得，有任何錯誤與模糊的地方歡迎在下方留言討論。</p>
+                    </section>
+                    
+                    <section class="chapter2-2">
+                        <div id="anchor.2-2"></div>
+                        <h3>設計模式</h3>
+                        <section class="quote">
+                            <p class="content">“ 我自稱DP哥 工廠模式COMBO策略模式 很常用的。 ”</p>
+                            <p class="author">― prag2222</p>
+                        </section>
+                        設計模式，程式設計的萬靈丹
+                        <ul>
+                            <li>遇到if-else跟switch直接套個簡單工廠加策略模式。</li>
+                            <li>遇到物件有狀態直接套個狀態模式。</li>
+                            <li>物件初始化直接套個工廠模式。</li>
+                        </ul>
+                        <p>這邊套一個策略，那邊套一個工廠，再建個介面，一頓操作猛如虎。過度設計又怎樣 ? 我這是未雨綢繆 ! 程式非常聰明與彈性，覺得自己是個天才，然後維護就爆了。</p>
+                        <p>非常聰明的程式只有非常聰明的人能夠維護，<span class="bold">Keep it simple, Stupid</span> ，設計模式在<span class="bold">解決未知性的同時將物件間的交互變得間接，進而降低了易讀性</span>。很多 IDE 能快捷鍵查看函式定義，但使用設計模式後，你只會看到介面定義。</p>
+                        <img src="/image/2024/readability1_2.webp" alt="我本來沒有想要使用這招的">
+                        <p class="img_description">我本來沒有想要使用這招的，<a target="_blank" href="https://www.dcard.tw/f/acg/p/237059596">圖片來源</a></p>
+                        <p>設計模式在解決變化點的同時，增加了複雜度，那如果我將設計模式作為我本來不想使用這招的時候使出的招式，那麼我對付巢狀結構的手段還有哪些呢?</p>
+                    </section>
+                    
+                    <section class="chapter2-3">
+                        <div id="anchor.2-3"></div>
+                        <h3>有毒的通用</h3>
+                        <section class="quote">
+                            <p class="content">“ 这种复用其实是有害的。如果一个函数可能做两种事情，它们之间共同点少于它们的不同点，那你最好就写两个不同的函数，否则这个函数的逻辑就不会很清晰，容易出现错误。 ”</p>
+                            <p class="author">― 编程的智慧, 王垠</p>
+                        </section>
+
+                        <p><span class="bold">複用是必須的，但有些複用是有害的</span>，有沒有遇過一種情形，一段程式每個不同的情境都會經過某個函數，點進去後發現，它針對每個情境作不同處理，為甚麼呢 ? 因為他們可能都要做某個步驟。</p>
+                        <div class="code-container">
+                            <div class="code-information">
+                                <div class="language">csharp</div>
+                                <div class="copy_button">📝copy</div>
+                            </div>
+                            <pre class="code">
+                                <code class="language-csharp">
+void GenerateReport(ReportType type)
+{
+    if(type == ReportType.PDF)
+    {
+        a();
+        b();
+    }
+    else if(type == ReportType.WORD)
+    {
+        c();
+        d();
+    }
+    // ... 其他選項
+    
+    z();
+}               
+                                </code>
+                            </pre>
+                        </div>
+                        <p>更慘的情況是，進去這個通用的函式後，它的裡面還有更多通用的函式，此時該函式為有毒的通用，<a target="_blank" href="https://youtu.be/3K3MMtoG8rY?feature=shared">擱這套娃呢</a>。而更好的方法是，<span class="bold">分成多個函式</span>。</p>
+                        <div class="code-container">
+                            <div class="code-information">
+                                <div class="language">csharp</div>
+                                <div class="copy_button">📝copy</div>
+                            </div>
+                            <pre class="code">
+                                <code class="language-csharp">
+    void GeneratePDF()
+    {
+        a();
+        b();
+        z();
+    }
+    
+    void GenerateWORD()
+    {
+        c();
+        d();
+        z();
+    }            
+                                </code>
+                            </pre>
+                        </div>
+                    </section>
+                    <section class="chapter2-4">
+                        <div id="anchor.2-4"></div>
+                        <h3>Early Return</h3>
+                        <section class="quote">
+                            <p class="content">“ 概念是讓程式碼盡早的完成任務，避免過深的巢狀導致閱讀的不易。 ”</p>
+                            <p class="author">― 在地上滾的工程師</p>
+                        </section>
+                        <p>邏輯正向時會有多層巢狀，那<span class="bold">反向是否能夠化解</span> ? Early Return或Guard Clause 就是在描述這個概念。以下是用正向邏輯撰寫領錢的敘述。</p>
+                        <div class="code-container">
+                            <div class="code-information">
+                                <div class="language">csharp</div>
+                                <div class="copy_button">📝copy</div>
+                            </div>
+                            <pre class="code">
+                                <code class="language-csharp">
+void foo(){
+    // 如果銀行有開
+    if(bank.isOpen)
+    {
+        // 如果排隊的人很少的話
+        if(waitInLine.FewPeople)
+        {
+            // 我的銀行餘額大於 3000
+            if(account.balance > 3000)
+            {
+                    // 提款 3000
+                    account.Withdraw(3000);
+            }
+        }
+    } 
+}        
+                                </code>
+                            </pre>
+                        </div>
+                        <p>啪的一下，很快的三層縮排馬上不講武德的招呼到你臉上，但如果我們使用 Early Return 的概念，使用反向邏輯呢 ?</p>
+                        <div class="code-container">
+                            <div class="code-information">
+                                <div class="language">csharp</div>
+                                <div class="copy_button">📝copy</div>
+                            </div>
+                            <pre class="code">
+                                <code class="language-csharp">
+void foo(){
+    if(!bank.isOpen)
+    {
+        return;
+    }
+    
+    if(!waitInLine.FewPeople)
+    {
+        return;
+    }
+    
+    if(account.balance > 3000)
+    {
+        account.Withdraw(3000);
+    }
+}         
+                                </code>
+                            </pre>
+                        </div>
+                        <p>看來 Early Return 是我們的解方，但Early Return 假設了一種，幾乎沒有 else 的情況，更多時候else也是有它的邏輯的，那怎麼辦呢?</p>
+                    </section>
+                    <section class="chapter2-5">
+                        <div id="anchor.2-5"></div>
+                        <h3>小而精美的模塊</h3>
+                        <section class="quote">
+                            <p class="content">“ 一个模块应该像一个电路芯片，它有定义良好的输入和输出。实际上一种很好的模块化方法早已经存在，它的名字叫做函数 ”</p>
+                            <p class="author">― 编程的智慧, 王垠</p>
+                        </section>
+                        <p><span class="bold">問題或許不是那層層堆疊的巢狀，問題或許是跟永樂大典一樣長的函式</span>，那個函式或許達成了跟它名字一樣的功能，但它不該這麼長。</p>
+                        <p>將部分步驟定義輸入與輸出，作為一個函數抽出去，最重要的是，給該函式合適的名字。</p>
+                        在抽函數時，你大概會發現兩件事
+                        <ul>
+                            <li>某個參數跟他會用到的地方竟然差了一兩百行，而且他還會七十二變。</li>
+                            <li>某個參數在另一條 else 線根本不會用到。</li>
+                        </ul>
+                        <p>重構不只是像收納一樣，單純把 A 放到 B，而是能讓你<span class="bold">重新思考功能的數據流，並讓每一個區塊顯得獨立並且可讀</span>。</p>
+                        <p>有些 IDE 提供了預處理命令，可以折疊程式碼，但就像現實一樣，糟糕的事情不是閉上眼睛就會解決的。</p>
+                    </section>
+                </section>
+                <hr>
+
+                
+                <section class="chapter3">
+                    <div id="anchor.3"></div>
+                    <h2 class="primary_header">那現在呢?</h2>
+                    <section class="quote">
+                        <p class="content">“Writing is easy. All you have to do is cross out the wrong words. ”</p>
+                        <p class="author">― Mark Twain</p>
+                    </section>
+                    <p>作為驗證的 Early Return，作為拆解流程的函數，好像這兩把刀能解決巢狀結構的問題，但還是必須注意，Early Return 會以反向邏輯呈現，而函數要求你能精確命名，遇過一個函術名稱是</p>
+                    <section class="content-explanation">
+                        <p>HandlingBillTradingCartSandCreditCS</p>
+                    </section>
+                    <p>看得出來它在幹嘛嗎 ? 我是看不出來。</p>
+                    <p>所以找到了這趟解決巢狀程式碼的答案嗎? 我不知道，但我知道我有回答這個問題的想法了。</p>
+                </section>
+            </article> 
+            <hr>
+
+            <section class="references">
+                <h3>參考資料</h3>
+                <ul>
+                    <li><a target="_blank" href="https://www.yinwang.org/blog-cn/2015/11/21/programming-philosophy">编程的智慧 (yinwang.org)</a></li>                    
+                    <li><a target="_blank" href="https://www.youtube.com/watch?v=dzO0yX4MRLM">如何優雅地避免程式碼巢狀 | 程式碼嵌套 | 狀態模式 | 表驅動法 |</a></li>                    
+                    <li><a target="_blank" href="https://docs.kernel.org/translations/zh_TW/process/coding-style.html">Linux 內核代碼風格 — The Linux Kernel documentation</a></li>                    
+                    <li><a target="_blank" href="https://blog.niclin.tw/2020/02/29/readable-code-2/">如何提升你的程式可讀性之實務技巧（二） « Nic Lin's Blog</a></li>                    
+                    <li><a target="_blank" href="https://www.ptt.cc/bbs/Soft_Job/M.1636039147.A.7F6.html">[請益] 如何選擇適合的設計模式</a></li>                    
+                    <li><a target="_blank" href="https://buttondown.com/tech_management_mindset/archive/guo-du-de-bu-shi-she-ji-er-shi-dui-wei-lai-de-bu/">"過度"的不是設計，而是對未來的不確定性</a></li>                                   
+                </ul>
+               
+            </section>
+            <section class="other-file">
+                <h3>也可以看看以下文章</h3>
+                <ul>
+                    <li><a target="_blank" href="./problem_and_solution_domain_ch1.html">問題領域與解決方案領域上篇 | Problem & Solution Domain</a></li>
+                    <li><a target="_blank" href="./grasp_ch1.html">GRASP概論</a></li>
+                </ul>
+            </section>
+            <script src="https://utteranc.es/client.js"
+                repo="Samcreator123/Samcreator123.github.io"
+                issue-term="https://samcreator123.github.io/coding/problem_and_solution_domain"
+                theme="preferred-color-scheme"
+                crossorigin="anonymous"
+                async>
+            </script>
+            <hr>
+            <div id = "footer-template"></div>
+        </main>
+        <div id="sidebar"></div>
+    </div>
+    <script type="module" src="/js/Initialization/acticle-init.js"></script>
+    <script src="/thrid-party/prism.min.js"></script>
+    <script src="/thrid-party/prism-csharp.min.js"></script>
+</body>
+</html>
