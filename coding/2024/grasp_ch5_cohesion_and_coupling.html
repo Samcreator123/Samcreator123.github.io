@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GRASP 之內聚與耦合 概要篇</title>
+    <meta name="description" content="以 Larry Constantine 的角度去解析內聚與耦合這兩個概念，並試圖為這一系列澄清高內聚與低耦合的文章做個開頭，先闡述一段對於內聚耦合不清楚情境，進一步帶出相關簡史以及分類。">
+    <link rel="icon" href="/icon.png" type="image/x-icon">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/note.css">
+    <link rel="stylesheet" href="/thrid-party/prism-okaidia.min.css" >
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap" rel="stylesheet">
+    <script>
+        (function() {
+          var theme = localStorage.getItem('theme') || (window.matchMedia("(prefers-color-scheme: dark)").matches ? 'dark' : 'light');
+          document.documentElement.classList.add(theme + '-theme');
+        })();
+      </script>
+</head>
+<body>
+    <div class="note-content">
+        <aside id="outline">
+            <section class="outline">
+                <ul>
+                    <li class="outline-level-1"><a id="outline.1">情境</a></li>
+                    <li class="outline-level-1"><a id="outline.2">內聚與耦合</a></li>
+                    <ul>
+                        <li class="outline-level-2"><a id="outline.2-2">簡史</a></li>
+                        <li class="outline-level-2"><a id="outline.2-3">分類</a></li>
+                    </ul>
+                    <li class="outline-level-1"><a id="outline.3">作者的話</a></li>
+                </ul>
+            </section>
+        </aside>
+        <main id="main-content">
+            <div id = "header-template"></div>
+
+            <article>
+                <h2 class="note-title">內聚與耦合(一) 概要篇 | Coupling And Cohesion </h2>
+                <section class="date-and-tags">
+                    <section class="date">
+                        <span class="date">2024-09-15</span>
+                    </section>
+                    <section class="tags">
+                        <span class="tag"><a href="/coding/tags/grasp.html">GRASP</a></span>
+                    </section>
+                </section>
+                <hr>
+    
+    
+                <section class="abstract">
+                    <img src="/image/2024/grasp5_1.webp" alt="對於高內聚一知半解的結果">
+                    <p class="img_description">對於高內聚一知半解的結果</p>
+                </section>
+    
+    
+    
+                <section class="chapter1">
+    
+                    <div id="anchor.1"></div>
+                    
+                    <h2 class="primary_header">情境</h2>
+                    <p>以下情境純屬虛構，如有雷同，實屬巧合</p>
+
+                    <p>在某個辦公室，有以下對話</p>
+                    <section class="content-explanation">
+                        小明：我說小王，你怎麼寫出個 god class，這個耦合也太高了吧。<br><br>
+                        小王：不是，都說要追求高內聚的程式，我這不是一個高內聚的類別嗎?<br><br>
+                        小明：亂講！你這個也做太多事了吧！哪裡高內聚！<br><br>
+                        小王：我看你是不懂高內聚，高內聚就是要一個模塊可以獨立做到一件事，我這是...<br><br>
+                    </section>
+                    <p>通常這種對話會沒個結果，因為內聚與耦合是個模糊的東西嗎？</p>
+                </section>
+                <hr>     
+                <section class="chapter2">
+    
+                    <div id="anchor.2"></div>
+    
+                    <section class="chapter2-1">
+                        <h2 class="primary_header">內聚與耦合 | Coupling And Cohesion </h2>
+                        <section class="quote">
+                            <p class="content">“ Fools rush in where angels fear to tread. ”</p>
+                            <p class="author">― Alexander Pope, An Essay on Criticism</p>
+                        </section>
+                        <p>很多時候，高內聚與低耦合會變成大家都會拿來批鬥的武器，無論是當面對決還是對離職的前輩輸出。高內聚與低耦合好像有天生神聖性，所有人都不清楚他是什麼，但它就是一個真理，所以大家都能拿出來說個幾句。</p>
+                        <p>這麼說高內聚與低耦合好像只是拿來對決的武器，不能落實到實際的程式碼一樣，那還讀下去幹嘛 ? 那我先看其他文章好了。</p>
+                        <p>不好把握的模糊概念或許是因為其歷史悠久，每個人都有自己的定義，那如果我們回到那個夢開始的地方呢 ? </p>
+                    </section>
+                    
+                    <section class="chapter2-2">
+                        <div id="anchor.2-2"></div>
+                        <h3>簡史</h3>
+                        <p>內聚與耦合的概念由 Larry Constantine 在 1968 年提出，並在後續的 Structured Design: Fundamentals of a Discipline of Computer Program and System Design 進行進一步的衡量方式與分類。</p>
+                        <p>該概念主要是針對<span class="bold">模組化、結構化程式</span>的一種描述。本篇也會透過這個基礎下去解釋。</p>
+                    </section>
+                    
+                    <section class="chapter2-3">
+                        <div id="anchor.2-3"></div>
+                        <h3>分類</h3>
+                        <p>在書中，將內聚與耦合依照程度分成以下幾種。</p>
+                        內聚的分類，以下按照高內聚到低內聚排序
+                        <ul>
+                            <li>功能內聚力 (Functional Cohesion)</li>
+                            <li>循序內聚力 (Sequential Cohesion) </li>
+                            <li>溝通內聚力 (Communication Cohesion)  </li>
+                            <li>程序內聚力 (Procedural Cohesion) </li>
+                            <li>暫時內聚力 (Temporal Cohesion) </li>
+                            <li>邏輯內聚力 (Logical Cohesion)  </li>
+                            <li>偶發內聚力 (Coincidental Cohesion) </li>
+                        </ul>
+
+                        耦合的分類，以下依照低耦合到高耦合排序
+                        <ul>
+                            <li>無耦合</li>
+                            <li>資料耦合力 (Data Coupling)</li>
+                            <li>類型耦合力 (Stamp Coupling) </li>
+                            <li>控制耦合力 (Control Coupling)</li>
+                            <li>共同耦合力 (Common Coupling)</li>
+                            <li>內容耦合力 (Content Coupling)</li>
+                        </ul>
+                    </section>
+                </section>
+                <hr>        
+                <section class="chapter3">
+                    <div id="anchor.3"></div>
+                    <h2 class="primary_header">作者心得</h2>
+                    <p>下一篇將會從內聚先做解釋，再解釋進而耦合，最後是總結與心得，總共四篇</p>
+                    <p>倒數最後兩集了，真沒想到咒術迴戰倒數第三集竟然是批鬥大會，然後還是把 MVP 拖出來鞭，真是小母牛坐火箭...</p>
+
+                </section>
+            </article> 
+            <hr>
+
+            <section class="references">
+                <h3>參考資料</h3>
+                <ul>
+                    <li><a target="_blank" href="https://mrpicky.dev/a-brief-history-of-coupling-and-cohesion/">A brief history of coupling and cohesion</a></li>
+                    <li><a target="_blank" href="https://blog.csdn.net/Marion158/article/details/115892451">7种内聚与7种耦合的类型及强弱关系</a></li>
+                    <li><a target="_blank" href="https://codeopinion.com/solid-nope-just-coupling-and-cohesion/#:~:text=Coupling%20and%20cohesion%20are%20like,re%20always%20fighting%20against%20coupling">SOLID? Nope, just Coupling and Cohesion</a></li>                    
+                    <li><a target="_blank" href="https://teddy-chen-tw.blogspot.com/2011/12/1.html">亂談軟體設計（1）：Cohesion and Coupling</a></li>
+                </ul>
+            </section>
+            <section class="other-file">
+                <h3>也可以看看以下文章</h3>
+                <ul>
+                    <li><a target="_blank" href="/coding/grasp_ch4_controller.html">控制器模式</a></li>
+                </ul>
+            </section>
+            <script src="https://utteranc.es/client.js"
+                repo="Samcreator123/Samcreator123.github.io"
+                issue-term="https://samcreator123.github.io/coding/problem_and_solution_domain"
+                theme="preferred-color-scheme"
+                crossorigin="anonymous"
+                async>
+            </script>
+            <hr>
+            <div id = "footer-template"></div>
+        </main>
+        <div id="sidebar"></div>
+    </div>
+    <script type="module" src="/js/Initialization/acticle-init.js"></script>
+    <script src="/thrid-party/prism.min.js"></script>
+    <script src="/thrid-party/prism-csharp.min.js"></script>
+</body>
+</html>
