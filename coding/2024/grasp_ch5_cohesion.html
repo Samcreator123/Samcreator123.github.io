@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GRASP 之內聚與耦合(二) 內聚篇</title>
+    <link rel="icon" href="/icon.png" type="image/x-icon">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/note.css">
+    <link rel="stylesheet" href="/thrid-party/prism-okaidia.min.css" >
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap" rel="stylesheet">
+    <script>
+        (function() {
+          var theme = localStorage.getItem('theme') || (window.matchMedia("(prefers-color-scheme: dark)").matches ? 'dark' : 'light');
+          document.documentElement.classList.add(theme + '-theme');
+        })();
+      </script>
+</head>
+<body>
+    <div class="note-content">
+        <aside id="outline">
+            <section class="outline">
+                <ul>
+                    <li class="outline-level-1"><a id="outline.1">複習前篇</a></li>
+                    <li class="outline-level-1"><a id="outline.2">兩個定義</a></li>
+                    <ul>
+                        <li class="outline-level-2"><a id="outline.2-2">獨立性的矛盾</a></li>
+                        <li class="outline-level-2"><a id="outline.2-3">內聚程度</a></li>
+                        <li class="outline-level-2"><a id="outline.2-4">可讀性</a></li>
+                        <li class="outline-level-2"><a id="outline.2-5">可容忍的低內聚</a></li>
+                    </ul>
+                    <li class="outline-level-1"><a id="outline.3">作者的話</a></li>
+                </ul>
+            </section>
+        </aside>
+        <main id="main-content">
+            <div id = "header-template"></div>
+
+            <article>
+                <h2 class="note-title">內聚與耦合(二) 內聚篇 | Cohesion</h2>
+                <section class="date-and-tags">
+                    <section class="date">
+                        <span class="date">2024-09-21</span>
+                    </section>
+                    <section class="tags">
+                        <span class="tag"><a href="/coding/tags/grasp.html">GRASP</a></span>
+                    </section>
+                </section>
+                <hr>
+    
+    
+                <section class="abstract">
+                    <img src="/image/2024/grasp5_2.webp" alt="看到高內聚的程式，舒適的程度">
+                    <p class="img_description">看到高內聚的程式，舒適的程度</p>
+                </section>
+    
+    
+    
+                <section class="chapter1">
+    
+                    <div id="anchor.1"></div>
+                    
+                    <h2 class="primary_header">複習前篇</h2>
+                    <p>前篇以 Larry Constantine 提出內聚跟耦合的種類作為開頭，具體地描述內聚與耦合的程度差別，本篇以在網路上關於高內聚的定義，且進一步分析。</p>
+                </section>
+                <hr>
+
+                
+                <section class="chapter2">
+    
+                    <div id="anchor.2"></div>
+    
+                    <section class="chapter2-1">
+                        <h2 class="primary_header">兩個定義</h2>
+                        <p>兩個在網路上會查詢到的高內聚的定義，第一個是：</p>
+                        <section class="content-explanation">
+                            <p>把需要的程式和資料都包裝在一個模組，使得該模組能夠做為一個單獨的個體執行。</p>
+                        </section>
+                        <p>透過將所需資料都聚在一起，因此高內聚，強調了模組的獨立性，而另一個定義是：</p>
+                        <section class="content-explanation">
+                            degree to which the elements inside a module belong together
+                            <br>模組內部元素屬於一起的程度
+                        </section>
+                        <p>此定義更關注<span class="bold">內部元素的相關程度</span>，而非模組透過所需資料聚在一起的獨立性。</p>
+                    </section>
+                    
+                    <section class="chapter2-2">
+                        <div id="anchor.2-2"></div>
+                        <h3>獨立性的矛盾</h3>
+                        <p>如果模組的獨立性作為內聚的評判標準，會出現內聚越高，模組越獨立，從而導致模組自身程式碼過多。例如該模組可能同時擁有日誌紀錄、持久化、快取等等...，導致模組很臃腫。</p>
+                        <p>雖然可以使用將抽象與實現拆分、依賴反轉、拆分共同模組，但此時矛盾出現了，<span class="bold">一方面我們高喊著要追求高內聚，另一方面我們又忌憚著高內聚</span>。</p>
+                        <p>一個概念如此對立，除了他本身就是這麼複雜以外，也可能是我們搞錯了這個概念的定義，也就是高內聚的意思。</p>
+                    </section>
+                    
+                    <section class="chapter2-3">
+                        <div id="anchor.2-3"></div>
+                        <h3>內聚程度</h3>
+                        <section class="quote">
+                            <p class="content">“ Cohesion is the degree to which the members of a certain class belong together. It is a measure of how deeply each piece of device module functionality relates” 
+                                            <br>“內聚力是某個類的成員屬於一起的程度。它是衡量每個設備模組功能相關程度的指標”</p>
+                            <p class="author">― Fenton, N., & Bieman, J. (2014). Software Metrics: A Rigorous and Practical Approach (3rd ed.).</p>
+                        </section>
+                        <p>高內聚通常是功能內聚性（Functional cohesion）、循序內聚力 (Sequential Cohesion)、溝通內聚力 (Communication Cohesion)</p>
+                        <ul>
+                            <li>功能內聚力 (Functional Cohesion)：模組內的元素都屬於單一明確定義的概念，屬於狹隘的業務概念，意旨某個特定業務情境的某個概念。</li>
+                            <li>循序內聚力 (Sequential Cohesion)：模組內的元素彼此有順序性，且符合某元素的輸出作為另一個元素的輸入的順序關係。</li>
+                            <li>溝通內聚力 (Communication Cohesion)：模組內的元素都需要依賴某一個共同的輸入或更新相同的輸出。</li>
+                        </ul>
+                        <p>功能內聚力描述了高內聚在<span class="bold">業務方面</span>的呈現樣貌；循序內聚力描述了高內聚的元素<span class="bold">具有順序需要遵循什麼原則</span>；溝通內聚力描述了高內聚的元素描述了一個<span class="bold">總體 - 個別</span>的關係。</p>
+                    </section>
+
+                    <section class="chapter2-4">
+                        <div id="anchor.2-4"></div>
+                        <h3>可讀性</h3>
+                        <p><span class="bold">高內聚也帶來可讀性的提升</span>，如果它符合以上的高內聚描述，我們閱讀程式或模組時，我們不用擔心其他種可能性，尤其是功能內聚力對於概念的<span class="bold">歧異性的化解</span>。</p>
+                        <p>例如：商務管理系統中產品這個概念，在銷售人員、採購人員、倉庫管理人員關注點以及使用方式都會不一致，銷售人員更關心產品的促銷策略；採購人員更關心產品的成本；倉庫管理人員更關心產品進貨出貨的時間。</p>
+                        <p>而如果產品被作為一個模塊，而非符合功能內聚力的描述，會造成閱讀時要在這三方業務邏輯反覆橫跳，降低了可讀性。因此高內聚使得<span class="bold">元素只屬於單一情境的概念</span>這一特性，有助於提升可讀性。</p>
+                    </section>
+
+                    <section class="chapter2-5">
+                        <div id="anchor.2-5"></div>
+                        <h3>可容忍的低內聚</h3>
+                        <p>而在少數情況下，可以接受低內聚的模組或程式碼，例如專案的 SQL 專家，不太了解物件導向的設計，但也只有他能最佳化以及維護這些 SQL 語句，此時把所有 SQL 語句放在同一個類別中，有助於讓 SQL 專家在一個類別進行語句的工作。</p>
+                        <p>又如果極度需要控管性能以及系統開銷，那可以考慮將對於其他服務的接口相關類別使用低內聚的方式設計，以降低系統的物件數量以及較容易統一管理對其他服務的連線的性能開銷。</p>
+                    </section>
+                </section>
+                <hr>
+
+                
+                <section class="chapter3">
+                    <div id="anchor.3"></div>
+                    <h2 class="primary_header">作者心得</h2>
+                    <p>雖然很多文章都是採用第一種定義去描述高內聚，不過對我來講就是有一種矛盾的感覺，因此看到第二種的描述有一種，找到答案的感覺。</p>
+                    <p>咒術迴戰最後一集了... 真的是夢的結束了...</p>
+                </section>
+                
+    
+            </article> 
+            <hr>
+
+            <section class="references">
+                <h3>參考資料</h3>
+                <ul>
+                    <li><a target="_blank" href="https://codeopinion.com/solid-nope-just-coupling-and-cohesion/#:~:text=Coupling%20and%20cohesion%20are%20like,re%20always%20fighting%20against%20coupling">SOLID? Nope, just Coupling and Cohesion</a></li>
+                    <li><a target="_blank" href="https://zh.wikipedia.org/wiki/%E5%85%A7%E8%81%9A%E6%80%A7">維基百科-內聚性</a></li>
+                    <li><a target="_blank" href="https://priyalwalpita.medium.com/coupling-and-cohesion-in-microservices-235ed9203843#:~:text=Coupling%20talks%20about%20how%20to,high%2C%20and%20coupling%20is%20low.">Coupling and Cohesion in Microservices</a></li>
+                    <li><a target="_blank" href="https://teddy-chen-tw.blogspot.com/2011/12/1.html">亂談軟體設計（1）：Cohesion and Coupling</a></li>
+                    <li><a target="_blank" href="https://medium.com/software-architecture/types-of-cohesion-6d1b06918acd">Types of Cohesion</a></li>
+                </ul>
+               
+            </section>
+            <section class="other-file">
+                <h3>也可以看看以下文章</h3>
+                <ul>
+                    <li><a target="_blank" href="/coding/grasp_ch5_cohesion_and_coupling.html">內聚與耦合(一) 概要篇</a></li>
+                </ul>
+            </section>
+            <script src="https://utteranc.es/client.js"
+                repo="Samcreator123/Samcreator123.github.io"
+                issue-term="https://samcreator123.github.io/coding/problem_and_solution_domain"
+                theme="preferred-color-scheme"
+                crossorigin="anonymous"
+                async>
+            </script>
+            <hr>
+            <div id = "footer-template"></div>
+        </main>
+        <div id="sidebar"></div>
+    </div>
+    <script type="module" src="/js/Initialization/acticle-init.js"></script>
+    <script src="/thrid-party/prism.min.js"></script>
+    <script src="/thrid-party/prism-csharp.min.js"></script>
+</body>
+</html>
