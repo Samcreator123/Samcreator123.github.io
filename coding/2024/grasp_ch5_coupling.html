@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GRASP 之內聚與耦合(三) 耦合篇</title>
+    <link rel="icon" href="/icon.png" type="image/x-icon">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/note.css">
+    <link rel="stylesheet" href="/thrid-party/prism-okaidia.min.css" >
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap" rel="stylesheet">
+    <script>
+        (function() {
+          var theme = localStorage.getItem('theme') || (window.matchMedia("(prefers-color-scheme: dark)").matches ? 'dark' : 'light');
+          document.documentElement.classList.add(theme + '-theme');
+        })();
+      </script>
+</head>
+<body>
+    <div class="note-content">
+        <aside id="outline">
+            <section class="outline">
+                <ul>
+                    <li class="outline-level-1"><a id="outline.1">複習前篇</a></li>
+                    <li class="outline-level-1"><a id="outline.2">耦合是甚麼?</a></li>
+                    <ul>
+                        <li class="outline-level-2"><a id="outline.2-2">耦合程度</a></li>
+                        <li class="outline-level-2"><a id="outline.2-3">必要的較高耦合</a></li>
+                    </ul>
+                    <li class="outline-level-1"><a id="outline.3">作者的話</a></li>
+                </ul>
+            </section>
+        </aside>
+        <main id="main-content">
+            <div id = "header-template"></div>
+
+            <article>
+                <h2 class="note-title">內聚與耦合(三) 耦合篇 | Coupling</h2>
+                <section class="date-and-tags">
+                    <section class="date">
+                        <span class="date">2024-09-28</span>
+                    </section>
+                    <section class="tags">
+                        <span class="tag"><a href="/coding/tags/grasp.html">GRASP</a></span>
+                    </section>
+                </section>
+                <hr>
+    
+    
+                <section class="abstract">
+                    <img src="/image/2024/grasp5_3.webp" alt="小新跟風間此時高耦合">
+                    <p class="img_description">小新跟風間此時高耦合，<a target="_blank" href="https://tools.wingzero.tw/meme/sn/193">圖片來源</a></p>
+                </section>
+    
+    
+    
+                <section class="chapter1">
+                    <div id="anchor.1"></div>
+                    
+                    <h2 class="primary_header">複習前篇</h2>
+                    <p>在前篇中，了解內聚與高內聚，將<span class="bold">模組內部元素屬於一起的程度</span>視為內聚的定義，並列舉出高內聚的特性，這一篇要講解的就是耦合。</p>
+                </section>
+                <hr>
+
+                
+                <section class="chapter2">
+    
+                    <div id="anchor.2"></div>
+    
+                    <section class="chapter2-1">
+                        <h2 class="primary_header">耦合是甚麼?</h2>
+                        <p>如果按照上一篇高內聚的定義，我們會得到許多在由業務定義、內部功能高度相關的模組，但一個巴掌拍不響，一個系統必然是許多模組交互所達成的。</p>
+                        <p>而模組的<span class="bold">交互程度就是耦合程度</span>，相較於內聚是定義一個模組的內部元素相關程度而決定高低內聚，耦合則是模組間的相關程度。</p>
+                    </section>
+                    
+                    <section class="chapter2-2">
+                        <div id="anchor.2-2"></div>
+                        <h3>耦合程度</h3>
+                        以下是耦合程度從低到高排列：
+                        <ul>
+                            <li>資料耦合(Data Coupling) : 模組間只透過<span class="bold">基礎的值類型</span>進行交互。</li>
+                            <li>特徵耦合(Stamp Coupling) : 模組間透過一個<span class="bold">資料結構</span>，類似參考類型、物件進行交互。</li>
+                            <li>控制耦合(Control Coupling) : 模組間的交互是<span class="bold">傳遞控制變量</span>，控制變量決定模組要切換成哪一種模式。</li>
+                            <li>共同耦合(Common Coupling) : 多個模塊都依賴某一個<span class="bold">全局變量</span>。</li>
+                            <li>內容耦合(Content Coupling) : A 模塊不透過 B 模塊所提供的方法進行讀取、修改，而是<span class="bold">直接讀取、修改B模塊的內容</span>。</li>
+                        </ul>
+                    </section>
+                    <section class="chapter2-3">
+                        <div id="anchor.2-3"></div>
+                        <h3>必要的較高耦合</h3>
+                        <section class="quote">
+                            <p class="content">“ 具有低耦合的元素不會過度依賴其他元素，過度是與語境相關的。 ”</p>
+                            <p class="content">“ 高耦合本身並不是問題，問題是與不穩定的元素的高耦合。 ”</p>
+                            <p class="author">― Craig Larman, Applying UML and Patterns 3rd, ch17.12</p>
+                        </section>
+                        <p>一昧地追求低耦合並非最佳的選項，<span class="bold">尤其是拆分了高內聚的模組</span>。</p>
+                        <p>例如計算商品價格時，A 類別將產品這一個資料結構傳遞給 B 類別計算結果，如果強硬將產品拆分成一個個基礎的值類型反而會降低易讀性。</p>
+                        <p>因此<span class="bold">模組間需要在保持高內聚的情況下，盡量選擇耦合程度較低以及關聯程度最低</span>的方案進行交互，以達成目的。</p>
+                    </section>
+                </section>
+                <hr>
+                <section class="chapter3">
+                    <div id="anchor.3"></div>
+                    <h2 class="primary_header">作者心得</h2>
+                    <p>內聚規範了模組內必須高度相關，耦合則是規範了模組內的交互必須選擇合適的方案，高內聚通常會帶來低耦合，因為高內聚將相似的元素聚在一起進而避免相似元素以模組的形式彼此耦合。</p>
+                    <p>咒術迴戰看完了，我這輩子的壞事應該都可以抵銷了吧!</p>
+                </section>
+            </article> 
+            <hr>
+
+            <section class="references">
+                <h3>參考資料</h3>
+                <ul>
+                    <li><a target="_blank" href="https://codeopinion.com/solid-nope-just-coupling-and-cohesion/#:~:text=Coupling%20and%20cohesion%20are%20like,re%20always%20fighting%20against%20coupling">SOLID? Nope, just Coupling and Cohesion</a></li>
+                    <li><a target="_blank" href="https://zh.wikipedia.org/wiki/%E8%80%A6%E5%90%88%E6%80%A7_(%E8%A8%88%E7%AE%97%E6%A9%9F%E7%A7%91%E5%AD%B8)">維基百科-耦合性</a></li>
+                    <li><a target="_blank" href="https://priyalwalpita.medium.com/coupling-and-cohesion-in-microservices-235ed9203843#:~:text=Coupling%20talks%20about%20how%20to,high%2C%20and%20coupling%20is%20low.">Coupling and Cohesion in Microservices</a></li>
+                </ul>
+            </section>
+            <section class="other-file">
+                <h3>也可以看看以下文章</h3>
+                <ul>
+                    <li><a target="_blank" href="/coding/2024/grasp_ch5_cohesion.html">內聚與耦合(二) 內聚篇</a></li>
+                </ul>
+            </section>
+            <script src="https://utteranc.es/client.js"
+                repo="Samcreator123/Samcreator123.github.io"
+                issue-term="https://samcreator123.github.io/coding/problem_and_solution_domain"
+                theme="preferred-color-scheme"
+                crossorigin="anonymous"
+                async>
+            </script>
+            <hr>
+            <div id = "footer-template"></div>
+        </main>
+        <div id="sidebar"></div>
+    </div>
+    <script type="module" src="/js/Initialization/acticle-init.js"></script>
+    <script src="/thrid-party/prism.min.js"></script>
+    <script src="/thrid-party/prism-csharp.min.js"></script>
+</body>
+</html>

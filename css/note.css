@@ -188,6 +188,11 @@ p span.bold {
     font-weight: 800;
 }
 
+li span.bold {
+    color: #c66d6d;
+    font-weight: 800;
+}
+
 div[id*="anchor"] {
     scroll-margin-top: 15rem;
 }
