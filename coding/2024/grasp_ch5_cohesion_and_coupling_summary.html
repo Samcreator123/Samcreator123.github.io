@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>內聚與耦合 總結與關係篇 | 高內聚與低耦合如何面臨變動</title>
+    <meta name="description" content="描述內聚與耦合的關係，並解釋為什麼高內聚與低耦合通常會同時出現，同時也簡要的敘述高內聚與低耦合何時會受到挑戰進而崩解以及如何在崩解時利用高內聚與低耦合帶來的優點亡羊補牢。">
+    <link rel="icon" href="/icon.png" type="image/x-icon">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/note.css">
+    <link rel="stylesheet" href="/thrid-party/prism-okaidia.min.css" >
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap" rel="stylesheet">
+    <script>
+        (function() {
+          var theme = localStorage.getItem('theme') || (window.matchMedia("(prefers-color-scheme: dark)").matches ? 'dark' : 'light');
+          document.documentElement.classList.add(theme + '-theme');
+        })();
+      </script>
+</head>
+<body>
+    <div class="note-content">
+        <aside id="outline">
+            <section class="outline">
+                <ul>
+                    <li class="outline-level-1"><a id="outline.1">複習前篇</a></li>
+                    <li class="outline-level-1"><a id="outline.2">高內聚與低耦合的關係</a></li>
+                    <li class="outline-level-1"><a id="outline.3">迭代與失真</a></li>
+                    <li class="outline-level-1"><a id="outline.4">易讀、測試與重構</a></li>
+                    <li class="outline-level-1"><a id="outline.5">作者心得</a></li>
+                </ul>
+            </section>
+        </aside>
+        <main id="main-content">
+            <div id = "header-template"></div>
+
+            <article>
+                <h2 class="note-title">內聚與耦合(四) 總結與關係篇 | A Summary on Cohesion and Coupling</h2>
+                <section class="date-and-tags">
+                    <section class="date">
+                        <span class="date">2024-10-06</span>
+                    </section>
+                    <section class="tags">
+                        <span class="tag"><a href="/coding/tags/grasp.html">GRASP</a></span>
+                    </section>
+                </section>
+                <hr>
+    
+    
+                <section class="abstract">
+                    <img src="/image/2024/grasp5_4.webp" alt="高內聚低耦合是個好東西.">
+                    <p class="img_description">高內聚低耦合是個好東西，但如果你想提升在公司的不可替代性，就當我沒說，<a target="_blank" href="https://memes.tw/wtf/564621">圖片來源</a></p>
+                </section>
+    
+    
+    
+                <section class="chapter1">
+    
+                    <div id="anchor.1"></div>
+                    <h2 class="primary_header">複習前篇</h2>
+                    <p>在<a target="_blank" href="./grasp_ch5_cohesion.html">第二章</a>中定義內聚為<span class="bold">模組內部元素屬於一起的程度</span>，在<a target="_blank" href="./grasp_ch5_coupling.html">第三章</a>中定義耦合為<span class="bold">模組間的相關程度</span>，統整起來高內聚、低耦合就是<span class="bold">模組內緊密連結且模組適當相關</span>。</p>
+                    <p>先疊個甲，這一章比較像是作者心得，將高內聚與低耦合進行一個統整性的描述。</p>
+                </section>
+                <hr>
+
+                
+                <section class="chapter2">
+    
+                    <div id="anchor.2"></div>
+                    <h2 class="primary_header">高內聚與低耦合的關係</h2>
+                    <section class="quote">
+                        <p class="content">“ A structure is stable if cohesion is high, and coupling is low.” 
+                                        <br>“如果內聚力高，耦合性低，則結構是穩定的。”</p>
+                        <p class="author">― Larry Constantine</p>
+                    </section>
+
+                    <p><span class="bold">高內聚會使系統低耦合，同時，低耦合也會使系統高內聚</span>，因為當一個模組內部功能高度集中時，它不需要過度依賴其他模組完成其職責；低耦合也能促進高內聚，因為模組不須因為其他模組的變更，而作出太大的調整，使得模組可以更專注於自己的職責。</p>
+
+                    在一個電商訂單模組與用戶模組的情境時
+                    <ul>
+                        <li>高內聚：訂單與用戶是兩個功能分離的模組，以其中訂單為例，高內聚意味著訂單只需負責訂單相關的邏輯，例如生成、修改、追蹤訂單。</li>
+                        <li>低耦合：低耦合確保訂單模組的更改不會影響用戶模組的正常運作，例如修改訂單的資料格式不應導致用戶模組的崩潰。</li>
+                        <li>適當耦合：若之後業務發展，出現跨模組的商業邏輯，也就是訂單完成需要通知用戶，也可以透過事件驅動架構(Event Driven Architecture)，使兩個模組鬆耦合，而可以鬆耦合的前提是，他們原本就是高內聚低耦合。</li>
+                    </ul>
+
+                    <p>高內聚、低耦合是一種模組的良好品質，良好品質使得<span class="bold">程式概念清晰、可讀性提高、容易維護</span>，但<span class="bold">一切的前提都是概念要穩定</span>。</p>
+                </section>
+                <hr>
+
+                <section class="chapter3">
+    
+                    <div id="anchor.3"></div>
+                    <h2 class="primary_header">迭代與失真</h2>
+
+                    <p>如果該產品是需要不斷迭代優化，必然會有越多跨模組的商業邏輯，或者某個模組的子模組不斷膨脹，原本高內聚、低耦合的概念隨之模糊。</p>
+                    <p>而無論原因是跨模組的邏輯、子模組的活躍還是維護者的交接與理解不當，都會使得高內聚低耦合的模組會逐漸轉為低內聚高耦合。</p>
+                    
+                    
+                    <p>繼續訂單模組與用戶模組的情境，情境中電商的訂單模組只處理訂單相關邏輯，但後來加入了促銷、用戶通知等功能，並且由於大家都愛買便宜的東西，促銷快速的膨脹，而促銷又與用戶的資格緊密耦合。</p>
+                    <p>這些功能開始影響訂單模組的內聚性，因為它現在不僅僅處理訂單，還需要與其他模組密切配合、交互，增加了模組間的耦合。</p>
+
+                    <p><span class="bold">迭代使得概念的新增與更動，進一步導致原本映射在程式碼的模組逐漸失真</span>，失真的後果導致程式概念模糊、可讀性下降、不易維護。</p>
+                    
+                </section>
+                <hr>
+
+                <section class="chapter4">
+    
+                    <div id="anchor.4"></div>
+                    <h2 class="primary_header">易讀、測試與重構</h2>
+                    <section class="quote">
+                        <p class="content">“ technical debt that is not being paid down. It comes from taking shortcuts, which may make sense in the short-term. But like financial debt, the compounding interest costs grow over time. If an organization doesn’t pay down its technical debt, every calorie in the organization can be spent just paying interest, in the form of unplanned work.” 
+                                        <br><br>“ 技術債務源自於選擇取捷徑而不進行償還，這些捷徑在短期內可能看似合理。但就像金融債務一樣，隨著時間推移，複利的成本會逐漸增長。如果一個組織不償還技術債務，最終所有的精力都可能被耗費在支付利息上，也就是處理那些未規劃的工作。”</p>
+                        <p class="author">― Gene Kim, The Phoenix Project: A Novel About IT, DevOps, and Helping Your Business Win</p>
+                    </section>
+
+                    <p>如果到最後所有東西都是一坨答辯，那一開始絞盡腦汁追求高內聚低耦合，有甚麼用 ? 還不如一開始加速開發，快速交付，這不是很敏捷嗎 ?</p>
+                    <p>高內聚使得程式碼易讀，而低耦合使得程式碼容易測試與降低影響，如果最後某模組真的逐漸低內聚高耦合，還是會因為最初的高內聚與低耦合，使得該<span class="bold">模組維持一定的易讀性、沒有影響到過多的模組、還有測試能在重構時給上最後一層保險</span>，這些因素使得後續模組的邊界調動、分出新模組的工作能更為輕鬆、準確。</p>
+                    <p>總而言之，即便變化到最後沒有當初的高內聚與低耦合，最初的堅持與架構仍可以在很大程度在過度的低內聚與高耦合來臨時，讓所有維護與開發人員意識到事情不對，並有效的修正。但<span class="bold">如果意識到不對還是當作沒看到又是另一回事了</span>。</p>
+                </section>
+                <hr>
+
+                
+                <section class="chapter5">
+                    <div id="anchor.5"></div>
+                    <h2 class="primary_header">作者心得</h2>
+                    <p>高內聚與低耦合從第一篇的簡單介紹，帶出了 Larry Constantine 當初的定義，到第二篇、第三篇對於內聚與耦合概念的解釋、帶來的好處，到最後這一篇比較像是心得的總結，也讓我自己更了解高內聚與低耦合，Learning and Sharing 就是這樣吧 ! </p>
+                    <p>另外第二章只有提到高內聚的特質，其實低內聚的特質也很重要，可以判斷哪些東西是低內聚的進而有意思的避免寫出來的同時也逼迫自己選擇高內聚的方案。</p>
+                    <p>下一篇就從防止變異 (Protected Variation) 這個讓模組能高內聚與低耦合的重要概念開始講解吧。</p>
+                </section>
+                
+    
+            </article> 
+            <hr>
+
+            <section class="references">
+                <h3>參考資料</h3>
+                <ul>
+                    <li><a target="_blank" href="https://codeopinion.com/solid-nope-just-coupling-and-cohesion/#:~:text=Coupling%20and%20cohesion%20are%20like,re%20always%20fighting%20against%20coupling">SOLID? Nope, just Coupling and Cohesion</a></li>                    
+                </ul>
+               
+            </section>
+            <section class="other-file">
+                <h3>也可以看看以下文章</h3>
+                <ul>
+                    <li><a href="/coding/2024/grasp_ch5_coupling.html">內聚與耦合(三) 耦合篇</a></li>
+                </ul>
+            </section>
+            <script src="https://utteranc.es/client.js"
+                repo="Samcreator123/Samcreator123.github.io"
+                issue-term="https://samcreator123.github.io/coding/problem_and_solution_domain"
+                theme="preferred-color-scheme"
+                crossorigin="anonymous"
+                async>
+            </script>
+            <hr>
+            <div id = "footer-template"></div>
+        </main>
+        <div id="sidebar"></div>
+    </div>
+    <script type="module" src="/js/Initialization/acticle-init.js"></script>
+    <script src="/thrid-party/prism.min.js"></script>
+    <script src="/thrid-party/prism-csharp.min.js"></script>
+</body>
+</html>
