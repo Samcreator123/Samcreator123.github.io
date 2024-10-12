@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>防止變異模式 | 保持低耦合的關鍵 | GRASP Protected Variations</title>
+    <meta name="description" content="以高內聚低耦合做為概念，實際去講說模塊間如何達到低耦合，並介紹具體實作方法也就是防止變異以及該方法的缺點。">
+    <link rel="icon" href="/icon.png" type="image/x-icon">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/note.css">
+    <link rel="stylesheet" href="/thrid-party/prism-okaidia.min.css" >
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap" rel="stylesheet">
+    <script>
+        (function() {
+          var theme = localStorage.getItem('theme') || (window.matchMedia("(prefers-color-scheme: dark)").matches ? 'dark' : 'light');
+          document.documentElement.classList.add(theme + '-theme');
+        })();
+      </script>
+</head>
+<body>
+    <div class="note-content">
+        <aside id="outline">
+            <section class="outline">
+                <ul>
+                    <li class="outline-level-1"><a id="outline.1">情境</a></li>
+                    <li class="outline-level-1"><a id="outline.2">防止變異</a></li>
+                    <li class="outline-level-1"><a id="outline.3">過度設計</a></li>
+                    <li class="outline-level-1"><a id="outline.4">作者心得</a></li>
+                </ul>
+            </section>
+        </aside>
+        <main id="main-content">
+            <div id = "header-template"></div>
+            <article>
+                <h2 class="note-title">防止變異模式 | Protected Variations</h2>
+                <section class="date-and-tags">
+                    <section class="date">
+                        <span class="date">2024-10-12</span>
+                    </section>
+                    <section class="tags">
+                        <span class="tag"><a href="/coding/tags/grasp.html">GRASP</a></span>
+                    </section>
+                </section>
+                <hr>
+    
+    
+                <section class="abstract">
+                    <img src="/image/2024/grasp6_1.webp" alt="這也是防止變異的一個案例，我們愛貓貓，無論是胖貓貓還是瘦貓貓.">
+                    <p class="img_description">這也是防止變異的一個案例，我們愛貓貓，無論是胖貓貓還是瘦貓貓，<a target="_blank" href="https://memes.tw/wtf/564817">圖片來源</a></p>
+                </section>
+    
+    
+                <section class="chapter1">
+                    <div id="anchor.1"></div>
+                    <h2 class="primary_header">情境</h2>
+                    <p>高內聚、低耦合將日誌管理、資料存儲、通訊協定、商業邏輯模組化，這時出現一個問題，分離是分離了，但是如何串接呢 ?</p>
+                    <p>是要直接另一個模組的類別嗎 ? 這樣哪天要換類別名稱、方法名稱我還要修改每個有關的模組 ? </p>
+                    <p>舉個例子，日誌模組因為太多日誌，從原本打印在文件上到後面可能要串 ELK，我的類別名稱從 FileLogger 變成 ELKLogger；通訊協定用 HTTP 到後面為了加速微服務間通訊速度改成 grpc，相關的方法名都改動；又或者第三方資料提供有問題要換另一個資料源。</p>
+                    <p>換不換呢 ? 換了影響範圍太大，不換又掛羊頭賣狗肉，而且每次改動模組內所有有調用的地方都要更改，哪來的低耦合 ?</p>
+                </section>
+                <hr>
+
+                
+                <section class="chapter2">
+                    <div id="anchor.2"></div>
+                    <h2 class="primary_header">防止變異</h2>
+                    <section class="quote">
+                        <p class="content">“ 識別或預計變化或不穩定的地方，分配職責用以在這些變化之外創建穩定介面。 ”</p>
+                        <p class="author">― Craig Larman, Applying UML and Patterns 3rd, ch25.4</p>
+                    </section>
+                    <p>類別必須呈現具體功能，例如日誌紀錄是單純寫入文件，就會命名 FileLoggerWritter，如果命名 Logger 可能裡面就哪天多了很多不同的紀錄日誌方式。</p>
+                    <p>而介面可以呈現高度抽象的概念，日誌異動可以是 Logger、資料存取可以是 Repository。模組提供高度抽象的介面給其他模組使用並規範行為，介面對於模組自身，具體方法會繼承後實作；對於使用該模組的其他模組，只在乎高度抽象的行為。</p>
+                    <p>例如日誌紀錄就是 Logger.LogInfo、資料存取就是 Repository.Save、發佈事件 EventBus.Pulish。</p>
+                    <p>防止變異的概念是<span class="bold">識別變化，並在這之上創建穩定的介面</span>，穩定的介面防止了變化對於其它模組的影響，同時也保證了語意的正確性。</p>
+                </section>
+                <hr>
+
+                
+                <section class="chapter3">
+                    <div id="anchor.3"></div>
+                    <h2 class="primary_header">過度設計</h2>
+                    <section class="quote">
+                        <p class="content">“ 初學者傾向脆弱的設計。中等程度的開發者傾向過度想像的、靈活的、普遍的設計。專家級的開發者會理智地進行選擇。有時，簡單和脆弱的設計可能會與其變化所需的成本達成平衡。 ”</p>
+                        <p class="author">― Craig Larman, Applying UML and Patterns 3rd, ch25.4</p>
+                    </section>
+                    <p>上面提供的案例，無論是日誌功能、資料存取會隨著業務發展而需要進行變化，那如果是不會變化呢? </p>
+                    <p>Applying UML and Patterns 一書內針對變化點分成兩類</p>
+                    <ul>
+                        <li>變化點：當前系統或需求中的變化，例如必須支持多個稅金計算接口、資料源。</li>
+                        <li>進化點：預測將來可能會產生的變化，但並不存在現有的需求。</li>
+                    </ul>
+                    <p>無論是變化點跟進化點，都可以使用防止變異，也就是建立穩定的介面避免變化，但是前提都是它會變化，才會需要防止變化。</p>
+                    <p>或許是否會變化只有拉普拉斯的惡魔才知道，進化點未來可能變成變化點，就像總是會有黑天鵝飛出。但是抽象的成本，也就是<span class="bold">易讀性與性能的犧牲如果比之後改動的成本要來的高</span>，就有必要考慮是否需要防止變異。</p>
+                    <p>在 Applying UML and Patterns 對於防止變異的警告有一段話。</p>
+                    <section class="quote">
+                        <p class="content">“ 如果預測將來驗證或預測 ”複用” 的可能性十分不確定，則需要有克制和批判的態度。 ”</p>
+                        <p class="author">― Craig Larman, Applying UML and Patterns 3rd, ch25.4</p>
+                    </section>
+                </section>
+                
+                <section class="chapter4">
+                    <div id="anchor.4"></div>
+                    <h2 class="primary_header">作者心得</h2>
+                    <p>在信息專家中，談論了分配職責的定義，控制器與創建者講了兩個有個具體職責的角色，高內聚與低耦合使我們將程式碼分成一個個優良的模塊，而防止變異是保持低耦合的關鍵，它讓模塊的介面保持穩定。</p>
+                    <p>最近看完獵人動畫，然後在追我的英雄學院，還蠻好看的耶!</p>
+                </section>
+    
+            </article> 
+            <hr>
+
+            <section class="references">
+                <h3>參考資料</h3>
+                <ul>
+                    <li><a target="_blank" href="https://www.amazon.com/Applying-UML-Patterns-Introduction-Object-Oriented/dp/0131489062">Applying UML and Patterns: An Introduction to Object-Oriented Analysis and Design and Iterative Development</a></li>                    
+                    <li><a target="_blank" href="https://zxuanhong.medium.com/%E4%BB%80%E9%BA%BC%E6%98%AFinformation-hiding-1fcc0d708306">什麼是Information hiding ? 什麼是 Information hiding ？</a></li>                    
+                </ul>
+               
+            </section>
+            <section class="other-file">
+                <h3>也可以看看以下文章</h3>
+                <ul>
+                    <li><a href="/coding/2024/grasp_ch5_cohesion_and_coupling_summary.html">內聚與耦合 總結與關係篇</a></li>
+                </ul>
+            </section>
+            <script src="https://utteranc.es/client.js"
+                repo="Samcreator123/Samcreator123.github.io"
+                issue-term="https://samcreator123.github.io/coding/problem_and_solution_domain"
+                theme="preferred-color-scheme"
+                crossorigin="anonymous"
+                async>
+            </script>
+            <hr>
+            <div id = "footer-template"></div>
+        </main>
+        <div id="sidebar"></div>
+    </div>
+    <script type="module" src="/js/Initialization/acticle-init.js"></script>
+    <script src="/thrid-party/prism.min.js"></script>
+    <script src="/thrid-party/prism-csharp.min.js"></script>
+</body>
+</html>
