@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>多態 | 消滅 if-else、switch 的絕佳利器</title>
+    <meta name="description" content="相較於解釋物件導向的多態特性，本篇將會更著重在，使用多態跟不使用對於程式碼的可讀性、維護性的影響，並且對比防止變異模式，分析其中的相似處與相異處。">
+    <link rel="icon" href="/icon.png" type="image/x-icon">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/note.css">
+    <link rel="stylesheet" href="/thrid-party/prism-okaidia.min.css" >
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap" rel="stylesheet">
+    <script>
+        (function() {
+          var theme = localStorage.getItem('theme') || (window.matchMedia("(prefers-color-scheme: dark)").matches ? 'dark' : 'light');
+          document.documentElement.classList.add(theme + '-theme');
+        })();
+      </script>
+</head>
+<body>
+    <div class="note-content">
+        <aside id="outline">
+            <section class="outline">
+                <ul>
+                    <li class="outline-level-1"><a id="outline.1">情境</a></li>
+                    <li class="outline-level-1"><a id="outline.2">多態</a></li>
+                    <li class="outline-level-1"><a id="outline.3">與防止變異</a></li>
+                    <li class="outline-level-1"><a id="outline.4">作者心得</a></li>
+                </ul>
+            </section>
+        </aside>
+        <main id="main-content">
+            <div id = "header-template"></div>
+
+            <article>
+                <h2 class="note-title">多態 | Polymorphism</h2>
+                <section class="date-and-tags">
+                    <section class="date">
+                        <span class="date">2024-10-20</span>
+                    </section>
+                    <section class="tags">
+                        <span class="tag"><a href="/coding/tags/grasp.html">GRASP</a></span>
+                    </section>
+                </section>
+                <hr>
+    
+    
+                <section class="abstract">
+                    <img src="/image/2024/grasp7_1.webp" alt="VIP、老人、兒童、學生...還有沒有第五種折扣...">
+                    <p class="img_description">VIP、老人、兒童、學生...還有沒有第五種折扣...，<a target="_blank" href="https://memes.tw/wtf/565111">圖片來源</a></p>
+                </section>
+    
+    
+    
+                <section class="chapter1">
+    
+                    <div id="anchor.1"></div>
+                    
+                    <h2 class="primary_header">情境</h2>
+                    <p>多個情境會有各自不同的邏輯，通常會使用 if else 或 switch 去進行條件判斷。</p>
+                    <p>情境如果有多個步驟，例如以下的情境，根據不同的客戶類型，在結帳時，需要依照客戶類型去判斷折扣與贈品，一個直觀的寫法如下：</p>
+                    <div class="code-container">
+                        <div class="code-information">
+                            <div class="language">csharp</div>
+                            <div class="copy_button">📝copy</div>
+                        </div>
+                        <pre class="code">
+                            <code class="language-csharp">
+// 結帳
+public double Checkout(List<string> commodities, double totalBeforeDiscount, string customerType)
+{
+        // 新增贈品
+        commodities.Add(GetGift(customerType));
+        
+        // 計算折扣後的
+        return CalculatePrice(totalBeforeDiscount, customerType);
+}
+
+
+public double CalculatePrice(double originalPrice, string customerType)
+{
+    if (customerType == "VIP")
+    {
+        return originalPrice * 0.8;
+    }
+    else if (customerType == "Normal")
+    {
+        return originalPrice;
+    }
+    else if (customerType == "Senior")
+    {
+        return originalPrice * 0.9;
+    }
+    else
+    {
+        throw new ArgumentException("無效的顧客類型");
+    }
+}
+
+public string GetGift(string customerType)
+{
+    if (customerType == "VIP")
+    {
+        return "高級禮盒";
+    }
+    else if (customerType == "Senior")
+    {
+        return "保健食品";
+    }
+    else
+    {
+        return "無贈品";
+    }
+}
+                
+                            </code>
+                        </pre>
+                    </div>
+                    <p>這種簡單直觀的方法會有兩種問題，<span class="bold">主要是出現在情境的新增</span>時：</p>
+                    <ul>
+                        <li>我們每個步驟需要判斷一次情境的類型，VIP、Senior...</li>
+                        <li>多個情境都擺在同一個函式裡面，提高了改錯的機會。</li>
+                    </ul>
+                </section>
+                <hr>
+
+                
+                <section class="chapter2">
+    
+                    <div id="anchor.2"></div>
+                    <h2 class="primary_header">多態</h2>
+                    <section class="quote">
+                        <p class="content">“ 條件變化是程序的一個基本主題，如果使用 if-then-else 或 case 語句的條件邏輯來設計，那麼當出現新的變化時，則需要修改這些 case 邏輯，這些邏輯通常遍佈各處。 ”</p>
+                        <p class="author">― Craig Larman, Applying UML and Patterns 3rd, ch25.1</p>
+                    </section>
+                    <p>利用多態，將一個情境類型作為一個物件進行管理，而該物件有對應的方法，修改之後如下：</p>
+                    <div class="code-container">
+                        <div class="code-information">
+                            <div class="language">csharp</div>
+                            <div class="copy_button">📝copy</div>
+                        </div>
+                        <pre class="code">
+                            <code class="language-csharp">
+public class CheckoutService
+{
+    public double Checkout(List<string> commodities, double totalBeforeDiscount, ICustomer customer)
+    {
+        // 新增贈品
+        commodities.Add(customer.GetGift());
+
+        // 計算折扣後的總價
+        return customer.CalculatePrice(totalBeforeDiscount);
+    }
+}
+
+public class VIPCustomer : ICustomer
+{
+    public double CalculatePrice(double originalPrice) => originalPrice * 0.8;
+    public string GetGift() => "高級禮盒";
+}
+
+public class NormalCustomer : ICustomer
+{
+    public double CalculatePrice(double originalPrice) => originalPrice;
+    public string GetGift() => "無贈品";
+}
+
+public class SeniorCustomer : ICustomer
+{
+    public double CalculatePrice(double originalPrice) => originalPrice * 0.9;
+    public string GetGift() => "保健食品";
+}
+
+                
+                            </code>
+                        </pre>
+                    </div>
+                    <p>將一個情境類型作為一個物件，將<span class="bold">判斷次數只限縮於判斷情境</span>而已，另外<span class="bold">修改與新增步驟實作也不會干擾到其它情境</span>。</p>
+                    <p>但<span class="bold">不能忽略條件判斷是解決問題最直觀的方式</span>，兩種方法優缺點如下所示：</p>
+                    條件判斷
+                    <ul>
+                        <li>優點：簡單直接，易於理解。</li>
+                        <li>缺點：新增情境修改繁瑣。</li>
+                    </ul>
+                    多態
+                    <ul>
+                        <li>優點：易於擴展，維護成本低。</li>
+                        <li>缺點：需要進行抽象，增加設計與理解成本。</li>
+                    </ul>
+                </section>
+                <hr>
+
+                
+                <section class="chapter3">
+                    <div id="anchor.3"></div>
+                    <h2 class="primary_header">與防止變異</h2>
+                    <p>識別變化，並在這之上創建的介面，這是防止變異模式的主旋律，多態同樣也利用介面並且搭配封裝情境，降低程式碼的耦合性、提高擴展性。</p>
+                    <p>雖然解決方法相同，也就是程式碼層面幾乎一致，但是對於使用的上下文、情境有所不同。</p>
+                    <ul>
+                        <li>防止變異在乎<span class="bold">自身模組的改動不會影響到外部模組</span>，是一種設計模組的模式。</li>
+                        <li>多態主要在乎<span class="bold">封裝情境，避免四處判斷情境類型</span>。</li>
+                    </ul>
+                </section>
+                <hr>
+                
+                <section class="chapter4">
+                    <div id="anchor.4"></div>
+                    <h2 class="primary_header">作者心得</h2>
+                    <p>寫這篇文對我來講是很艱難的一步，因為多態從愛爾蘭到契丹無人不知、無人不曉，對於一個大家都知道的事情，能寫出個甚麼對我來講是挺難的，尤其是寫完防止變異之後。</p>
+                    <p>對了! 防止變異 ! 於是消滅 if else 跟與防止變異不同就變成主題了。</p>
+                </section>
+                
+    
+            </article> 
+            <hr>
+
+            <section class="references">
+                <h3>參考資料</h3>
+                <ul>
+                    <li><a target="_blank" href="https://www.amazon.com/Applying-UML-Patterns-Introduction-Object-Oriented/dp/0131489062">Applying UML and Patterns: An Introduction to Object-Oriented Analysis and Design and Iterative Development</a></li>    
+                </ul>
+               
+            </section>
+            <section class="other-file">
+                <h3>也可以看看以下文章</h3>
+                <ul>
+                    <li><a href="/coding/2024/grasp_ch6_protected_variations.html">防止變異模式</a></li>
+                </ul>
+            </section>
+            <script src="https://utteranc.es/client.js"
+                repo="Samcreator123/Samcreator123.github.io"
+                issue-term="https://samcreator123.github.io/coding/problem_and_solution_domain"
+                theme="preferred-color-scheme"
+                crossorigin="anonymous"
+                async>
+            </script>
+            <hr>
+            <div id = "footer-template"></div>
+        </main>
+        <div id="sidebar"></div>
+    </div>
+    <script type="module" src="/js/Initialization/acticle-init.js"></script>
+    <script src="/thrid-party/prism.min.js"></script>
+    <script src="/thrid-party/prism-csharp.min.js"></script>
+</body>
+</html>

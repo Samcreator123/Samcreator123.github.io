@@ -71,9 +71,120 @@
                         <p class="content">“ 識別或預計變化或不穩定的地方，分配職責用以在這些變化之外創建穩定介面。 ”</p>
                         <p class="author">― Craig Larman, Applying UML and Patterns 3rd, ch25.4</p>
                     </section>
-                    <p>類別必須呈現具體功能，例如日誌紀錄是單純寫入文件，就會命名 FileLoggerWritter，如果命名 Logger 可能裡面就哪天多了很多不同的紀錄日誌方式。</p>
-                    <p>而介面可以呈現高度抽象的概念，日誌異動可以是 Logger、資料存取可以是 Repository。模組提供高度抽象的介面給其他模組使用並規範行為，介面對於模組自身，具體方法會繼承後實作；對於使用該模組的其他模組，只在乎高度抽象的行為。</p>
+                    <p><span class="bold">類別必須呈現具體功能</span>，例如日誌紀錄是單純寫入文件，就會命名 FileLoggerWritter，如果命名 Logger 可能裡面就哪天多了很多不同的紀錄日誌方式。</p>
+                    <p><span class="bold">而介面可以呈現高度抽象的概念</span>，日誌異動可以是 Logger、資料存取可以是 Repository。模組提供高度抽象的介面給其他模組使用並規範行為，介面對於模組自身，具體方法會繼承後實作；對於使用該模組的其他模組，只在乎高度抽象的行為。</p>
                     <p>例如日誌紀錄就是 Logger.LogInfo、資料存取就是 Repository.Save、發佈事件 EventBus.Pulish。</p>
+                    <p>以下是針對日誌功能防止變異的一種範例，根據以下範例，可以看到只要使用介面 ILogger，並且改變 LogManager 注入的類別就能替換，無須更改每個調用的地方。</p>
+                    <div class="code-container">
+                        <div class="code-information">
+                            <div class="language">csharp</div>
+                            <div class="copy_button">📝copy</div>
+                        </div>
+                        <pre class="code">
+                            <code class="language-csharp">
+// 定義高度抽象的介面 ILogger
+public interface ILogger
+{
+    void LogInfo(string message);
+    void LogError(string message);
+    void LogDebug(string message);
+}
+
+// FileLoggerWriter 負責具體的日誌記錄到文件中
+public class FileLoggerWriter : ILogger
+{
+    public void LogInfo(string message)
+    {
+        // 模擬將日誌寫入到文件中
+        Console.WriteLine($"[INFO]: {message}");
+    }
+
+    public void LogError(string message)
+    {
+        // 模擬將錯誤日誌寫入到文件中
+        Console.WriteLine($"[ERROR]: {message}");
+    }
+
+    public void LogDebug(string message)
+    {
+        // 模擬將除錯日誌寫入到文件中
+        Console.WriteLine($"[DEBUG]: {message}");
+    }
+}
+
+// DatabaseLoggerWriter 負責具體的日誌記錄到資料庫中
+public class DatabaseLoggerWriter : ILogger
+{
+    public void LogInfo(string message)
+    {
+        // 模擬將日誌寫入到資料庫中
+        Console.WriteLine($"Database Log [INFO]: {message}");
+    }
+
+    public void LogError(string message)
+    {
+        // 模擬將錯誤日誌寫入到資料庫中
+        Console.WriteLine($"Database Log [ERROR]: {message}");
+    }
+
+    public void LogDebug(string message)
+    {
+        // 模擬將除錯日誌寫入到資料庫中
+        Console.WriteLine($"Database Log [DEBUG]: {message}");
+    }
+}
+
+// 日誌管理模組
+public class LogManager
+{
+    private readonly ILogger _logger;
+
+    // 注入日誌具體的實作
+    public LogManager(ILogger logger)
+    {
+        _logger = logger;
+    }
+
+    public void LogInfo(string message)
+    {
+        _logger.LogInfo(message);
+    }
+
+    public void LogError(string message)
+    {
+        _logger.LogError(message);
+    }
+
+    public void LogDebug(string message)
+    {
+        _logger.LogDebug(message);
+    }
+}
+
+// 使用範例
+public class Program
+{
+    public static void Main()
+    {
+        // 使用文件日誌記錄
+        ILogger fileLogger = new FileLoggerWriter();
+        LogManager fileLogManager = new LogManager(fileLogger);
+        fileLogManager.LogInfo("這是一條普通資訊日誌");
+        fileLogManager.LogError("這是一條錯誤日誌");
+        fileLogManager.LogDebug("這是一條除錯日誌");
+
+        // 使用資料庫日誌記錄
+        ILogger dbLogger = new DatabaseLoggerWriter();
+        LogManager dbLogManager = new LogManager(dbLogger);
+        dbLogManager.LogInfo("這是一條資料庫普通資訊日誌");
+        dbLogManager.LogError("這是一條資料庫錯誤日誌");
+        dbLogManager.LogDebug("這是一條資料庫除錯日誌");
+    }
+}
+                
+                            </code>
+                        </pre>
+                    </div>
                     <p>防止變異的概念是<span class="bold">識別變化，並在這之上創建穩定的介面</span>，穩定的介面防止了變化對於其它模組的影響，同時也保證了語意的正確性。</p>
                 </section>
                 <hr>
@@ -123,6 +234,7 @@
                 <h3>也可以看看以下文章</h3>
                 <ul>
                     <li><a href="/coding/2024/grasp_ch5_cohesion_and_coupling_summary.html">內聚與耦合 總結與關係篇</a></li>
+                    <li><a href="/coding/2024/grasp_ch7_polymorphism.html">多態模式</a></li>
                 </ul>
             </section>
             <script src="https://utteranc.es/client.js"
