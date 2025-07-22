@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>純虛構 | 那些出現在你程式裡面的「工具人」 | GRASP Pure Fabrication | 介紹篇</title>
+    <meta name="description" content="純虛構本身不是領域概念，但它有一個很明確的任務。目的不是反映真實世界，而是讓程式碼更有結構、更好維護。">
+    <link rel="icon" href="/icon.png" type="image/x-icon">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/note.css">
+    <link rel="stylesheet" href="/thrid-party/prism-okaidia.min.css" >
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap" rel="stylesheet">
+    <script>
+        (function() {
+          var theme = localStorage.getItem('theme') || (window.matchMedia("(prefers-color-scheme: dark)").matches ? 'dark' : 'light');
+          document.documentElement.classList.add(theme + '-theme');
+        })();
+      </script>
+</head>
+<body>
+    <div class="note-content">
+        <aside id="outline">
+            <section class="outline">
+                <ul>
+                    <li class="outline-level-1"><a id="outline.1">情境</a></li>
+                    <li class="outline-level-1"><a id="outline.2">純虛構是什麼</a></li>
+                    <li class="outline-level-1"><a id="outline.3">舉個例子</a></li>
+                    <ul>
+                        <li class="outline-level-2"><a id="outline.3-2">發信的例子</a></li>
+                    </ul>
+                    <li class="outline-level-1"><a id="outline.4">作者心得</a></li>
+                </ul>
+            </section>
+        </aside>
+        <main id="main-content">
+            <div id="header-template"></div>
+
+            <article>
+                <h2 class="note-title">純虛構 介紹篇| Pure Fabrication</h2>
+                <section class="date-and-tags">
+                    <section class="date">
+                        <span class="date">2025-07-22</span>
+                    </section>
+                    <section class="tags">
+                        <span class="tag"><a href="/coding/tags/grasp.html">GRASP</a></span>
+                    </section>
+                </section>
+                <hr>
+    
+    
+                <section class="abstract">
+                    <img src="/image/2025/grasp8_1.webp" alt="純虛構與工具人的對比圖">
+                    <p class="img_description">同病相憐...<a target="_blank" href="https://memes.tw/wtf/575994">圖片來源</a></p>
+                </section>
+    
+    
+    
+                <section class="chapter1">
+                    <div id="anchor.1"></div>
+                    <h2 class="primary_header">情境</h2>
+                    <p>有一天，設計一套線上學習平台的你，發現 User 類別越長越胖。不只要記錄使用者名稱、帳號、訂閱狀態，還要能註冊、登入、上傳作業、發送 email 驗證信，甚至還負責把作業存進資料庫。</p>
+                    <p>你看著那 400 行的 class，只覺得：這真的像一個使用者會做的事嗎？</p>
+                    <p>同時你也開始擔心——哪天換了 SMTP server 或換了資料庫，整個 User 類別又要大修了。</p>
+                    <p>在物件導向設計裡，常會遇到這些問題：</p>
+                    <ul>
+                        <li>邏輯難以重複使用</li>
+                        <li>依賴外部變化的元件（像是資料庫）侵入核心邏輯</li>
+                        <li>類別臃腫，做太多事</li>
+                    </ul>
+                    <p>GRASP 原則提供了一個概念，純虛構。</p>
+                </section>
+                <hr>
+
+                
+                <section class="chapter2">
+                    <div id="anchor.2"></div>
+                    <h2 class="primary_header">多態</h2>
+                    <section class="quote">
+                        <p class="content">“ 這種類別是憑空虛構的。理想情況下，分配給這種虛構物的職責要支持高內聚與低耦合，使得這種虛構物清晰或純粹 － 因此稱為純虛構 ”</p>
+                        <p class="author">― Craig Larman, Applying UML and Patterns 3rd, ch25.2</p>
+                    </section>
+                    <p>純虛構（Pure Fabrication）是 GRASP（General Responsibility Assignment Software Patterns）裡的一個設計原則。它主張：</p>
+                    <section class="quote">
+                        <p class="content">“ 當你找不到合適的領域物件可以負責某件事時，不妨虛構一個專門處理這件事的物件。 ”</p>
+                    </section>
+                    <p>這個物件本身不是領域概念（它不是老師、學生、訂單或報名表），但它有一個很明確的任務，常見如：</p>
+                    <ul>
+                        <li>存取資料庫的 Repository</li>
+                        <li>發送 email 的 Mailer</li>
+                        <li>負責加密的 Encryptor</li>
+                        <li>管理排程的 Scheduler</li>
+                    </ul>
+                    <p>這些物件的目的不是反映真實世界，而是讓程式碼更有結構、更好維護。</p>
+                </section>
+                <hr>
+
+                
+                <section class="chapter3">
+    
+                    <div id="anchor.3"></div>
+    
+                    <section class="chapter3-1">
+                        <h2 class="primary_header">舉個例子</h2>
+                        <p>純虛構其實已經被廣泛應用在開發的各個角落，像各種工具類，看看下面的舉例就知道了。</p>
+                    </section>
+                    
+                    <section class="chapter3-2">
+                        <div id="anchor.3-2"></div>
+                        <h3>發信的例子</h3>
+                        <p>你希望使用者註冊帳號時能收到驗證信。你第一版寫的：</p>
+                        <div class="code-container">
+                            <div class="code-information">
+                                <div class="language">csharp</div>
+                                <div class="copy_button">📝copy</div>
+                            </div>
+                            <pre class="code">
+                                <code class="language-csharp">
+public class User
+{
+    public string Email { get; set; }
+
+    public void SendVerificationEmail()
+    {
+        // 簡化了設定
+        var smtp = new SmtpClient("smtp.mailtrap.io");
+        smtp.Send("noreply@example.com", Email, "請點擊驗證信", "這是一封驗證信。");
+    }
+}                    
+                                </code>
+                            </pre>
+                        </div>
+                        <p>但如果信件要能支援寄出表格，那勢必要修改 User 類別，因此可以把第一版改成</p>
+                        <div class="code-container">
+                            <div class="code-information">
+                                <div class="language">csharp</div>
+                                <div class="copy_button">📝copy</div>
+                            </div>
+                            <pre class="code">
+                                <code class="language-csharp">
+public class EmailSender
+{
+    public void Send(string to, string content)
+    {
+        var smtp = new SmtpClient("smtp.mailtrap.io");
+        smtp.Send("noreply@example.com", to, "驗證信", content);
+    }
+}                  
+                                </code>
+                            </pre>
+                        </div>
+                        <p>並在 User 進行調用，這樣 User 只要負責調用，不用管理寄信的具體設定</p>
+                        <div class="code-container">
+                            <div class="code-information">
+                                <div class="language">csharp</div>
+                                <div class="copy_button">📝copy</div>
+                            </div>
+                            <pre class="code">
+                                <code class="language-csharp">
+public class User
+{
+    private readonly EmailSender _emailSender;
+
+    public User(EmailSender emailSender)
+    {
+        _emailSender = emailSender;
+    }
+
+    public void SendVerificationEmail(string to, string content)
+    {
+        _emailSender.Send(to, "請點擊驗證信");
+    }
+}
+                 
+                                </code>
+                            </pre>
+                        </div>
+                    </section>
+                </section>
+                <hr>
+                
+                <section class="chapter4">
+                    <div id="anchor.4"></div>
+                    <h2 class="primary_header">作者心得</h2>
+                    <p>歷經了一年沒發，甚是懷念。</p>
+                </section>
+                
+    
+            </article> 
+            <hr>
+
+            <section class="references">
+                <h3>參考資料</h3>
+                <ul>
+                    <li><a target="_blank" href="https://www.amazon.com/Applying-UML-Patterns-Introduction-Object-Oriented/dp/0131489062">Applying UML and Patterns: An Introduction to Object-Oriented Analysis and Design and Iterative Development</a></li>    
+                </ul>
+               
+            </section>
+            <section class="other-file">
+                <h3>也可以看看以下文章</h3>
+                <ul>
+                    <li><a href="/coding/2024/grasp_ch7_polymorphism.html">多態模式</a></li>
+                </ul>
+            </section>
+            <script src="https://utteranc.es/client.js"
+                repo="Samcreator123/Samcreator123.github.io"
+                issue-term="https://samcreator123.github.io/coding/problem_and_solution_domain"
+                theme="preferred-color-scheme"
+                crossorigin="anonymous"
+                async>
+            </script>
+            <hr>
+            <div id="footer-template"></div>
+        </main>
+        <div id="sidebar"></div>
+    </div>
+    <script type="module" src="/js/Initialization/acticle-init.js"></script>
+    <script src="/thrid-party/prism.min.js"></script>
+    <script src="/thrid-party/prism-csharp.min.js"></script>
+</body>
+</html>
