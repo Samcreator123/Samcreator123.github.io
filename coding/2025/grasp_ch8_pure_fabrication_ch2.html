@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>純虛構 | 程式裡面的公司窗口 | GRASP Pure Fabrication | 濫用篇</title>
+    <meta name="description" content="能純虛構並不代表一定要純虛構，純虛構容易被濫用，導致原本高內聚的類別職責被純虛構出去。濫用的特徵是，純虛構的物件大部分屬性被傳遞出去給其他物件處理。">
+    <link rel="icon" href="/icon.png" type="image/x-icon">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/note.css">
+    <link rel="stylesheet" href="/thrid-party/prism-okaidia.min.css" >
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap" rel="stylesheet">
+    <script>
+        (function() {
+          var theme = localStorage.getItem('theme') || (window.matchMedia("(prefers-color-scheme: dark)").matches ? 'dark' : 'light');
+          document.documentElement.classList.add(theme + '-theme');
+        })();
+      </script>
+</head>
+<body>
+    <div class="note-content">
+        <aside id="outline">
+            <section class="outline">
+                <ul>
+                    <li class="outline-level-1"><a id="outline.1">複習前篇</a></li>
+                    <li class="outline-level-1"><a id="outline.2">濫用</a></li>
+                    <ul>
+                        <li class="outline-level-2"><a id="outline.2-2">空殼</a></li>
+                        <li class="outline-level-2"><a id="outline.2-3">不沾鍋</a></li>
+                        <li class="outline-level-2"><a id="outline.2-4">大工具箱</a></li>
+                    </ul>
+                    <li class="outline-level-1"><a id="outline.3">作者心得</a></li>
+                </ul>
+            </section>
+        </aside>
+        <main id="main-content">
+            <div id="header-template"></div>
+
+            <article>
+                <h2 class="note-title">純虛構 濫用篇| Pure Fabrication</h2>
+                <section class="date-and-tags">
+                    <section class="date">
+                        <span class="date">2025-07-29</span>
+                    </section>
+                    <section class="tags">
+                        <span class="tag"><a href="/coding/tags/grasp.html">GRASP</a></span>
+                    </section>
+                </section>
+                <hr>
+    
+ 
+                <section class="abstract">
+                    <img src="/image/2025/grasp8_2.webp" alt="多的像路邊的野狗耶">
+                    <p class="img_description">純虛構<a target="_blank" href="https://memes.tw/wtf/576256">圖片來源</a></p>
+                </section>
+    
+    
+                <section class="chapter1">
+                    <div id="anchor.1"></div>
+                    <h2 class="primary_header">複習前篇</h2>
+                    <p>純虛構並不是源自真實世界的角色（像老師、學生、訂單），卻是為了讓程式碼更好維護、邏輯更清晰而生的。</p>
+                    <p>這些物件專門負責單一職責，像是：</p>
+                    <ul>
+                        <li>負責寄信的 <code>EmailSender</code></li>
+                        <li>管資料存取的 <code>Repository</code></li>
+                        <li>幫忙做運算的 <code>Calculator</code></li>
+                    </ul>
+                    <p>它們的出現，就像開發現場的工具人，不會出現在領域物件裡，但卻是實作流程中不可或缺的存在，但與此同時也很容易被濫用，這也是下一個主題。</p>
+                </section>
+                <hr>
+
+                
+                <section class="chapter2">
+                    <div id="anchor.2"></div>
+                    <section class="chapter2-1">
+                        <h2 class="primary_header">濫用</h2>
+                        <section class="quote">
+                            <p class="content">“ 如果濫用純虛構，會導致大量的行為物件，其職責與執行職責所需要的信息沒有結合起來，這樣會對耦合產生不良影響。
+                                                通常徵兆是，物件內的大部分數據被傳遞給其他物件用以處理 ”</p>
+                            <p class="author">― Craig Larman, Applying UML and Patterns 3rd, ch25.2</p>
+                        </section>
+                        <p>濫用純虛構（Pure Fabrication）。通常會違反<a href="../2024/grasp_ch5_cohesion.html" target="_blank">高內聚</a>。這樣還很抽象的話，可以參考以下三種徵兆：</p>
+                        <ul>
+                            <li>空殼：只剩屬性。</li>
+                            <li>不沾鍋：只負責傳遞資訊。</li>
+                            <li>大工具箱：低內聚的工具類別。</li>
+                        </ul>
+                        <p>接下來會詳細介紹這些特徵。</p>
+                    </section>
+
+                    <section class=chapter2-2">
+                        <div id="anchor.2-2"></div>
+                        <h3>空殼</h3>
+                        <p>想必大家可能在寫程式時，遇到某些物件，只有屬性。但他不像 DTO、Request、Response 類負責跨層傳遞；也不像某些 ViewModel 負責渲染；也不是負責接資料庫來的資訊。</p>
+                        <p>他就是一個純屬性的物件，要注意了，這種「空殼」物件就是純虛構濫用的特徵。</p>
+                        <p>這種空殼類別最大的危害就是搭配 Mapper 套件，因為不是跨層傳遞、渲染、接資料庫資料所以常常忽略更新，導致邏輯都正常、資料都正常，但就是顯示的怪怪的。</p>
+                    </section>
+
+                    <section class=chapter2-3">
+                        <div id="anchor.2-3"></div>
+                        <h3>不沾鍋</h3>
+                        <section class="quote">
+                            <p class="content">“ 我不知道、我不清楚、我不明白 ”</p>
+                            <p class="author">― 羅傑 Roger9527</p>
+                        </section>
+                        <p>大家上班時都會遇到一件事情，要向客戶或其他部門問個問題，然後被瘋狂踢皮球，最後沒有得到答案。</p>
+                        <p>濫用純虛構也是這樣，一個物件可以完成的職責，硬分成三四個物件處理，其中某幾個物件只是負責把參數從A傳到B。</p>
+                        <p>這樣的物件就像是辦公室裡的「不沾鍋」，什麼都不做，只是把問題丟給別人。</p>
+                    </section>
+
+                    <section class=chapter2-4">
+                        <div id="anchor.2-4"></div>
+                        <h3>大工具箱</h3>
+                        <p>筆者去 IKEA 要買東西常常要找很久，因為裡面太多東西了，家具、玩偶甚麼都在那個大賣場。</p>
+                        <p>純虛構濫用也會出現這樣，幾千行的 Helper、Util 類別裡面包容萬象，各種與領域邏輯不相關的都在裡面</p>
+                    </section>
+                </section>
+                <hr>
+                
+                <section class="chapter3">
+                    <div id="anchor.3"></div>
+                    <h2 class="primary_header">作者心得</h2>
+                    <p>最近發現早睡精神比較好。</p>
+                </section>
+                
+    
+            </article> 
+            <hr>
+
+            <section class="references">
+                <h3>參考資料</h3>
+                <ul>
+                    <li><a target="_blank" href="https://www.amazon.com/Applying-UML-Patterns-Introduction-Object-Oriented/dp/0131489062">Applying UML and Patterns: An Introduction to Object-Oriented Analysis and Design and Iterative Development</a></li>    
+                </ul>
+               
+            </section>
+            <section class="other-file">
+                <h3>也可以看看以下文章</h3>
+                <ul>
+                    <li><a href="/coding/2025/grasp_ch8_pure_fabrication_ch1.html">純虛構模式 介紹篇</a></li>
+                </ul>
+            </section>
+            <script src="https://utteranc.es/client.js"
+                repo="Samcreator123/Samcreator123.github.io"
+                issue-term="https://samcreator123.github.io/coding/problem_and_solution_domain"
+                theme="preferred-color-scheme"
+                crossorigin="anonymous"
+                async>
+            </script>
+            <hr>
+            <div id="footer-template"></div>
+        </main>
+        <div id="sidebar"></div>
+    </div>
+    <script type="module" src="/js/Initialization/acticle-init.js"></script>
+    <script src="/thrid-party/prism.min.js"></script>
+    <script src="/thrid-party/prism-csharp.min.js"></script>
+</body>
+</html>
